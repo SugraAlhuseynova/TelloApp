@@ -29,7 +29,9 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<ISlideRepository, SlideRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ISlideService, SlideService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -42,7 +44,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.ExceptionHandler();
+app.ExceptionHandler();
 
 app.UseHttpsRedirection();
 

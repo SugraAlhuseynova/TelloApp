@@ -11,6 +11,7 @@ namespace Tello.Core.IUnitOfWork
     {
         ICategoryRepository CategoryRepository { get; }
         IBrandRepository BrandRepository { get; }
+        ISlideRepository SlideRepository { get; }
         int Commit();
         Task<int> CommitAsync();
     }

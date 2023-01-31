@@ -15,13 +15,15 @@ namespace Tello.Data.UnitOfWork
         private readonly AppDbContext _context;
         private CategoryRepository _categoryRepository;
         private BrandRepository _brandRepository;
+        private SlideRepository _slideRepository;
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
         }
         public ICategoryRepository CategoryRepository => _categoryRepository ?? new CategoryRepository(_context);
-        public IBrandRepository BrandRepository => _brandRepository?? new BrandRepository(_context);
+        public IBrandRepository BrandRepository => _brandRepository ?? new BrandRepository(_context);
+        public ISlideRepository SlideRepository => _slideRepository ?? new SlideRepository(_context);
 
         public int Commit()
         {

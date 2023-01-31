@@ -15,6 +15,7 @@ namespace Tello.Data.DAL
 
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Slide> Slides { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
