@@ -7,15 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Tello.Data\Tello.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Profile\" />
   </ItemGroup>
 
 </Project>

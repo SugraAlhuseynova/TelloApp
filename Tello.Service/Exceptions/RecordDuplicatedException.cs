@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tello.Service.Exceptions
 {
-    internal class RecordDuplicatedException:Exception
+    public class RecordDuplicatedException:Exception
     {
         public RecordDuplicatedException(string msg) : base(msg)
         {

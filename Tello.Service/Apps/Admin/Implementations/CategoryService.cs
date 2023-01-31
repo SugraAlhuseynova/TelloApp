@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using Tello.Core.Entities;
 using Tello.Core.IRepositories;
 using Tello.Core.IUnitOfWork;
 using Tello.Data.DAL;
+using Tello.Service.Apps.Admin.DTOs;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
 using Tello.Service.Apps.Admin.IServices;
 using Tello.Service.Exceptions;
@@ -16,40 +18,47 @@ namespace Tello.Service.Apps.Admin.Implementations
     public class CategoryService : ICategoryService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CategoryService(IUnitOfWork unitOfWork)
+        public CategoryService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public async Task CreateAsync(CategoryPostDto categoryPostDto)
         {
             var entity = await _unitOfWork.CategoryRepository.GetAsync(x => x.Name == categoryPostDto.Name && !x.IsDeleted);
             if (entity != null)
-                throw new RecordDuplicatedException("already exist");
-
-            var category = new Category
-            {
-                Name = categoryPostDto.Name
-            };
+                throw new RecordDuplicatedException("Category already exist");
+            Category category = _mapper.Map<Category>(categoryPostDto);
             await _unitOfWork.CategoryRepository.CreateAsync(category);
             await _unitOfWork.CommitAsync();
         }
-
         public async Task Delete(int id)
         {
             var entity = await _unitOfWork.CategoryRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
             if (entity == null)
-                throw new ItemNotFoundException($"item not found (id = {id})");
+                throw new ItemNotFoundException($"Category not found (id = {id})");
             entity.IsDeleted = true;
             await _unitOfWork.CommitAsync();
+        }
+
+        public PaginatedListDto<CategoryListItemDto> GetAll(int page)
+        {
+            var query = _unitOfWork.CategoryRepository.GetAll(x => !x.IsDeleted);
+
+            List<CategoryListItemDto> items = _mapper.Map<List<CategoryListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
+            var listDto = new PaginatedListDto<CategoryListItemDto>(items, query.Count(), page, 2);
+            return listDto;
+
         }
 
         public async Task<CategoryGetDto> GetAsync(int id)
         {
             var entity = await _unitOfWork.CategoryRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
             if (entity == null)
-                throw new ItemNotFoundException($"item not found (id = {id})");
-            var categoryGetDto = new CategoryGetDto { Name = entity.Name, Id = entity.Id };
+                throw new ItemNotFoundException($"Category not found (id = {id})");
+            var categoryGetDto = _mapper.Map<CategoryGetDto>(entity);
             return categoryGetDto;
         }
 
@@ -57,7 +66,7 @@ namespace Tello.Service.Apps.Admin.Implementations
         {
             var entity = await _unitOfWork.CategoryRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
             if (entity == null)
-                throw new ItemNotFoundException($"item not found (id = {id})");
+                throw new ItemNotFoundException($"Category not found (id = {id})");
             entity.Name = categoryPostDto.Name;
             await _unitOfWork.CommitAsync();
         }
