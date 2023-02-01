@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Tello.Service\Tello.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Uploads\Slides\" />
+  </ItemGroup>
+
 </Project>

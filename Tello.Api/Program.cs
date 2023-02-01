@@ -30,10 +30,15 @@ builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ISlideRepository, SlideRepository>();
+builder.Services.AddScoped<IVariationRepository, VariationRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ISlideService, SlideService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IVariationService, VariationService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 
 var app = builder.Build();
 
@@ -44,7 +49,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.ExceptionHandler();
+//app.ExceptionHandler(); (axirda acacayiq)
 
 app.UseHttpsRedirection();
 

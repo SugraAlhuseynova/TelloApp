@@ -16,11 +16,14 @@ namespace Tello.Data.DAL
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Slide> Slides { get; set; }
+        public DbSet<Variation> Variations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new BrandConfiguration());
+            modelBuilder.ApplyConfiguration(new SlideConfiguration());
+            modelBuilder.ApplyConfiguration(new VariationConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

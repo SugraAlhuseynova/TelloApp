@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tello.Service.Apps.Admin.DTOs.SlideDTOs
 {
-    public class SlideGetDto
+    public class SlideListItemDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

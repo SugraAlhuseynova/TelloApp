@@ -16,6 +16,7 @@ namespace Tello.Data.UnitOfWork
         private CategoryRepository _categoryRepository;
         private BrandRepository _brandRepository;
         private SlideRepository _slideRepository;
+        private VariationRepository _variationRepository;
 
         public UnitOfWork(AppDbContext context)
         {
@@ -24,6 +25,7 @@ namespace Tello.Data.UnitOfWork
         public ICategoryRepository CategoryRepository => _categoryRepository ?? new CategoryRepository(_context);
         public IBrandRepository BrandRepository => _brandRepository ?? new BrandRepository(_context);
         public ISlideRepository SlideRepository => _slideRepository ?? new SlideRepository(_context);
+        public IVariationRepository VariationRepository => _variationRepository ?? new VariationRepository(_context);
 
         public int Commit()
         {
