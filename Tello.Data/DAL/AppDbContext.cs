@@ -19,6 +19,8 @@ namespace Tello.Data.DAL
         public DbSet<Variation> Variations { get; set; }
         public DbSet<VariationCategory> VariationsCategory { get; set; }
         public DbSet<VariationOption> VariationOptions { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductItem> ProductItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +30,8 @@ namespace Tello.Data.DAL
             modelBuilder.ApplyConfiguration(new VariationConfiguration());
             modelBuilder.ApplyConfiguration(new VariationOptionConfiguration());
             modelBuilder.ApplyConfiguration(new VariationCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductItemConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
