@@ -9,7 +9,5 @@ namespace Tello.Core.Entities
     public class Variation : BaseEntity
     {
         public string Name { get; set; }
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
     }
 }

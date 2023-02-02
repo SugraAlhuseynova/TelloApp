@@ -8,6 +8,7 @@ using Tello.Core.Entities;
 using Tello.Service.Apps.Admin.DTOs.BrandDTOs;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
 using Tello.Service.Apps.Admin.DTOs.SlideDTOs;
+using Tello.Service.Apps.Admin.DTOs.VariationCategoryDTOs;
 using Tello.Service.Apps.Admin.DTOs.VariationDTOs;
 
 namespace Tello.Service.Profiles
@@ -28,7 +29,9 @@ namespace Tello.Service.Profiles
             CreateMap<Variation, VariationGetDto>();
             CreateMap<VariationPostDto, Variation>();
             CreateMap<Variation, VariationListItemDto>();
-
+            CreateMap<VariationCategory, VariationCategoryGetDto>();
+            CreateMap<VariationCategoryPostDto, VariationCategory>();
+            CreateMap<VariationCategory, VariationCategoryListItemDto>();
         }
     }
 }

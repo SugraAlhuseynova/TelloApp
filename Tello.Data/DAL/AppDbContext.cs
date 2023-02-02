@@ -17,6 +17,7 @@ namespace Tello.Data.DAL
         public DbSet<Category> Categories { get; set; }
         public DbSet<Slide> Slides { get; set; }
         public DbSet<Variation> Variations { get; set; }
+        public DbSet<VariationCategory> VariationsCategory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

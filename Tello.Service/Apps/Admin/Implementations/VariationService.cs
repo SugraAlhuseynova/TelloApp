@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Tello.Core.Entities;
 using Tello.Core.IUnitOfWork;
 using Tello.Service.Apps.Admin.DTOs;
+using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
 using Tello.Service.Apps.Admin.DTOs.VariationDTOs;
 using Tello.Service.Apps.Admin.IServices;
 using Tello.Service.Exceptions;
@@ -26,12 +27,9 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public async Task CreateAsync(VariationPostDto variationPostDto)
         {
-            var variation = await _unitOfWork.VariationRepository.GetAsync(x=>x.Name == variationPostDto.Name &&
-            x.CategoryId == variationPostDto.CategoryId && !x.IsDeleted);
+            var variation = await _unitOfWork.VariationRepository.GetAsync(x=>x.Name == variationPostDto.Name && !x.IsDeleted);
             if (variation != null)
                 throw new RecordDuplicatedException("Variation already exist");
-            if (!(await _unitOfWork.CategoryRepository.IsExistAsync(x => x.Id == variationPostDto.CategoryId && !x.IsDeleted)))
-                throw new ItemNotFoundException("Category does not exist");
             variation = _mapper.Map<Variation>(variationPostDto);
             await _unitOfWork.VariationRepository.CreateAsync(variation);
             await _unitOfWork.CommitAsync();
@@ -39,41 +37,57 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public async Task Delete(int id)
         {
-            var variation = await _unitOfWork.VariationRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
-            if (variation != null)
+            Variation variation = await _unitOfWork.VariationRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
+            if (variation == null)
                 throw new ItemNotFoundException("Variation not found");
             variation.IsDeleted = true;
             await _unitOfWork.CommitAsync();
         }
 
-        //public PaginatedListDto<VariationListItemDto> GetAll(int page)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public PaginatedListDto<VariationListItemDto> GetAll(int page)
+        {
+            var query = _unitOfWork.VariationRepository.GetAll(x => !x.IsDeleted);
+            List<VariationListItemDto> items = _mapper.Map<List<VariationListItemDto>>(query.Skip((page-1)*2).Take(2).ToList());
+            PaginatedListDto<VariationListItemDto> variationListItems = new PaginatedListDto<VariationListItemDto>(items, query.Count(), page, 2);
+            return variationListItems;
+        }
 
-        //public async Task<VariationGetDto> GetAsync(int id)
-        //{
-        //    var variation = await _unitOfWork.VariationRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
-        //    if (variation != null)
-        //        throw new ItemNotFoundException("Variation not found");
-        //    var variationGetDto = _mapper.Map<VariationGetDto>(variation);
-        //}
+        public PaginatedListDto<VariationListItemDto> GetAllDeleted(int page)
+        {
+            var query = _unitOfWork.VariationRepository.GetAll(x => x.IsDeleted);
+            List<VariationListItemDto> items = _mapper.Map<List<VariationListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
+            PaginatedListDto<VariationListItemDto> variationListItems = new PaginatedListDto<VariationListItemDto>(items, query.Count(), page, 2);
+            return variationListItems;
+        }
 
-        public async Task UpdateAsync(int id, VariationPostDto variationPostDto)
+        public async Task<VariationGetDto> GetAsync(int id)
+        {
+            var variation = await _unitOfWork.VariationRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
+            if (variation == null)
+                throw new ItemNotFoundException("Variation not found");
+            var variationGetDto = _mapper.Map<VariationGetDto>(variation);
+            return variationGetDto;
+        }
+
+        public async Task Restore(int id)
+        {
+            Variation variation = await _unitOfWork.VariationRepository.GetAsync(x => x.Id == id && x.IsDeleted);
+            if (variation == null)
+                throw new ItemNotFoundException("Variation not found");
+            variation.IsDeleted = false;
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task UpdateAsync(int id, VariationPostDto PostDto)
         {
             //variasiyani goturdum 
             var variation = await _unitOfWork.VariationRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
-            if (variation != null)
+            if (variation == null)
                 throw new ItemNotFoundException("Variation not found");
-
-            if (await _unitOfWork.VariationRepository.IsExistAsync(x => x.Name == variationPostDto.Name && x.Id != variation.Id
-            && x.CategoryId == variationPostDto.CategoryId && !x.IsDeleted))
+            if (await _unitOfWork.VariationRepository.IsExistAsync(x => x.Name == PostDto.Name && x.Id != variation.Id
+             && !x.IsDeleted))
                 throw new RecordDuplicatedException("Variation already exist");
-            if (!(await _unitOfWork.CategoryRepository.IsExistAsync(x => x.Id == variationPostDto.CategoryId && !x.IsDeleted)))
-                throw new ItemNotFoundException("Category does not exist");
-           
-            variation.Name = variationPostDto.Name;
-            variation.CategoryId = variationPostDto.CategoryId;
+            variation.Name = PostDto.Name;
             await _unitOfWork.CommitAsync();
         }
     }

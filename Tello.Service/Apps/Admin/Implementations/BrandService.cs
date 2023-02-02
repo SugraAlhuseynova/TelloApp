@@ -45,10 +45,17 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public PaginatedListDto<BrandListItemDto> GetAll(int page)
         {
-            //listi goturur hamisini , cevirir , gonderir
             var query = _unitOfWork.BrandRepository.GetAll(x=>!x.IsDeleted);
             List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
             var listDto = new PaginatedListDto<BrandListItemDto>(items,query.Count(),page, 2);
+            return listDto;
+        }
+
+        public PaginatedListDto<BrandListItemDto> GetAllDeleted(int page)
+        {
+            var query = _unitOfWork.BrandRepository.GetAll(x => x.IsDeleted);
+            List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
+            var listDto = new PaginatedListDto<BrandListItemDto>(items, query.Count(), page, 2);
             return listDto;
         }
 
@@ -59,6 +66,15 @@ namespace Tello.Service.Apps.Admin.Implementations
                 throw new ItemNotFoundException($"Brand not found (Id = {id})");
             var brandGetDto = _mapper.Map<BrandGetDto>(entity);
             return brandGetDto;
+        }
+
+        public async Task Restore(int id)
+        {
+            Brand entity = await _unitOfWork.BrandRepository.GetAsync(x => x.Id == id && x.IsDeleted);
+            if (entity == null)
+                throw new ItemNotFoundException($"Brand not found (Id = {id})");
+            entity.IsDeleted = false;
+            await _unitOfWork.CommitAsync();
         }
 
         public async Task UpdateAsync(int id, BrandPostDto PostDto)

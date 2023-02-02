@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using Tello.Api.ServiceExtentions;
 using Tello.Core.IRepositories;
 using Tello.Core.IUnitOfWork;
@@ -17,7 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 
-builder.Services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<CategoryPostDto>());
+builder.Services.AddControllers()
+    .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<CategoryPostDto>());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,14 +33,17 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ISlideRepository, SlideRepository>();
 builder.Services.AddScoped<IVariationRepository, VariationRepository>();
+builder.Services.AddScoped<IVariationCategoryRepository, VariationCategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ISlideService, SlideService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IVariationService, VariationService>();
+builder.Services.AddScoped<IVariationCategoryService, VariationCategoryService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 
