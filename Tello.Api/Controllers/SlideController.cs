@@ -26,7 +26,11 @@ namespace Tello.Api.Controllers
         {
             return Ok(_slideService.GetAll(page));
         }
-
+        [HttpGet("all/deleted")]
+        public IActionResult GetAllDeleted(int page)
+        {
+            return Ok(_slideService.GetAllDeleted(page));
+        }
         // GET api/<SlideController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Tello.Api.Helpers
 {
@@ -14,11 +15,12 @@ namespace Tello.Api.Helpers
             }
             return newFileImage;
         }
-        public static void Delete(string root, string folder, string image)
+        public static void Remove(string root, string folder, string image)
         {
             string path = Path.Combine(root, folder, image);
             if (File.Exists(path))
                 File.Delete(path);
         }
+       
     }
 }

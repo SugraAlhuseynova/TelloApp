@@ -13,6 +13,7 @@ namespace Tello.Service.Apps.Admin.IServices
         Task CreateAsync(SlidePostDto postDto);
         Task DeleteAsync(int id);
         PaginatedListDto<SlideListItemDto> GetAll(int page);
+        PaginatedListDto<SlideListItemDto> GetAllDeleted(int page);
         Task<SlideGetDto> GetByIdAsync(int id);
         Task UpdateAsync(int id, SlidePostDto slideCreateDto);
     }
