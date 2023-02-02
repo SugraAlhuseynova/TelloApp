@@ -18,6 +18,7 @@ namespace Tello.Data.DAL
         public DbSet<Slide> Slides { get; set; }
         public DbSet<Variation> Variations { get; set; }
         public DbSet<VariationCategory> VariationsCategory { get; set; }
+        public DbSet<VariationOption> VariationOptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,8 @@ namespace Tello.Data.DAL
             modelBuilder.ApplyConfiguration(new BrandConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
             modelBuilder.ApplyConfiguration(new VariationConfiguration());
+            modelBuilder.ApplyConfiguration(new VariationOptionConfiguration());
+            modelBuilder.ApplyConfiguration(new VariationCategoryConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

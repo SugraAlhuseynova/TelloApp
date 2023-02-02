@@ -34,11 +34,13 @@ builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ISlideRepository, SlideRepository>();
 builder.Services.AddScoped<IVariationRepository, VariationRepository>();
 builder.Services.AddScoped<IVariationCategoryRepository, VariationCategoryRepository>();
+builder.Services.AddScoped<IVariationOptionRepository, VariationOptionRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ISlideService, SlideService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IVariationService, VariationService>();
 builder.Services.AddScoped<IVariationCategoryService, VariationCategoryService>();
+builder.Services.AddScoped<IVariationOptionService, VariationOptionService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -14,6 +14,7 @@ namespace Tello.Core.IUnitOfWork
         ISlideRepository SlideRepository { get; }
         IVariationRepository VariationRepository { get; }
         IVariationCategoryRepository VariationCategoryRepository { get; }
+        IVariationOptionRepository VariationOptionRepository { get; }
         int Commit();
         Task<int> CommitAsync();
     }

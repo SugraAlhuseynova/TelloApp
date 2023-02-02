@@ -53,6 +53,14 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         }
 
+        public PaginatedListDto<CategoryListItemDto> GetAllDeleted(int page)
+        {
+            var query = _unitOfWork.CategoryRepository.GetAll(x => x.IsDeleted);
+            List<CategoryListItemDto> items = _mapper.Map<List<CategoryListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
+            var listDto = new PaginatedListDto<CategoryListItemDto>(items, query.Count(), page, 2);
+            return listDto;
+        }
+
         public async Task<CategoryGetDto> GetAsync(int id)
         {
             var entity = await _unitOfWork.CategoryRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
@@ -60,6 +68,15 @@ namespace Tello.Service.Apps.Admin.Implementations
                 throw new ItemNotFoundException($"Category not found (id = {id})");
             var categoryGetDto = _mapper.Map<CategoryGetDto>(entity);
             return categoryGetDto;
+        }
+
+        public async Task Restore(int id)
+        {
+            var entity = await _unitOfWork.CategoryRepository.GetAsync(x => x.Id == id && x.IsDeleted);
+            if (entity == null)
+                throw new ItemNotFoundException($"Category not found (id = {id})");
+            entity.IsDeleted = false;
+            await _unitOfWork.CommitAsync();
         }
 
         public async Task UpdateAsync(int id, CategoryPostDto categoryPostDto)

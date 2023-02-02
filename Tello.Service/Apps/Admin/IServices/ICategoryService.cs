@@ -15,6 +15,8 @@ namespace Tello.Service.Apps.Admin.IServices
         Task UpdateAsync(int id, CategoryPostDto categoryPostDto);
         Task<CategoryGetDto> GetAsync(int id);
         Task Delete(int id);
+        Task Restore(int id);
         PaginatedListDto<CategoryListItemDto> GetAll(int page);
+        PaginatedListDto<CategoryListItemDto> GetAllDeleted(int page);
     }
 }

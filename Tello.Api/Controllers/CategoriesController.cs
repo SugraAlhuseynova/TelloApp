@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tello.Core.IRepositories;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
+using Tello.Service.Apps.Admin.Implementations;
 using Tello.Service.Apps.Admin.IServices;
 
 namespace Tello.Api.Controllers
@@ -24,6 +25,16 @@ namespace Tello.Api.Controllers
         public IActionResult GetAll(int page)
         {
             return Ok(_categoryService.GetAll(page));
+        }
+        [HttpGet("all/deleted")]
+        public IActionResult GetAllDeleted(int page)
+        {
+            return Ok(_categoryService.GetAllDeleted(page));
+        }
+        [HttpPut("id/restore")]
+        public async Task Restore(int id)
+        {
+            await _categoryService.Restore(id);
         }
         [HttpPost("")]
         public async Task Create(CategoryPostDto postDto)
