@@ -12,7 +12,7 @@ namespace Tello.Core.Entities
         public string Name { get; set; }
         public string Desc { get; set; }
         public int CategoryId { get; set; }
-        public int BrendId { get; set; }
+        public int BrandId { get; set; }
         public int Count { get; set; }
         public Category Category { get; set; }
         public Brand Brand { get; set; }

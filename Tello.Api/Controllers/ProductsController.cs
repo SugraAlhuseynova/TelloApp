@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tello.Service.Apps.Admin.DTOs.ProductDTOs;
+using Tello.Service.Apps.Admin.IServices;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +10,54 @@ namespace Tello.Api.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly IProductService _productService;
+
+        public ProductsController(IProductService productService)
+        {
+            _productService = productService;
+        }
         // GET: api/<ProductsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAll(int page)
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_productService.GetAll(page));
         }
-
+        [HttpGet("deleted")]
+        public IActionResult GetAllDeleted(int page)
+        {
+            return Ok(_productService.GetAllDeleted(page));
+        }
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            return Ok(await _productService.GetAsync(id));
         }
 
         // POST api/<ProductsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task Post([FromBody] ProductPostDto postDto)
         {
+            await _productService.CreateAsync(postDto);
         }
 
         // PUT api/<ProductsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task Put(int id, [FromBody] ProductPostDto postDto)
         {
+            await _productService.UpdateAsync(id, postDto);
         }
 
         // DELETE api/<ProductsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await _productService.Delete(id);
+        }
+        [HttpPut("{id}/restore")]
+        public async Task Restore(int id)
+        {
+            await _productService.Restore(id);
         }
     }
 }

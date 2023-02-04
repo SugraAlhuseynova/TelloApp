@@ -14,6 +14,8 @@ namespace Tello.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductItem> builder)
         {
+            builder.Property(x => x.SalePrice).IsRequired().HasColumnType("decimal(18,2)");
+            builder.Property(x => x.CostPrice).IsRequired().HasColumnType("decimal(18,2)");
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.ModifiedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);

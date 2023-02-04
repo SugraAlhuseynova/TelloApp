@@ -8,5 +8,11 @@ namespace Tello.Service.Apps.Admin.DTOs.ProductDTOs
 {
     public class ProductListItemDto
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Desc { get; set; }
+        public int Count { get; set; }
+        public string CategoryName { get; set; }
+        public string BrandName { get; set; }
     }
 }
