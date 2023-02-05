@@ -9,5 +9,6 @@ namespace Tello.Core.Entities
     public class Brand : BaseEntity
     {
         public string Name { get; set; }
+        List<Product> Products { get; set; }
     }
 }

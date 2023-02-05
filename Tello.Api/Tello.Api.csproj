@@ -30,11 +30,4 @@
     <Folder Include="wwwroot\Uploads\Slides\Deleted\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="wwwroot\Uploads\Slides\ac4b5906-2bc7-41ae-9dff-50a14a6a8450Screenshot %2826%29.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>

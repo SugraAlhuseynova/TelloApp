@@ -12,6 +12,7 @@ namespace Tello.Service.Apps.Admin.IServices
     {
         Task CreateAsync(SlidePostDto postDto);
         Task DeleteAsync(int id);
+        Task Restore(int id);
         PaginatedListDto<SlideListItemDto> GetAll(int page);
         PaginatedListDto<SlideListItemDto> GetAllDeleted(int page);
         Task<SlideGetDto> GetByIdAsync(int id);

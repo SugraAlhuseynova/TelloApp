@@ -88,6 +88,7 @@ namespace Tello.Service.Apps.Admin.Implementations
              && !x.IsDeleted))
                 throw new RecordDuplicatedException("Variation already exist");
             variation.Name = PostDto.Name;
+            variation.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();
         }
     }

@@ -85,6 +85,7 @@ namespace Tello.Service.Apps.Admin.Implementations
             if (entity == null)
                 throw new ItemNotFoundException($"Category not found (id = {id})");
             entity.Name = categoryPostDto.Name;
+            entity.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();
         }
     }

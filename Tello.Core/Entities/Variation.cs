@@ -9,5 +9,7 @@ namespace Tello.Core.Entities
     public class Variation : BaseEntity
     {
         public string Name { get; set; }
+        public List<VariationCategory> VariationCategories { get; set;}
+        public List<VariationOption> VariationOptions { get; set;}
     }
 }

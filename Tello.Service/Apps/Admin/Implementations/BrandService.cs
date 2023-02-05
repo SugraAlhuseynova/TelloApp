@@ -83,6 +83,7 @@ namespace Tello.Service.Apps.Admin.Implementations
             if (entity == null)
                 throw new ItemNotFoundException($"Brand not found (Id = {id})");
             entity.Name = postDto.Name;
+            entity.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();
         }
     }

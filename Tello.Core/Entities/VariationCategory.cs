@@ -10,7 +10,7 @@ namespace Tello.Core.Entities
     {
         public int VariationId { get; set; }
         public int CategoryId { get; set; }
-        public Variation Variation{ get; set; }
+        public Variation Variation { get; set; }
         public Category Category{ get; set; }
     }
 }

@@ -89,6 +89,7 @@ namespace Tello.Service.Apps.Admin.Implementations
                 throw new RecordDuplicatedException("VariationCategory already exist");
             entity.CategoryId = vsPostDto.CategoryId;
             entity.VariationId= vsPostDto.VariationId;
+            entity.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();
         }
     }

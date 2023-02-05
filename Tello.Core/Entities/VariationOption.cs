@@ -11,6 +11,7 @@ namespace Tello.Core.Entities
         public string Value { get; set; }
         public int VariationCategoryId { get; set; }
         public VariationCategory VariationCategory { get; set; }
+        public List<ProductItemVariation> ProductItemVariations { get; set; }
     }
 
 }

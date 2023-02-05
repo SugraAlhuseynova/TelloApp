@@ -99,6 +99,7 @@ namespace Tello.Service.Apps.Admin.Implementations
             entity.Count = productPostDto.Count;
             entity.CategoryId = productPostDto.CategoryId;
             entity.BrandId = productPostDto.BrandId;
+            entity.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();
         }
     }

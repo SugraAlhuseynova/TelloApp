@@ -50,26 +50,9 @@ namespace Tello.Service.Apps.Admin.Implementations
             Slide slide = await _unitOfWork.SlideRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
             if (slide == null)
                 throw new ItemNotFoundException("Slide not found");
-            //FileManager.Remove(_web.WebRootPath, "Uploads/Slides", slide.BackgroundPhotoStr);
-            //FileManager.Delete(_web.WebRootPath, "Uploads/Slides/Deleted",slide.BackgroundPhotoStr);
-            //FileManager.Remove(_web.WebRootPath, "Uploads/Slides", slide.ProductPhotoStr);
-            Delete(_web.WebRootPath, "Uploads/Slides/Deleted", "Uploads/Slides", slide.ProductPhoto /*<- bu gorduyun filein ozudu*/);
+            FileManager.ChangeFolder(_web.WebRootPath, "Uploads/Slides/Deleted", "Uploads/Slides", slide.ProductPhotoStr);
             slide.IsDeleted = true;
-            //slide.BackgroundPhoto.CopyTo("")
             await _unitOfWork.CommitAsync();
-        }
-        private void Delete( string root, string folder, string prevFolder , IFormFile file)
-        {
-            string pathNew = Path.Combine(root, folder, file.FileName);
-            string pathPrev = Path.Combine( folder, file.FileName); //UploadS/Slider/Uploads/Deleted bele bele orda axi ele sekil yoxdu null atir
-
-            using (FileStream stream = new FileStream(pathNew, FileMode.Create))
-            {
-                if (File.Exists(pathPrev))
-                {
-                    Console.WriteLine("a");
-                }
-            }
         }
         public PaginatedListDto<SlideListItemDto> GetAll(int page)
         {
@@ -125,6 +108,7 @@ namespace Tello.Service.Apps.Admin.Implementations
                     FileManager.Remove(_web.WebRootPath, "Uploads/Slides", item);
                 }
             }
+            slide.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();
         }
         private void CheckSlidePhoto(IFormFile file)
@@ -133,6 +117,15 @@ namespace Tello.Service.Apps.Admin.Implementations
                 throw new FileFormatException("File format must be image/png or image/jpeg");
             if (file.Length > 3145728)
                 throw new Exception("File siz must be less than 2MB");
+        }
+        public async Task Restore(int id)
+        {
+            Slide slide = await _unitOfWork.SlideRepository.GetAsync(x => x.Id == id && x.IsDeleted);
+            if (slide == null)
+                throw new ItemNotFoundException("Slide not found");
+            FileManager.ChangeFolder(_web.WebRootPath, "Uploads/Slides", "Uploads/Slides/Deleted", slide.ProductPhotoStr);
+            slide.IsDeleted = false;
+            await _unitOfWork.CommitAsync();
         }
     }
 }

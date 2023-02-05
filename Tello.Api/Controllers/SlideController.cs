@@ -57,5 +57,10 @@ namespace Tello.Api.Controllers
         {
             await _slideService.DeleteAsync(id);
         }
+        [HttpPut("{id}/deleted")]
+        public async Task RestoreAsync(int id)
+        {
+            await _slideService.Restore(id);
+        }
     }
 }

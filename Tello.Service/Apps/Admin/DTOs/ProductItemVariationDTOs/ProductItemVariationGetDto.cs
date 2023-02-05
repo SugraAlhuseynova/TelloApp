@@ -8,5 +8,10 @@ namespace Tello.Service.Apps.Admin.DTOs.ProductItemVariationDTOs
 {
     public class ProductItemVariationGetDto
     {
+        public int Id { get; set; }
+        public string ProductName { get; set; }
+        public string VariationOptionValue { get; set; }
+        public string VariationName { get; set; }
+
     }
 }

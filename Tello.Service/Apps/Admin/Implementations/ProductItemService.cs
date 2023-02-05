@@ -89,6 +89,7 @@ namespace Tello.Service.Apps.Admin.Implementations
             entity.SalePrice = productPostDto.SalePrice;
             entity.ProductId = productPostDto.ProductId;
             entity.Count = productPostDto.Count;
+            entity.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();
         }
     }

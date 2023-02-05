@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.IO;
+using System.Reflection.Emit;
 
 namespace Tello.Api.Helpers
 {
@@ -21,6 +22,18 @@ namespace Tello.Api.Helpers
             if (File.Exists(path))
                 File.Delete(path);
         }
-       
+        public static void ChangeFolder(string root, string folder, string prevFolder, string image)
+        {
+            string pathNew = Path.Combine(root, folder);
+            string pathPrev = Path.Combine(root, prevFolder);
+            if (Directory.Exists(pathPrev))
+            {
+                foreach (var file in new DirectoryInfo(pathPrev).GetFiles())
+                {
+                    if (file.Name == image)
+                        file.MoveTo(Path.Combine(pathNew, file.Name));
+                }
+            }
+        }
     }
 }
