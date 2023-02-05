@@ -25,11 +25,11 @@ namespace Tello.Service.Apps.Admin.Implementations
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(BrandPostDto PostDto)
+        public async Task CreateAsync(BrandPostDto postDto)
         {
-            if (await _unitOfWork.BrandRepository.IsExistAsync(x=>x.Name == PostDto.Name && !x.IsDeleted))
+            if (await _unitOfWork.BrandRepository.IsExistAsync(x=>x.Name == postDto.Name && !x.IsDeleted))
                 throw new RecordDuplicatedException("Brand already exist");
-            var brand = _mapper.Map<Brand>(PostDto);
+            var brand = _mapper.Map<Brand>(postDto);
             await _unitOfWork.BrandRepository.CreateAsync(brand);
             await _unitOfWork.CommitAsync();
         }
@@ -77,12 +77,12 @@ namespace Tello.Service.Apps.Admin.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task UpdateAsync(int id, BrandPostDto PostDto)
+        public async Task UpdateAsync(int id, BrandPostDto postDto)
         {
             Brand entity = await _unitOfWork.BrandRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
             if (entity == null)
                 throw new ItemNotFoundException($"Brand not found (Id = {id})");
-            entity.Name = PostDto.Name;
+            entity.Name = postDto.Name;
             await _unitOfWork.CommitAsync();
         }
     }

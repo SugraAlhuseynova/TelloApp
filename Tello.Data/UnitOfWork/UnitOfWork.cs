@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Tello.Core.IRepositories;
@@ -21,6 +22,7 @@ namespace Tello.Data.UnitOfWork
         private VariationOptionRepository _variationOptionRepository;
         private ProductRepository _productRepository;
         private ProductItemRepository _productItemRepository;
+        private ProductItemVariationRepository _productItemVariationRepository;
 
         public UnitOfWork(AppDbContext context)
         {
@@ -34,6 +36,7 @@ namespace Tello.Data.UnitOfWork
         public IVariationOptionRepository VariationOptionRepository => _variationOptionRepository ?? new VariationOptionRepository(_context);
         public IProductRepository ProductRepository => _productRepository ?? new ProductRepository(_context);
         public IProductItemRepository ProductItemRepository => _productItemRepository ?? new ProductItemRepository(_context);
+        public IProductItemVariationRepository ProductItemVariationRepository => _productItemVariationRepository ?? new ProductItemVariationRepository(_context);
 
         public int Commit()
         {

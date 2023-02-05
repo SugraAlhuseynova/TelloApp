@@ -11,7 +11,7 @@ namespace Tello.Service.Apps.Admin.IServices
 {
     public interface IVariationCategoryService
     {
-        Task CreateAsync(VariationCategoryPostDto vsPostDto);
+        Task CreateAsync(VariationCategoryPostDto vcPostDto);
         Task UpdateAsync(int id, VariationCategoryPostDto vcPostDto);
         Task<VariationCategoryGetDto> GetAsync(int id);
         Task Delete(int id);

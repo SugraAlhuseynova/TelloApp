@@ -28,25 +28,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("TelloApi"));
 });
 
-builder.Services.AddAutoMapper(typeof(MapProfile));
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IBrandRepository, BrandRepository>();
-builder.Services.AddScoped<ISlideRepository, SlideRepository>();
-builder.Services.AddScoped<IVariationRepository, VariationRepository>();
-builder.Services.AddScoped<IVariationCategoryRepository, VariationCategoryRepository>();
-builder.Services.AddScoped<IVariationOptionRepository, VariationOptionRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductItemRepository, ProductItemRepository>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<ISlideService, SlideService>();
-builder.Services.AddScoped<IBrandService, BrandService>();
-builder.Services.AddScoped<IVariationService, VariationService>();
-builder.Services.AddScoped<IVariationCategoryService, VariationCategoryService>();
-builder.Services.AddScoped<IVariationOptionService, VariationOptionService>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductItemService, ProductItemService>();
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.AddService();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

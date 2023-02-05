@@ -8,44 +8,88 @@ using Tello.Service.Apps.Admin.DTOs.ProductDTOs;
 using Tello.Service.Apps.Admin.DTOs;
 using Tello.Service.Apps.Admin.IServices;
 using Tello.Service.Apps.Admin.DTOs.ProductItemDTOs;
+using Tello.Core.IUnitOfWork;
+using AutoMapper;
+using Tello.Service.Exceptions;
+using Tello.Core.Entities;
 
 namespace Tello.Service.Apps.Admin.Implementations
 {
     public class ProductItemService : IProductItemService
     {
-        public Task CreateAsync(ProductItemPostDto ProductPostDto)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public ProductItemService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+        public async Task CreateAsync(ProductItemPostDto productPostDto)
+        {
+            if (!(await _unitOfWork.ProductRepository.IsExistAsync(x=>x.Id == productPostDto.ProductId)))
+                throw new ItemNotFoundException("Product not found");
+            ProductItem entity = _mapper.Map<ProductItem>(productPostDto);
+            await _unitOfWork.ProductItemRepository.CreateAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _unitOfWork.ProductItemRepository.GetAsync(x=>x.Id ==id && !x.IsDeleted);
+            if (entity == null)
+                throw new ItemNotFoundException("ProductItem not found");
+            entity.IsDeleted = true;
+            await _unitOfWork.CommitAsync();
         }
 
         public PaginatedListDto<ProductItemListItemDto> GetAll(int page)
         {
-            throw new NotImplementedException();
+
+            var query = _unitOfWork.ProductItemRepository.GetAll(x => !x.IsDeleted, "Product.Category", "Product.Brand");
+            List<ProductItemListItemDto> items = _mapper.Map<List<ProductItemListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
+            var paginationList = new PaginatedListDto<ProductItemListItemDto>(items, query.Count(), page, 2);
+            return paginationList;
         }
 
         public PaginatedListDto<ProductItemListItemDto> GetAllDeleted(int page)
         {
-            throw new NotImplementedException();
+            var query = _unitOfWork.ProductItemRepository.GetAll(x => x.IsDeleted, "Product.Category", "Product.Brand");
+            List<ProductItemListItemDto> items = _mapper.Map<List<ProductItemListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
+            var paginationList = new PaginatedListDto<ProductItemListItemDto>(items, query.Count(), page, 2);
+            return paginationList;
         }
 
-        public Task<ProductItemGetDto> GetAsync(int id)
+        public async Task<ProductItemGetDto> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _unitOfWork.ProductItemRepository.GetAsync(x => x.Id == id && !x.IsDeleted, "Product");
+            if (entity == null)
+                throw new ItemNotFoundException("ProductItem not found");
+            var piGetDto = _mapper.Map<ProductItemGetDto>(entity);
+            return piGetDto;
         }
 
-        public Task Restore(int id)
+        public async Task Restore(int id)
         {
-            throw new NotImplementedException();
+
+            var entity = await _unitOfWork.ProductItemRepository.GetAsync(x => x.Id == id && x.IsDeleted);
+            if (entity == null)
+                throw new ItemNotFoundException("ProductItem not found");
+            entity.IsDeleted = false;
+            await _unitOfWork.CommitAsync();
         }
 
-        public Task UpdateAsync(int id, ProductItemPostDto ProductPostDto)
+        public async Task UpdateAsync(int id, ProductItemPostDto productPostDto)
         {
-            throw new NotImplementedException();
+            var entity = await _unitOfWork.ProductItemRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
+            if (entity == null)
+                throw new ItemNotFoundException("ProductItem not found");
+
+            entity.CostPrice = productPostDto.CostPrice;
+            entity.SalePrice = productPostDto.SalePrice;
+            entity.ProductId = productPostDto.ProductId;
+            entity.Count = productPostDto.Count;
+            await _unitOfWork.CommitAsync();
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Tello.Service.Apps.Admin.IServices
 {
     public interface IProductItemService
     {
-        Task CreateAsync(ProductItemPostDto ProductPostDto);
-        Task UpdateAsync(int id, ProductItemPostDto ProductPostDto);
+        Task CreateAsync(ProductItemPostDto productPostDto);
+        Task UpdateAsync(int id, ProductItemPostDto productPostDto);
         Task<ProductItemGetDto> GetAsync(int id);
         Task Delete(int id);
         Task Restore(int id);

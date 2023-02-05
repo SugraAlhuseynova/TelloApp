@@ -25,13 +25,13 @@ namespace Tello.Service.Apps.Admin.Implementations
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task CreateAsync(VariationCategoryPostDto vsPostDto)
+        public async Task CreateAsync(VariationCategoryPostDto vcPostDto)
         {
-            var entity = await _unitOfWork.VariationCategoryRepository.GetAsync(x=>x.CategoryId == vsPostDto.CategoryId && 
-            x.VariationId == vsPostDto.VariationId && !x.IsDeleted);
+            var entity = await _unitOfWork.VariationCategoryRepository.GetAsync(x=>x.CategoryId == vcPostDto.CategoryId && 
+            x.VariationId == vcPostDto.VariationId && !x.IsDeleted);
             if (entity != null)
                 throw new RecordDuplicatedException("VariationCategory already exist");
-            entity = _mapper.Map<VariationCategory>(vsPostDto);
+            entity = _mapper.Map<VariationCategory>(vcPostDto);
             await _unitOfWork.VariationCategoryRepository.CreateAsync(entity);
             await _unitOfWork.CommitAsync();
         }
