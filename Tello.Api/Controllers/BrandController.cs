@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tello.Service.Apps.Admin.DTOs.BrandDTOs;
 using Tello.Service.Apps.Admin.IServices;
 
 namespace Tello.Api.Controllers
 {
-    [Route("api/brands")]
+    [Route("api/admin/brands")]
     [ApiController]
+    [Authorize]
     public class BrandsController : ControllerBase
     {
         private readonly IBrandService _brandService;
@@ -30,6 +32,7 @@ namespace Tello.Api.Controllers
             return Ok(_brandService.GetAllDeleted(page));
         }
         [HttpPost("")]
+        [Authorize(Roles = "Member")]
         public async Task Create(BrandPostDto postDto)
         {
             await _brandService.CreateAsync(postDto);

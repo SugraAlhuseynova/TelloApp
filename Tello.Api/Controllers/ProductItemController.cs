@@ -7,7 +7,7 @@ using Tello.Service.Apps.Admin.IServices;
 
 namespace Tello.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admin/productItem")]
     [ApiController]
     public class ProductItemController : ControllerBase
     {

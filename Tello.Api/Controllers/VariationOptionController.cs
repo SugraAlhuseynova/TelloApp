@@ -6,7 +6,7 @@ using Tello.Service.Apps.Admin.IServices;
 
 namespace Tello.Api.Controllers
 {
-    [Route("api/variationOption")]
+    [Route("api/admin/variationOption")]
     [ApiController]
     public class VariationOptionController : ControllerBase
     {

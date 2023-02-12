@@ -1,4 +1,5 @@
-﻿using Tello.Core.IRepositories;
+﻿using Tello.Api.JWT;
+using Tello.Core.IRepositories;
 using Tello.Core.IUnitOfWork;
 using Tello.Data.Repositories;
 using Tello.Data.UnitOfWork;
@@ -33,6 +34,7 @@ namespace Tello.Api.ServiceExtentions
             builder.Services.AddScoped<IProductItemVariationService, ProductItemVariationService>();
             
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IJWTSerivce, JWTService>();
 
         }
     }

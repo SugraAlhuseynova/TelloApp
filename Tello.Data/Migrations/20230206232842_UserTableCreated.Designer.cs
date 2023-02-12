@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tello.Data.DAL;
 
@@ -11,9 +12,10 @@ using Tello.Data.DAL;
 namespace Tello.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230206232842_UserTableCreated")]
+    partial class UserTableCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +93,6 @@ namespace Tello.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -116,10 +117,7 @@ namespace Tello.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
@@ -418,11 +416,16 @@ namespace Tello.Data.Migrations
                     b.Property<int>("VariationOptionId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("VariationOptionId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductItemId");
 
                     b.HasIndex("VariationOptionId");
+
+                    b.HasIndex("VariationOptionId1");
 
                     b.ToTable("ProductItemVariations");
                 });
@@ -580,9 +583,14 @@ namespace Tello.Data.Migrations
                     b.Property<int>("VariationCategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("VariationId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("VariationCategoryId");
+
+                    b.HasIndex("VariationId");
 
                     b.ToTable("VariationOptions");
                 });
@@ -593,8 +601,8 @@ namespace Tello.Data.Migrations
 
                     b.Property<string>("Fullname")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasDiscriminator().HasValue("AppUser");
                 });
@@ -694,6 +702,10 @@ namespace Tello.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Tello.Core.Entities.VariationOption", null)
+                        .WithMany("ProductItemVariations")
+                        .HasForeignKey("VariationOptionId1");
+
                     b.Navigation("ProductItem");
 
                     b.Navigation("VariationOption");
@@ -708,7 +720,7 @@ namespace Tello.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Tello.Core.Entities.Variation", "Variation")
-                        .WithMany()
+                        .WithMany("VariationCategories")
                         .HasForeignKey("VariationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -726,6 +738,10 @@ namespace Tello.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Tello.Core.Entities.Variation", null)
+                        .WithMany("VariationOptions")
+                        .HasForeignKey("VariationId");
+
                     b.Navigation("VariationCategory");
                 });
 
@@ -742,6 +758,18 @@ namespace Tello.Data.Migrations
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.ProductItem", b =>
+                {
+                    b.Navigation("ProductItemVariations");
+                });
+
+            modelBuilder.Entity("Tello.Core.Entities.Variation", b =>
+                {
+                    b.Navigation("VariationCategories");
+
+                    b.Navigation("VariationOptions");
+                });
+
+            modelBuilder.Entity("Tello.Core.Entities.VariationOption", b =>
                 {
                     b.Navigation("ProductItemVariations");
                 });

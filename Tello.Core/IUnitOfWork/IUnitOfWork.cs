@@ -18,6 +18,7 @@ namespace Tello.Core.IUnitOfWork
         IProductRepository ProductRepository { get; }
         IProductItemRepository ProductItemRepository { get; }
         IProductItemVariationRepository ProductItemVariationRepository { get; }
+        IUserRepository UserRepository { get; }
         int Commit();
         Task<int> CommitAsync();
     }

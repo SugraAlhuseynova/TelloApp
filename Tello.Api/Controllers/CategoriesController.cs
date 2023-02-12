@@ -7,7 +7,7 @@ using Tello.Service.Apps.Admin.IServices;
 namespace Tello.Api.Controllers
 {
     [ApiController]
-    [Route("api/categories")]
+    [Route("api/admin/categories")]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

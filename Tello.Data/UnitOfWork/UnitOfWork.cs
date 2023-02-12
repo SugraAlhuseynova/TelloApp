@@ -23,6 +23,7 @@ namespace Tello.Data.UnitOfWork
         private ProductRepository _productRepository;
         private ProductItemRepository _productItemRepository;
         private ProductItemVariationRepository _productItemVariationRepository;
+        private UserRepository _userRepository;
 
         public UnitOfWork(AppDbContext context)
         {
@@ -37,6 +38,7 @@ namespace Tello.Data.UnitOfWork
         public IProductRepository ProductRepository => _productRepository ?? new ProductRepository(_context);
         public IProductItemRepository ProductItemRepository => _productItemRepository ?? new ProductItemRepository(_context);
         public IProductItemVariationRepository ProductItemVariationRepository => _productItemVariationRepository ?? new ProductItemVariationRepository(_context);
+        public IUserRepository UserRepository => _userRepository ?? new UserRepository(_context);
 
         public int Commit()
         {

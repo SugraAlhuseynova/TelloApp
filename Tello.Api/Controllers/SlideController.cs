@@ -7,7 +7,7 @@ using Tello.Service.Apps.Admin.IServices;
 
 namespace Tello.Api.Controllers
 {
-    [Route("api/slides")]
+    [Route("api/admin/slides")]
     [ApiController]
     public class SlideController : ControllerBase
     {
