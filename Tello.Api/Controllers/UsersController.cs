@@ -1,14 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters.Xml;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.DotNet.Scaffolding.Shared.Project;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using Tello.Api.JWT;
 using Tello.Core.Entities;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs;
@@ -25,7 +18,6 @@ namespace Tello.Api.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
         private readonly IJWTSerivce _jwtService;
-        private readonly IConfiguration _configuration;
 
         public UsersController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<AppUser> signInManager,
             IMapper mapper, IJWTSerivce jwtService, IConfiguration configuration)
@@ -35,14 +27,22 @@ namespace Tello.Api.Controllers
             _signInManager = signInManager;
             _mapper = mapper;
             _jwtService = jwtService;
-            _configuration = configuration;
         }
+        /// <summary>
+        /// Action create roles 
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
-        //public async Task CreateRole()
-        //{
-        //    //IdentityResult role1 = await _roleManager.CreateAsync(new IdentityRole("Admin"));  
-        //    //IdentityResult role2 = await _roleManager.CreateAsync(new IdentityRole("Member"));  
-        //}
+        public async Task CreateRole(string roleStr)
+        {
+            //IdentityResult role1 = await _roleManager.CreateAsync(new IdentityRole("Superadmin"));
+            IdentityResult role = await _roleManager.CreateAsync(new IdentityRole(ModifyRole(roleStr)));
+        }
+        private string ModifyRole(string roleStr)
+        {
+            string role = char.ToUpper(roleStr.Trim()[0]) + roleStr.Trim().ToLower().Substring(1);
+            return role;
+        }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserPostDto postDto)
@@ -54,15 +54,18 @@ namespace Tello.Api.Controllers
             var result = await _userManager.CreateAsync(user, postDto.Password);
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
-            var result2 = await _userManager.AddToRoleAsync(user, "Admin");
+            var result2 = await _userManager.AddToRoleAsync(user, "Superadmin");
             if (!result2.Succeeded)
                 return BadRequest(result.Errors);
             return Ok();
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <remarks>
+        /// Sample request: 
+        /// 
         ///     POST api/users/login
         ///     {
         ///           "email": "string@gmail.com",
@@ -88,6 +91,39 @@ namespace Tello.Api.Controllers
         }
 
 
+        /// <summary>
+        /// Action create admin 
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "Superadmin")]
+        [HttpPost("admin")]
+        public async Task<IActionResult> CreateAdmin(UserPostDto postDto)
+        {
+            if (_userManager.Users.Any(x => x.Email == postDto.Email && x.IsAdmin))
+                throw new RecordDuplicatedException("This email has been used");
+            AppUser user = _mapper.Map<AppUser>(postDto);
+            user.IsAdmin = true;
+            user.PhoneNumber = "1234567898";
+            var result = await _userManager.CreateAsync(user, postDto.Password);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+            var result2 = await _userManager.AddToRoleAsync(user, "Admin");
+            if (!result2.Succeeded)
+                return BadRequest(result.Errors);
+            return Ok();
+        }
+        [HttpPost("changepassword/admin")]
+        public async Task ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            AppUser user = await _userManager.FindByEmailAsync(changePasswordDto.Email);
+            if (user == null)
+                throw new ItemNotFoundException("Email or password is incorrect");
+            if (!await _userManager.CheckPasswordAsync(user, changePasswordDto.Password))
+                throw new ItemNotFoundException("Email or password is incorrect");
 
+            //var result = await _userManager.ResetPasswordAsync(user,changePasswordDto.NewPassword);
+            //if (!result.Succeeded)
+            //    return BadRequest();
+        }
     }
 }

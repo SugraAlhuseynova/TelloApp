@@ -10,5 +10,6 @@ namespace Tello.Core.Entities
     public class AppUser : IdentityUser
     {
         public string Fullname { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

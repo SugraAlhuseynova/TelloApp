@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 using Tello.Api.ServiceExtentions;
@@ -20,8 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 
-builder.Services.AddControllers()
-    .AddFluentValidation(x =>
+builder.Services.AddControllers().AddFluentValidation(x =>
     {
         x.RegisterValidatorsFromAssemblyContaining<CategoryPostDto>();
     });
@@ -88,6 +88,10 @@ builder.Services.AddSwaggerGen(option =>
             new string[]{}
         }
     });
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    option.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
 });
 
 var app = builder.Build();
