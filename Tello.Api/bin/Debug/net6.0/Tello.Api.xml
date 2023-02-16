@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tello.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.CreateRole(System.String)">
+            <summary>
+            Action create roles 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.Login(Tello.Service.Apps.Admin.DTOs.AppUserDTOs.UserLoginDto)">
+            <summary>
+            
+            </summary>
+            <remarks>
+            Sample request: 
+            
+                POST api/users/login
+                {
+                      "email": "string@gmail.com",
+                      "password": "string1234"
+                }
+            </remarks>
+            <param name="loginDto"></param>
+            <returns></returns>
+            <exception cref="T:Tello.Service.Exceptions.ItemNotFoundException"></exception>
+        </member>
+        <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.CreateAdmin(Tello.Service.Apps.Admin.DTOs.AppUserDTOs.UserPostDto)">
+            <summary>
+            Action create admin 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.ForgotPassword(System.String)">
+             <summary>
+            
+             </summary>
+             <param name="email">alhuseynovasugra@gmail.com</param>
+             <returns></returns>
+             <exception cref="T:Tello.Service.Exceptions.ItemNotFoundException"></exception>
+        </member>
+    </members>
+</doc>

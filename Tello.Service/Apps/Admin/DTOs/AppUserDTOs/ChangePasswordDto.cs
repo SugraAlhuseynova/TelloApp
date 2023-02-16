@@ -10,7 +10,7 @@ namespace Tello.Service.Apps.Admin.DTOs.AppUserDTOs
     public class ChangePasswordDto
     {
         public string Email { get; set; }
-        public string Password { get; set; }
+        public string Token { get; set; }
         public string NewPassword { get; set; }
         public string ConfirmPassword { get; set; }
     }
@@ -19,9 +19,9 @@ namespace Tello.Service.Apps.Admin.DTOs.AppUserDTOs
         public ChangePasswordDtoValidator()
         {
             RuleFor(x => x.Email).NotNull().MaximumLength(40).EmailAddress();
-            RuleFor(x => x.Password).NotNull().MinimumLength(6).MaximumLength(16);
+            RuleFor(x => x.Token).NotNull();
             RuleFor(x => x.NewPassword).NotNull().MinimumLength(6).MaximumLength(16);
-            RuleFor(x => x.ConfirmPassword).NotNull().MinimumLength(6).MaximumLength(16).Equal(x=>x.Password);
+            RuleFor(x => x.ConfirmPassword).NotNull().MinimumLength(6).MaximumLength(16).Equal(x=>x.NewPassword);
             
         }
     }

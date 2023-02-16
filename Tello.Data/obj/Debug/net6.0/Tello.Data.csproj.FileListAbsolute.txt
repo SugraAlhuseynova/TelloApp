@@ -1,0 +1,17 @@
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\bin\Debug\net6.0\Tello.Data.deps.json
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\bin\Debug\net6.0\Tello.Data.runtimeconfig.json
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\bin\Debug\net6.0\Tello.Data.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\bin\Debug\net6.0\Tello.Data.pdb
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\bin\Debug\net6.0\Tello.Core.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\bin\Debug\net6.0\Tello.Core.pdb
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\Tello.Data.csproj.AssemblyReference.cache
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\Tello.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\Tello.Data.AssemblyInfoInputs.cache
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\Tello.Data.AssemblyInfo.cs
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\Tello.Data.csproj.CoreCompileInputs.cache
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\Tello.Data.csproj.CopyComplete
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\Tello.Data.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\refint\Tello.Data.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\Tello.Data.pdb
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\Tello.Data.genruntimeconfig.cache
+C:\Users\Taleh\Desktop\TelloApi\Tello.Data\obj\Debug\net6.0\ref\Tello.Data.dll

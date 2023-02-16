@@ -40,6 +40,8 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequireUppercase = false;
 }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>();
 
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(10));
+
 builder.AddService();
 
 builder.Services.AddControllers().AddJsonOptions(x =>

@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "uGP+KPIB/ibtaBRV3D2xE79qHAOl7Btavr4WZXdsn4k=",
+  "Source": "Tello.Api",
+  "BasePath": "_content/Tello.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Tello.Api\\wwwroot",
+      "Source": "Tello.Api",
+      "ContentRoot": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\",
+      "BasePath": "_content/Tello.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

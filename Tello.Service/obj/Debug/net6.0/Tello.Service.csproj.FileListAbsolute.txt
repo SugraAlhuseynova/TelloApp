@@ -1,0 +1,17 @@
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\bin\Debug\net6.0\Tello.Service.deps.json
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\bin\Debug\net6.0\Tello.Service.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\bin\Debug\net6.0\Tello.Service.pdb
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\bin\Debug\net6.0\Tello.Core.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\bin\Debug\net6.0\Tello.Data.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\bin\Debug\net6.0\Tello.Data.pdb
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\bin\Debug\net6.0\Tello.Core.pdb
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\Tello.Service.csproj.AssemblyReference.cache
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\Tello.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\Tello.Service.AssemblyInfoInputs.cache
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\Tello.Service.AssemblyInfo.cs
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\Tello.Service.csproj.CoreCompileInputs.cache
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\Tello.Service.csproj.CopyComplete
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\Tello.Service.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\refint\Tello.Service.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\Tello.Service.pdb
+C:\Users\Taleh\Desktop\TelloApi\Tello.Service\obj\Debug\net6.0\ref\Tello.Service.dll

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tello.Data", "Tello.Data\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tello.Api", "Tello.Api\Tello.Api.csproj", "{3FD3F53B-908A-4BCB-B084-C209B02D424B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tello.Service", "Tello.Service\Tello.Service.csproj", "{EE6B1B10-E102-4F7A-A8EC-0010A809D95C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tello.Service", "Tello.Service\Tello.Service.csproj", "{EE6B1B10-E102-4F7A-A8EC-0010A809D95C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
