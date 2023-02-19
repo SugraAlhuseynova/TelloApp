@@ -70,8 +70,8 @@ namespace Tello.Api.Apps.Admin.Controllers
         /// 
         ///     POST api/users/login
         ///     {
-        ///           "email": "string@gmail.com",
-        ///           "password": "string1234"
+        ///           "email": "super@gmail.com",
+        ///           "password": "Super123"
         ///     }
         /// </remarks>
         /// <param name="loginDto"></param>

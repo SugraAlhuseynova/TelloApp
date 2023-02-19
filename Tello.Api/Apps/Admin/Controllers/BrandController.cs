@@ -7,7 +7,7 @@ namespace Tello.Api.Apps.Admin.Controllers
 {
     [Route("api/admin/brands")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BrandsController : ControllerBase
     {
         private readonly IBrandService _brandService;
@@ -16,15 +16,16 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             _brandService = brandService;
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _brandService.GetAsync(id));
         }
-        [HttpGet("all")]
-        public IActionResult GetAll(int page)
+        [HttpGet("all/{page}")]
+        public IActionResult GetAll(int page = 1)
         {
-            return Ok(_brandService.GetAll(page));
+            var data = _brandService.GetAll(page);
+            return Ok(data);
         }
         [HttpGet("all/deleted")]
         public IActionResult GetAllDeleted(int page)
@@ -32,7 +33,7 @@ namespace Tello.Api.Apps.Admin.Controllers
             return Ok(_brandService.GetAllDeleted(page));
         }
         [HttpPost("")]
-        [Authorize(Roles = "Member")]
+        //[Authorize(Roles = "Member")]
         public async Task Create(BrandPostDto postDto)
         {
             await _brandService.CreateAsync(postDto);
@@ -42,12 +43,12 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             await _brandService.Delete(id);
         }
-        [HttpPut("id/restore")]
+        [HttpPut("restore/{id}")]
         public async Task Restore(int id)
         {
             await _brandService.Restore(id);
         }
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task Update(int id, BrandPostDto PostDto)
         {
             await _brandService.UpdateAsync(id, PostDto);

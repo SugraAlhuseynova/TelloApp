@@ -43,14 +43,20 @@ namespace Tello.Service.Apps.Admin.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public PaginatedListDto<BrandListItemDto> GetAll(int page)
+        //public PaginatedListDto<BrandListItemDto> GetAll(int page)
+        //{
+        //    var query = _unitOfWork.BrandRepository.GetAll(x=>!x.IsDeleted);
+        //    List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
+        //    var listDto = new PaginatedListDto<BrandListItemDto>(items,query.Count(),page, 2);
+        //    return listDto;
+        //}
+        public BrandTestPaginationList<BrandListItemDto> GetAll(int page)
         {
-            var query = _unitOfWork.BrandRepository.GetAll(x=>!x.IsDeleted);
+            var query = _unitOfWork.BrandRepository.GetAll(x => !x.IsDeleted);
             List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new PaginatedListDto<BrandListItemDto>(items,query.Count(),page, 2);
+            var listDto = new BrandTestPaginationList<BrandListItemDto>(items, query.Count(), page, 2);
             return listDto;
         }
-
         public PaginatedListDto<BrandListItemDto> GetAllDeleted(int page)
         {
             var query = _unitOfWork.BrandRepository.GetAll(x => x.IsDeleted);
