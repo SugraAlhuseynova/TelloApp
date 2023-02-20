@@ -9,6 +9,7 @@ namespace Tello.Core.IUnitOfWork
 {
     public interface IUnitOfWork
     {
+        ISettingRepository SettingRepository { get; }
         ICategoryRepository CategoryRepository { get; }
         IBrandRepository BrandRepository { get; }
         ISlideRepository SlideRepository { get; }

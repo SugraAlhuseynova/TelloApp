@@ -929,6 +929,10 @@
       "PackagePath": "staticwebassets\\assets\\js\\listify.js"
     },
     {
+      "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\main.js",
+      "PackagePath": "staticwebassets\\assets\\js\\main.js"
+    },
+    {
       "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\mapael.js",
       "PackagePath": "staticwebassets\\assets\\js\\mapael.js"
     },
@@ -983,6 +987,10 @@
     {
       "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\progress-bar.js",
       "PackagePath": "staticwebassets\\assets\\js\\progress-bar.js"
+    },
+    {
+      "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\restore.js",
+      "PackagePath": "staticwebassets\\assets\\js\\restore.js"
     },
     {
       "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\rickshaw.js",

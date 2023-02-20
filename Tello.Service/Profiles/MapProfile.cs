@@ -12,6 +12,7 @@ using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
 using Tello.Service.Apps.Admin.DTOs.ProductDTOs;
 using Tello.Service.Apps.Admin.DTOs.ProductItemDTOs;
 using Tello.Service.Apps.Admin.DTOs.ProductItemVariationDTOs;
+using Tello.Service.Apps.Admin.DTOs.SettingDTOs;
 using Tello.Service.Apps.Admin.DTOs.SlideDTOs;
 using Tello.Service.Apps.Admin.DTOs.VariationCategoryDTOs;
 using Tello.Service.Apps.Admin.DTOs.VariationDTOs;
@@ -56,6 +57,8 @@ namespace Tello.Service.Profiles
                 .ForMember(dest => dest.VariationName, opt => opt.MapFrom(src => src.VariationOption.VariationCategory.Variation.Name));
             CreateMap<UserPostDto, AppUser>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
+            CreateMap<Setting, SettingGetDto>();
+            CreateMap<SettingPostDto, Setting>();
         
         }
     }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6ATW5I9j7pKcj06YJyWOxON37wwud0cx4QhIKNZpzQg=",
+  "Hash": "cMtGEWowCxeoBWzvoSHLVLnlIm2stj9okHTWa4aaGAA=",
   "Source": "Tello.Api.Test",
   "BasePath": "_content/Tello.Api.Test",
   "Mode": "Default",
@@ -3978,6 +3978,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\js\\listify.js"
     },
     {
+      "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\main.js",
+      "SourceId": "Tello.Api.Test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\",
+      "BasePath": "_content/Tello.Api.Test",
+      "RelativePath": "assets/js/main.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\js\\main.js"
+    },
+    {
       "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\mapael.js",
       "SourceId": "Tello.Api.Test",
       "SourceType": "Discovered",
@@ -4214,6 +4231,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\js\\progress-bar.js"
+    },
+    {
+      "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\restore.js",
+      "SourceId": "Tello.Api.Test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\",
+      "BasePath": "_content/Tello.Api.Test",
+      "RelativePath": "assets/js/restore.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\js\\restore.js"
     },
     {
       "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\rickshaw.js",

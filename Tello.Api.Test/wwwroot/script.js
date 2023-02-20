@@ -1,3 +1,5 @@
+const { log } = require("gulp-util");
+
 (function($) {
   'use strict';
 
@@ -58,5 +60,7 @@
   // Set the offset when entering page with hash present in the url
   window.setTimeout(offsetAnchor, 0);
 
+  
+ 
     
 })(jQuery);    

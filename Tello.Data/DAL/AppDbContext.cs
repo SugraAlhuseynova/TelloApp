@@ -24,7 +24,7 @@ namespace Tello.Data.DAL
         public DbSet<ProductItem> ProductItems { get; set; }
         public DbSet<ProductItemVariation> ProductItemVariations { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
-
+        public DbSet<Setting> Setting { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
@@ -37,6 +37,7 @@ namespace Tello.Data.DAL
             modelBuilder.ApplyConfiguration(new ProductItemConfiguration());
             modelBuilder.ApplyConfiguration(new ProductItemVariationConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
+            modelBuilder.ApplyConfiguration(new SettingConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

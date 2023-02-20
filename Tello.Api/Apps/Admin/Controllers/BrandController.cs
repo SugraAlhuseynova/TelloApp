@@ -22,12 +22,12 @@ namespace Tello.Api.Apps.Admin.Controllers
             return Ok(await _brandService.GetAsync(id));
         }
         [HttpGet("all/{page}")]
-        public IActionResult GetAll(int page = 1)
+        public async Task<IActionResult> GetAll(int page = 1)
         {
-            var data = _brandService.GetAll(page);
+            var data = await _brandService.GetAll(page);
             return Ok(data);
         }
-        [HttpGet("all/deleted")]
+        [HttpGet("all/deleted{page}")]
         public IActionResult GetAllDeleted(int page)
         {
             return Ok(_brandService.GetAllDeleted(page));
@@ -38,12 +38,12 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             await _brandService.CreateAsync(postDto);
         }
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             await _brandService.Delete(id);
         }
-        [HttpPut("restore/{id}")]
+        [HttpDelete("restore/{id}")]
         public async Task Restore(int id)
         {
             await _brandService.Restore(id);

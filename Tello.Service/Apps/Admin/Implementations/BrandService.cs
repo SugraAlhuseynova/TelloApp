@@ -50,18 +50,22 @@ namespace Tello.Service.Apps.Admin.Implementations
         //    var listDto = new PaginatedListDto<BrandListItemDto>(items,query.Count(),page, 2);
         //    return listDto;
         //}
-        public BrandTestPaginationList<BrandListItemDto> GetAll(int page)
+        public async Task<BrandTestPaginationList<BrandListItemDto>> GetAll(int page)
         {
             var query = _unitOfWork.BrandRepository.GetAll(x => !x.IsDeleted);
-            List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new BrandTestPaginationList<BrandListItemDto>(items, query.Count(), page, 2);
+            List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * 
+               int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value)).
+               Take(int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value)).ToList());
+            var listDto = new BrandTestPaginationList<BrandListItemDto>(items, query.Count(), page, 
+                int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value));
             return listDto;
         }
-        public PaginatedListDto<BrandListItemDto> GetAllDeleted(int page)
+        
+        public BrandTestPaginationList<BrandListItemDto> GetAllDeleted(int page)
         {
             var query = _unitOfWork.BrandRepository.GetAll(x => x.IsDeleted);
             List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new PaginatedListDto<BrandListItemDto>(items, query.Count(), page, 2);
+            var listDto = new BrandTestPaginationList<BrandListItemDto>(items, query.Count(), page, 2);
             return listDto;
         }
 
@@ -88,6 +92,8 @@ namespace Tello.Service.Apps.Admin.Implementations
             Brand entity = await _unitOfWork.BrandRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
             if (entity == null)
                 throw new ItemNotFoundException($"Brand not found (Id = {id})");
+            if (await _unitOfWork.BrandRepository.IsExistAsync(x=>x.Name == postDto.Name && x.Id != id && !x.IsDeleted))
+                throw new RecordDuplicatedException("Brand already exist");
             entity.Name = postDto.Name;
             entity.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();

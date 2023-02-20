@@ -105,7 +105,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.ExceptionHandler(); (axirda acacayiq)
+app.ExceptionHandler(); 
 
 app.UseHttpsRedirection();
 
