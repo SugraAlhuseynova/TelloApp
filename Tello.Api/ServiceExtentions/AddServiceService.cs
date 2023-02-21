@@ -23,6 +23,7 @@ namespace Tello.Api.ServiceExtentions
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductItemRepository, ProductItemRepository>();
             builder.Services.AddScoped<IProductItemVariationRepository, ProductItemVariationRepository>();
+            builder.Services.AddScoped<ISettingRepository, SettingRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ISlideService, SlideService>();
             builder.Services.AddScoped<IBrandService, BrandService>();
@@ -32,6 +33,7 @@ namespace Tello.Api.ServiceExtentions
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductItemService, ProductItemService>();
             builder.Services.AddScoped<IProductItemVariationService, ProductItemVariationService>();
+            builder.Services.AddScoped<ISettingService, SettingService>();
             
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IJWTSerivce, JWTService>();

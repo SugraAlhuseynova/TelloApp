@@ -35,7 +35,7 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public PaginatedSettingListDto<SettingGetDto> GetAll(int page)
         {
-            var query = _unitOfWork.BrandRepository.GetAll(x => !x.IsDeleted);
+            var query = _unitOfWork.SettingRepository.GetAll(x => !x.IsDeleted);
             List<SettingGetDto> items = _mapper.Map<List<SettingGetDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
             var listDto = new PaginatedSettingListDto<SettingGetDto>(items, query.Count(), page, 2);
             return listDto;
