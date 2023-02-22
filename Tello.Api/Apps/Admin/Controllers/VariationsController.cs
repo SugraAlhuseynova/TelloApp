@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.OpenApi.Writers;
 using Tello.Service.Apps.Admin.DTOs.VariationDTOs;
 using Tello.Service.Apps.Admin.IServices;
 
@@ -8,7 +6,7 @@ using Tello.Service.Apps.Admin.IServices;
 
 namespace Tello.Api.Apps.Admin.Controllers
 {
-    [Route("api/admin/variation")]
+    [Route("api/admin/variations")]
     [ApiController]
     public class VariationsController : ControllerBase
     {
@@ -18,13 +16,18 @@ namespace Tello.Api.Apps.Admin.Controllers
             _variationService = variationService;
         }
         // GET: api/<VariationsController>
-        [HttpGet]
-        public async Task<IActionResult> GetAll(int page)
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAll1()
+        {
+            return Ok(_variationService.GetAll1());
+        }
+        [HttpGet("all/{page}")]
+        public async Task<IActionResult> GetAll(int page = 1) 
         {
             return Ok(_variationService.GetAll(page));
         }
-        [HttpGet("deleted")]
-        public async Task<IActionResult> GetAllDeleted(int page)
+        [HttpGet("all/deleted/{page}")]
+        public async Task<IActionResult> GetAllDeleted(int page = 1)
         {
             return Ok(_variationService.GetAllDeleted(page));
         }
@@ -55,7 +58,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             await _variationService.Delete(id);
         }
-        [HttpPut("{id}/deleted")]
+        [HttpDelete("restore/{id}")]
         public async Task RestoreAsync(int id)
         {
             await _variationService.Restore(id);

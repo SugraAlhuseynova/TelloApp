@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,19 +46,27 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public PaginatedListDto<CategoryListItemDto> GetAll(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.CategoryRepository.GetAll(x => !x.IsDeleted);
-
-            List<CategoryListItemDto> items = _mapper.Map<List<CategoryListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new PaginatedListDto<CategoryListItemDto>(items, query.Count(), page, 2);
+            List<CategoryListItemDto> items = _mapper.Map<List<CategoryListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var listDto = new PaginatedListDto<CategoryListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
 
         }
 
+        public List<CategoryListItemDto> GetAll1()
+        {
+            var query = _unitOfWork.CategoryRepository.GetAll(x => !x.IsDeleted);
+            List<CategoryListItemDto> items = _mapper.Map<List<CategoryListItemDto>>(query.ToList());
+            return items;
+        }
+
         public PaginatedListDto<CategoryListItemDto> GetAllDeleted(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.CategoryRepository.GetAll(x => x.IsDeleted);
-            List<CategoryListItemDto> items = _mapper.Map<List<CategoryListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new PaginatedListDto<CategoryListItemDto>(items, query.Count(), page, 2);
+            List<CategoryListItemDto> items = _mapper.Map<List<CategoryListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var listDto = new PaginatedListDto<CategoryListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
 

@@ -47,7 +47,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            _settingService.Delete(id);
+            await _settingService.Delete(id);
         }
     }
 }

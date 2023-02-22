@@ -1,0 +1,29 @@
+﻿@model VariationOptionsViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="col-md-7 mx-auto grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" asp-action="create" method="post">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label asp-for="PostDto.VariationCategoryId" class="form-label">Variation</label>
+                        <br>
+                        <select asp-for="PostDto.VariationCategoryId" asp-items="new SelectList((List<VariationCategoryGetDto>)Model.VariationCategories,nameof(VariationCategoryGetDto.Id),nameof(VariationCategoryGetDto.VariationName), nameof(VariationCategoryGetDto.CategoryName))">
+                        </select>
+                        <span asp-validation-for="PostDto.VariationCategoryId"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="PostDto.Value" class="form-label">Category</label>
+                        <br>
+                        <input asp-for="PostDto.Value" type="text" class="form-control text-light" />
+                        <span asp-validation-for="PostDto.Value"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button asp-action="index" asp-controller="variationoptions" class="btn btn-dark">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

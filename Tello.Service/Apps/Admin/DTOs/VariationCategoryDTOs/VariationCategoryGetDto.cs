@@ -12,7 +12,9 @@ namespace Tello.Service.Apps.Admin.DTOs.VariationCategoryDTOs
     public class VariationCategoryGetDto
     {
         public int Id { get; set; } 
-        public CategoryGetDto Category { get; set; }
-        public VariationGetDto Variation { get; set; }
+        public string CategoryName { get; set; }
+        public int CategoryId { get; set; }
+        public string VariationName { get; set; }
+        public int VariationId { get; set; }
     }
 }

@@ -16,22 +16,27 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             _categoryService = categoryService;
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await _categoryService.GetAsync(id));
         }
-        [HttpGet("all")]
-        public IActionResult GetAll(int page)
+        [HttpGet("all/{page}")]
+        public IActionResult GetAll(int page = 1)
         {
             return Ok(_categoryService.GetAll(page));
         }
-        [HttpGet("all/deleted")]
-        public IActionResult GetAllDeleted(int page)
+        [HttpGet("all")]
+        public IActionResult GetAll1()
+        {
+            return Ok(_categoryService.GetAll1());
+        }
+        [HttpGet("all/deleted/{page}")]
+        public IActionResult GetAllDeleted(int page = 1)
         {
             return Ok(_categoryService.GetAllDeleted(page));
         }
-        [HttpPut("id/restore")]
+        [HttpDelete("restore/{id}")]
         public async Task Restore(int id)
         {
             await _categoryService.Restore(id);
@@ -41,12 +46,12 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             await _categoryService.CreateAsync(postDto);
         }
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             await _categoryService.Delete(id);
         }
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task Update(int id, CategoryPostDto categoryPostDto)
         {
             await _categoryService.UpdateAsync(id, categoryPostDto);

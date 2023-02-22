@@ -85,7 +85,7 @@ namespace Tello.Service.Apps.Admin.Implementations
             if (entity == null)
                 throw new ItemNotFoundException("VariationCategory not found");
             if (await _unitOfWork.VariationCategoryRepository.IsExistAsync(x => x.CategoryId == vsPostDto.CategoryId &&
-            x.VariationId == vsPostDto.VariationId && !x.IsDeleted))
+            x.VariationId == vsPostDto.VariationId && x.Id != id && !x.IsDeleted))
                 throw new RecordDuplicatedException("VariationCategory already exist");
             entity.CategoryId = vsPostDto.CategoryId;
             entity.VariationId= vsPostDto.VariationId;

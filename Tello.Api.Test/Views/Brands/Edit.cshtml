@@ -1,0 +1,21 @@
+﻿@model BrandPostDto
+@{
+    ViewData["Title"] = "Edit Brand";
+}
+<div class="col-md-6 mx-auto grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" asp-action="edit" method="post">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">@Model.Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control text-light" asp-for="Name">
+                        <span class="text-light" asp-validation-for="Name">@ViewBag.Error</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button asp-action="index" asp-controller="brands" class="btn btn-dark" >Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

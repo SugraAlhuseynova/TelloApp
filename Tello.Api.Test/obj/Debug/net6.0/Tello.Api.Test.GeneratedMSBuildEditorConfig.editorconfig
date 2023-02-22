@@ -16,20 +16,36 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Taleh\Desktop\TelloApi\Tello.Api.Test
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Brand/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcQ3JlYXRlLmNzaHRtbA==
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Brands/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Brand/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcRWRpdC5jc2h0bWw=
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Brands/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Brand/GetAllDeleted.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcR2V0QWxsRGVsZXRlZC5jc2h0bWw=
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Brands/GetAllDeleted.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRzXEdldEFsbERlbGV0ZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Brand/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcSW5kZXguY3NodG1s
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Brands/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Categories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Categories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Categories/GetAllDeleted.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xHZXRBbGxEZWxldGVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Home/Index.cshtml]
@@ -40,12 +56,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Setting/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1xFZGl0LmNzaHRtbA==
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Settings/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Setting/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ1xJbmRleC5jc2h0bWw=
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Settings/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2V0dGluZ3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Shared/Error.cshtml]
@@ -54,6 +70,50 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/VariationCategories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/VariationCategories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/VariationCategories/GetAllDeleted.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uQ2F0ZWdvcmllc1xHZXRBbGxEZWxldGVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/VariationCategories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/VariationOptions/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uT3B0aW9uc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/VariationOptions/GetAllDeleted.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uT3B0aW9uc1xHZXRBbGxEZWxldGVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/VariationOptions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uT3B0aW9uc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Variations/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Variations/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Variations/GetAllDeleted.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uc1xHZXRBbGxEZWxldGVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Variations/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmFyaWF0aW9uc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/_ViewImports.cshtml]
