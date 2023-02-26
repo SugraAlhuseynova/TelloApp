@@ -1,0 +1,20 @@
+﻿@model ProductGetDto
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="card mx-auto" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.Desc<p>
+    </div>
+    <div class="card-body py-3">
+        <p>Category Name: @Model.CategoryName</p>
+        <p>Brand Name: @Model.BrandName</p>
+        <p>Count: @Model.Count</p>
+        <p>Created At: @Model.CreatedAt.ToString("dd MMMM, yyyy")</p>
+    </div>
+    <div class="card-body py-1">
+        <a asp-action="index" class="card-link">Go Back</a>
+    </div>
+</div>

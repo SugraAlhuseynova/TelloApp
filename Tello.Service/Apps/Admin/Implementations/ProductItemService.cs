@@ -45,18 +45,19 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public PaginatedListDto<ProductItemListItemDto> GetAll(int page)
         {
-
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.ProductItemRepository.GetAll(x => !x.IsDeleted, "Product.Category", "Product.Brand");
-            List<ProductItemListItemDto> items = _mapper.Map<List<ProductItemListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var paginationList = new PaginatedListDto<ProductItemListItemDto>(items, query.Count(), page, 2);
+            List<ProductItemListItemDto> items = _mapper.Map<List<ProductItemListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var paginationList = new PaginatedListDto<ProductItemListItemDto>(items, query.Count(), page, paginationCount);
             return paginationList;
         }
 
         public PaginatedListDto<ProductItemListItemDto> GetAllDeleted(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.ProductItemRepository.GetAll(x => x.IsDeleted, "Product.Category", "Product.Brand");
-            List<ProductItemListItemDto> items = _mapper.Map<List<ProductItemListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var paginationList = new PaginatedListDto<ProductItemListItemDto>(items, query.Count(), page, 2);
+            List<ProductItemListItemDto> items = _mapper.Map<List<ProductItemListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var paginationList = new PaginatedListDto<ProductItemListItemDto>(items, query.Count(), page, paginationCount);
             return paginationList;
         }
 

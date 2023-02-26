@@ -16,6 +16,11 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             _categoryService = categoryService;
         }
+        [HttpGet("all")]
+        public IActionResult GetAll()
+        {
+            return Ok(_categoryService.GetAll());
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -25,11 +30,6 @@ namespace Tello.Api.Apps.Admin.Controllers
         public IActionResult GetAll(int page = 1)
         {
             return Ok(_categoryService.GetAll(page));
-        }
-        [HttpGet("all")]
-        public IActionResult GetAll1()
-        {
-            return Ok(_categoryService.GetAll1());
         }
         [HttpGet("all/deleted/{page}")]
         public IActionResult GetAllDeleted(int page = 1)

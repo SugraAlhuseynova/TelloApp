@@ -10,7 +10,7 @@
                     <label class="col-sm-3 col-form-label">@Model.Name</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control text-light" asp-for="Name">
-                        <span class="text-light" asp-validation-for="Name">@ViewBag.Error</span>
+                        <span class="text-danger" asp-validation-for="Name"></span>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>

@@ -17,13 +17,13 @@ namespace Tello.Api.Apps.Admin.Controllers
             _productService = productService;
         }
         // GET: api/<ProductsController>
-        [HttpGet]
-        public IActionResult GetAll(int page)
+        [HttpGet("all/{page}")]
+        public IActionResult GetAll(int page = 1)
         {
             return Ok(_productService.GetAll(page));
         }
-        [HttpGet("deleted")]
-        public IActionResult GetAllDeleted(int page)
+        [HttpGet("all/deleted/{page}")]
+        public IActionResult GetAllDeleted(int page = 1)
         {
             return Ok(_productService.GetAllDeleted(page));
         }
@@ -54,7 +54,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             await _productService.Delete(id);
         }
-        [HttpPut("{id}/restore")]
+        [HttpDelete("restore/{id}")]
         public async Task Restore(int id)
         {
             await _productService.Restore(id);

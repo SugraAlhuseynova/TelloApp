@@ -13,7 +13,7 @@ namespace Tello.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Variation> builder)
         {
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(20);
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(35);
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.ModifiedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);

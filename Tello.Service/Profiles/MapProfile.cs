@@ -45,12 +45,16 @@ namespace Tello.Service.Profiles
             CreateMap<Product, ProductGetDto>();
             CreateMap<ProductPostDto, Product>();
             CreateMap<Product, ProductListItemDto>();
-            CreateMap<ProductItem, ProductItemGetDto>();
+            CreateMap<ProductItem, ProductItemGetDto>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Product.Category.Name))
+                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name));
+            CreateMap<ProductItem, ProductItemListItemDto>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Product.Category.Name))
+                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name)); 
             CreateMap<ProductItemPostDto, ProductItem>();
-            CreateMap<ProductItem, ProductItemListItemDto>();
             CreateMap<ProductItemVariation, ProductItemVariationGetDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductItem.Product.Name))
-                .ForMember(dest => dest.VariationName , opt => opt.MapFrom(src => src.VariationOption.VariationCategory.Variation.Name));
+                .ForMember(dest => dest.VariationName, opt => opt.MapFrom(src => src.VariationOption.VariationCategory.Variation.Name));
             CreateMap<ProductItemVariationPostDto, ProductItemVariation>();
             CreateMap<ProductItemVariation, ProductItemVariationListItemDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductItem.Product.Name))
@@ -59,7 +63,7 @@ namespace Tello.Service.Profiles
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
             CreateMap<Setting, SettingGetDto>();
             CreateMap<SettingPostDto, Setting>();
-        
+
         }
     }
 }

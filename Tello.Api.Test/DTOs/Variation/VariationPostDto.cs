@@ -5,7 +5,7 @@ namespace Tello.Api.Test.DTOs.Variation
     public class VariationPostDto
     {
         [Required]
-        [MaxLength(20)]
+        [MaxLength(35)]
         public string Name { get; set; }
     }
 }

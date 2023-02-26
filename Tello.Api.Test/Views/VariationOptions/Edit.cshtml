@@ -1,0 +1,37 @@
+﻿@model VariationOptionsViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="col-xl-8 col-lg-10 col-12 mx-auto grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" asp-action="edit" method="post">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label asp-for="PostDto.VariationCategoryId" class="form-label">Variation Category</label>
+                        <br>
+                        @* <select asp-for="PostDto.VariationCategoryId" asp-items="new SelectList((List<VariationCategoryGetDto>)Model.VariationCategories,
+                        nameof(VariationCategoryGetDto.Id),
+                        nameof(VariationCategoryGetDto.CategoryName), nameof(VariationCategoryGetDto.VariationName))">
+                        </select>*@
+                        <select asp-for="PostDto.VariationCategoryId">
+                            @foreach (var item in Model.VariationCategories)
+                            {
+                                <option value="@item.Id">@item.VariationName - @item.CategoryName </option>
+                            }
+                        </select>
+                        <span asp-validation-for="PostDto.VariationCategoryId"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label asp-for="PostDto.Value" class="form-label">Value</label>
+                        <br>
+                        <input asp-for="PostDto.Value" type="text" class="form-control text-light" />
+                        <span asp-validation-for="PostDto.Value"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button asp-action="index" asp-controller="variationoptions" class="btn btn-dark">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

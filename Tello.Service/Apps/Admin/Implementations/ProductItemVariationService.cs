@@ -76,17 +76,19 @@ namespace Tello.Service.Apps.Admin.Implementations
         }
         public PaginatedListDto<ProductItemVariationListItemDto> GetAll(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.ProductItemVariationRepository.GetAll(x => !x.IsDeleted, "VariationOption.VariationCategory.Variation", "ProductItem.Product");
-            List<ProductItemVariationListItemDto> items = _mapper.Map<List<ProductItemVariationListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new PaginatedListDto<ProductItemVariationListItemDto>(items, query.Count(), page, 2);
+            List<ProductItemVariationListItemDto> items = _mapper.Map<List<ProductItemVariationListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var listDto = new PaginatedListDto<ProductItemVariationListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
 
         public PaginatedListDto<ProductItemVariationListItemDto> GetAllDeleted(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.ProductItemVariationRepository.GetAll(x => x.IsDeleted, "VariationOption.VariationCategory.Variation", "ProductItem.Product");
-            List<ProductItemVariationListItemDto> items = _mapper.Map<List<ProductItemVariationListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new PaginatedListDto<ProductItemVariationListItemDto>(items, query.Count(), page, 2);
+            List<ProductItemVariationListItemDto> items = _mapper.Map<List<ProductItemVariationListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var listDto = new PaginatedListDto<ProductItemVariationListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
 

@@ -47,9 +47,10 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public PaginatedListDto<VariationListItemDto> GetAll(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.VariationRepository.GetAll(x => !x.IsDeleted);
-            List<VariationListItemDto> items = _mapper.Map<List<VariationListItemDto>>(query.Skip((page-1)*2).Take(2).ToList());
-            PaginatedListDto<VariationListItemDto> variationListItems = new PaginatedListDto<VariationListItemDto>(items, query.Count(), page, 2);
+            List<VariationListItemDto> items = _mapper.Map<List<VariationListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            PaginatedListDto<VariationListItemDto> variationListItems = new PaginatedListDto<VariationListItemDto>(items, query.Count(), page, paginationCount);
             return variationListItems;
         }
 
@@ -63,9 +64,10 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public PaginatedListDto<VariationListItemDto> GetAllDeleted(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.VariationRepository.GetAll(x => x.IsDeleted);
-            List<VariationListItemDto> items = _mapper.Map<List<VariationListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            PaginatedListDto<VariationListItemDto> variationListItems = new PaginatedListDto<VariationListItemDto>(items, query.Count(), page, 2);
+            List<VariationListItemDto> items = _mapper.Map<List<VariationListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            PaginatedListDto<VariationListItemDto> variationListItems = new PaginatedListDto<VariationListItemDto>(items, query.Count(), page, paginationCount);
             return variationListItems;
         }
 

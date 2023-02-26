@@ -26,24 +26,8 @@ namespace Tello.Api.Test.Controllers
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                PaginatedListDto<VariationCategoryListDto> items = JsonConvert.DeserializeObject<PaginatedListDto<VariationCategoryListDto>>(content);
+                PaginatedListDto<VariationCategoryListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<VariationCategoryListItemGetDto>>(content);
                 return View(items);
-            }
-            return RedirectToAction("error", "home");
-        }
-        [HttpPost]
-        public async Task<IActionResult> Edit(int id, VariationCategoryPostDto postDto)
-        {
-            HttpResponseMessage response = null;
-            endpoint = "https://localhost:7067/api/admin/variationcategories/" + id;
-            StringContent content = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
-            using (var client = new HttpClient())
-            {
-                response = await client.PutAsync(endpoint, content);
-            }
-            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return RedirectToAction("index");
             }
             return RedirectToAction("error", "home");
         }
@@ -80,6 +64,48 @@ namespace Tello.Api.Test.Controllers
             }
             return RedirectToAction("error", "home");
         }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, VariationCategoryPostDto postDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                HttpResponseMessage responseAllCategories = null;
+                HttpResponseMessage responseAllVariations = null;
+
+                string endpointCategory = "https://localhost:7067/api/admin/categories/all";
+                string endpointVariation = "https://localhost:7067/api/admin/variations/all";
+
+                using (var client = new HttpClient())
+                {
+                    responseAllCategories = await client.GetAsync(endpointCategory);
+                    responseAllVariations = await client.GetAsync(endpointVariation);
+                }
+                if (responseAllVariations.StatusCode == System.Net.HttpStatusCode.OK && responseAllCategories.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var contentVariation = await responseAllVariations.Content.ReadAsStringAsync();
+                    var contentCategories = await responseAllCategories.Content.ReadAsStringAsync();
+
+                    VariationCategoryViewModel viewModel = new VariationCategoryViewModel
+                    {
+                        Variations = JsonConvert.DeserializeObject<List<VariationGetDto>>(contentVariation),
+                        Categories = JsonConvert.DeserializeObject<List<CategoryGetDto>>(contentCategories)
+                    };
+                    return View(viewModel);
+                }
+            }
+            HttpResponseMessage response = null;
+            endpoint = "https://localhost:7067/api/admin/variationcategories/" + id;
+            StringContent content = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
+            using (var client = new HttpClient())
+            {
+                response = await client.PutAsync(endpoint, content);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return RedirectToAction("index");
+            }
+            return RedirectToAction("error", "home");
+        }
         public async Task<IActionResult> Create()
         {
             HttpResponseMessage responseAllCategories = null;
@@ -110,6 +136,32 @@ namespace Tello.Api.Test.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(VariationCategoryPostDto postDto)
         {
+            if (!ModelState.IsValid)
+            {
+                HttpResponseMessage responseAllCategories = null;
+                HttpResponseMessage responseAllVariations = null;
+
+                string endpointCategory = "https://localhost:7067/api/admin/categories/all";
+                string endpointVariation = "https://localhost:7067/api/admin/variations/all";
+
+                using (var client = new HttpClient())
+                {
+                    responseAllCategories = await client.GetAsync(endpointCategory);
+                    responseAllVariations = await client.GetAsync(endpointVariation);
+                }
+                if (responseAllVariations.StatusCode == System.Net.HttpStatusCode.OK && responseAllCategories.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var contentVariation = await responseAllVariations.Content.ReadAsStringAsync();
+                    var contentCategories = await responseAllCategories.Content.ReadAsStringAsync();
+
+                    VariationCategoryViewModel viewModel = new VariationCategoryViewModel
+                    {
+                        Variations = JsonConvert.DeserializeObject<List<VariationGetDto>>(contentVariation),
+                        Categories = JsonConvert.DeserializeObject<List<CategoryGetDto>>(contentCategories)
+                    };
+                    return View(viewModel);
+                }
+            }
             HttpResponseMessage responseMessage = null;
             endpoint = "https://localhost:7067/api/admin/variationcategories/";
             StringContent content = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
@@ -167,7 +219,7 @@ namespace Tello.Api.Test.Controllers
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                PaginatedListDto<VariationCategoryListDto> items = JsonConvert.DeserializeObject<PaginatedListDto<VariationCategoryListDto>>(content);
+                PaginatedListDto<VariationCategoryListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<VariationCategoryListItemGetDto>>(content);
                 return View(items);
             }
             return RedirectToAction("error", "home");

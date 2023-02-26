@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,13 +44,6 @@ namespace Tello.Service.Apps.Admin.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        //public PaginatedListDto<BrandListItemDto> GetAll(int page)
-        //{
-        //    var query = _unitOfWork.BrandRepository.GetAll(x=>!x.IsDeleted);
-        //    List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-        //    var listDto = new PaginatedListDto<BrandListItemDto>(items,query.Count(),page, 2);
-        //    return listDto;
-        //}
         public async Task<BrandTestPaginationList<BrandListItemDto>> GetAll(int page)
         {
             int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
@@ -58,12 +52,20 @@ namespace Tello.Service.Apps.Admin.Implementations
             var listDto = new BrandTestPaginationList<BrandListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
-        
+
+        public List<BrandGetDto> GetAll()
+        {
+            var query = _unitOfWork.BrandRepository.GetAll(x => !x.IsDeleted);
+            List<BrandGetDto> items = _mapper.Map<List<BrandGetDto>>(query.ToList());
+            return items;
+        }
+
         public BrandTestPaginationList<BrandListItemDto> GetAllDeleted(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.BrandRepository.GetAll(x => x.IsDeleted);
-            List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new BrandTestPaginationList<BrandListItemDto>(items, query.Count(), page, 2);
+            List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var listDto = new BrandTestPaginationList<BrandListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
 

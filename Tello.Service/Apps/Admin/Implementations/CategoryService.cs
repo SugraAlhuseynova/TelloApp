@@ -54,10 +54,10 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         }
 
-        public List<CategoryListItemDto> GetAll1()
+        public List<CategoryGetDto> GetAll()
         {
             var query = _unitOfWork.CategoryRepository.GetAll(x => !x.IsDeleted);
-            List<CategoryListItemDto> items = _mapper.Map<List<CategoryListItemDto>>(query.ToList());
+            List<CategoryGetDto> items = _mapper.Map<List<CategoryGetDto>>(query.ToList());
             return items;
         }
 

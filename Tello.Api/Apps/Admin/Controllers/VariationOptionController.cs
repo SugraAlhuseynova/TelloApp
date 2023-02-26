@@ -18,7 +18,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         }
         // GET: api/<VariationOptionController>
         [HttpGet("all/{page}")]
-        public IActionResult Get(int page = 1)
+        public IActionResult GetAll(int page = 1)
         {
             return Ok(_variationOptionService.GetAll(page));
         }
@@ -54,7 +54,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             await _variationOptionService.Delete(id);
         }
-        [HttpPut("restore/{id}")]
+        [HttpDelete("restore/{id}")]
         public async Task Restore(int id)
         {
             await _variationOptionService.Restore(id);

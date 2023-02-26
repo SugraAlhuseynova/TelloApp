@@ -2,7 +2,7 @@
 
 namespace Tello.Api.Test.DTOs.VariationOption
 {
-    public class VariationOptionListDto
+    public class VariationOptionListItemGetDto
     {
         public int Id { get; set; }
         //public string VariationName { get; set; }

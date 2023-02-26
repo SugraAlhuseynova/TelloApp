@@ -23,6 +23,11 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             return Ok(_variationCategoryService.GetAll(page));
         }
+        [HttpGet("all")]
+        public IActionResult GetAll()
+        {
+            return Ok(_variationCategoryService.GetAll1());
+        }
         [HttpGet("all/deleted/{page}")]
         public IActionResult GetAllDeleted(int page = 1)
         {

@@ -2,20 +2,28 @@
 @{
     ViewData["Title"] = "Create";
 }
-<div class="col-md-7 mx-auto grid-margin stretch-card">
+<div class="col-xl-8 col-lg-10 col-12 mx-auto grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
             <form class="forms-sample" asp-action="create" method="post">
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        <label asp-for="PostDto.VariationCategoryId" class="form-label">Variation</label>
+                        <label asp-for="PostDto.VariationCategoryId" class="form-label">Variation Category</label>
                         <br>
-                        <select asp-for="PostDto.VariationCategoryId" asp-items="new SelectList((List<VariationCategoryGetDto>)Model.VariationCategories,nameof(VariationCategoryGetDto.Id),nameof(VariationCategoryGetDto.VariationName), nameof(VariationCategoryGetDto.CategoryName))">
+                       @* <select asp-for="PostDto.VariationCategoryId" asp-items="new SelectList((List<VariationCategoryGetDto>)Model.VariationCategories,
+                            nameof(VariationCategoryGetDto.Id), 
+                            nameof(VariationCategoryGetDto.CategoryName), nameof(VariationCategoryGetDto.VariationName))">
+                        </select>*@
+                        <select asp-for="PostDto.VariationCategoryId">
+                            @foreach (var item in Model.VariationCategories)
+                                {
+                                    <option value="@item.Id">@item.CategoryName - @item.VariationName </option>
+                                }
                         </select>
                         <span asp-validation-for="PostDto.VariationCategoryId"></span>
                     </div>
                     <div class="col-sm-6">
-                        <label asp-for="PostDto.Value" class="form-label">Category</label>
+                        <label asp-for="PostDto.Value" class="form-label">Value</label>
                         <br>
                         <input asp-for="PostDto.Value" type="text" class="form-control text-light" />
                         <span asp-validation-for="PostDto.Value"></span>

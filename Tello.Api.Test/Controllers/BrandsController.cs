@@ -5,6 +5,7 @@ using NuGet.Packaging.Signing;
 using NuGet.Repositories;
 using System.Diagnostics;
 using System.Text;
+using Tello.Api.Test.DTOs;
 using Tello.Api.Test.DTOs.Brand;
 
 namespace Tello.Api.Test.Controllers
@@ -28,7 +29,7 @@ namespace Tello.Api.Test.Controllers
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                BrandListGetDto<BrandItemGetDto> items = JsonConvert.DeserializeObject<BrandListGetDto<BrandItemGetDto>>(content);
+                PaginatedListDto<BrandListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<BrandListItemGetDto>>(content);
                 return View(items);
             }
             return RedirectToAction("Error", "home");
@@ -47,7 +48,7 @@ namespace Tello.Api.Test.Controllers
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                BrandItemGetDto item = JsonConvert.DeserializeObject<BrandItemGetDto>(content);
+                BrandGetDto item = JsonConvert.DeserializeObject<BrandGetDto>(content);
                 BrandPostDto dto = new BrandPostDto
                 {
                     Name = item.Name
@@ -59,6 +60,8 @@ namespace Tello.Api.Test.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, BrandPostDto postDto)
         {
+            if (!ModelState.IsValid)
+                return View();
             HttpResponseMessage response= null;
             endpoint = "https://localhost:7067/api/admin/brands/" + id;
             var requestContent = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
@@ -128,7 +131,7 @@ namespace Tello.Api.Test.Controllers
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                BrandListGetDto<BrandItemGetDto> items = JsonConvert.DeserializeObject<BrandListGetDto<BrandItemGetDto>>(content);
+                PaginatedListDto<BrandListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<BrandListItemGetDto>>(content);
                 return View(items);
             }
             return RedirectToAction("Error", "home");

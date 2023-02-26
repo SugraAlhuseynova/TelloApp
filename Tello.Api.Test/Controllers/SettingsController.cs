@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using System.Text;
+using Tello.Api.Test.DTOs;
 using Tello.Api.Test.DTOs.Setting;
 
 namespace Tello.Api.Test.Controllers
@@ -23,7 +24,7 @@ namespace Tello.Api.Test.Controllers
             if (responseMessage!=null && responseMessage.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var content = await responseMessage.Content.ReadAsStringAsync();
-                SettingListGetDto<SettingGetDto> items = JsonConvert.DeserializeObject<SettingListGetDto<SettingGetDto>>(content);
+                PaginatedListDto<SettingListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<SettingListItemGetDto>>(content);
                 return View(items);
             }
             return RedirectToAction("error", "home");
@@ -48,6 +49,8 @@ namespace Tello.Api.Test.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, SettingPostDto postDto)
         {
+            if (!ModelState.IsValid)
+                return View();
             HttpResponseMessage responseMessage = null;
 
             endpoint = "https://localhost:7067/api/admin/settings/" + id;
@@ -78,7 +81,5 @@ namespace Tello.Api.Test.Controllers
             }
             return RedirectToAction("error", "home");
         }
-
-
     }
 }

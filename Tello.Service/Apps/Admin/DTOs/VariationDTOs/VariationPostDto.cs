@@ -15,7 +15,7 @@ namespace Tello.Service.Apps.Admin.DTOs.VariationDTOs
     {
         public VariationPostDtoValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required").MaximumLength(20).WithMessage("Maximum length  is 20");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required").MaximumLength(35).WithMessage("Maximum length  is 20");
         }
     }
 

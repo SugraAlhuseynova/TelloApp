@@ -14,7 +14,9 @@ namespace Tello.Service.Apps.Admin.DTOs.ProductDTOs
         public int Count { get; set; }
         public string CategoryName { get; set; }
         public string BrandName { get; set; }
-
+        public int CategoryId { get; set; }
+        public int BrandId { get; set; }
+        public DateTime CreatedAt { get; set; }
 
     }
 }

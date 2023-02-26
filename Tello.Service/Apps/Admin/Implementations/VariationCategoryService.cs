@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,17 +48,26 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public PaginatedListDto<VariationCategoryListItemDto> GetAll(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.VariationCategoryRepository.GetAll(x => !x.IsDeleted, "Category", "Variation");
-            List<VariationCategoryListItemDto> items = _mapper.Map<List<VariationCategoryListItemDto>>(query.Skip((page-1)*2).Take(2).ToList());
-            var pgList = new PaginatedListDto<VariationCategoryListItemDto>(items, query.Count(), page,2);
+            List<VariationCategoryListItemDto> items = _mapper.Map<List<VariationCategoryListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var pgList = new PaginatedListDto<VariationCategoryListItemDto>(items, query.Count(), page, paginationCount);
             return pgList;
+        }
+
+        public List<VariationCategoryGetDto> GetAll1()
+        {
+            var query = _unitOfWork.VariationCategoryRepository.GetAll(x => !x.IsDeleted, "Category", "Variation");
+            List<VariationCategoryGetDto> items = _mapper.Map<List<VariationCategoryGetDto>>(query.ToList());
+            return items;
         }
 
         public PaginatedListDto<VariationCategoryListItemDto> GetAllDeleted(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.VariationCategoryRepository.GetAll(x => x.IsDeleted, "Category", "Variation");
-            List<VariationCategoryListItemDto> items = _mapper.Map<List<VariationCategoryListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var pgList = new PaginatedListDto<VariationCategoryListItemDto>(items, query.Count(), page, 2);
+            List<VariationCategoryListItemDto> items = _mapper.Map<List<VariationCategoryListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var pgList = new PaginatedListDto<VariationCategoryListItemDto>(items, query.Count(), page, paginationCount);
             return pgList;
         }
 

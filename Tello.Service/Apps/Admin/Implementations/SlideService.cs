@@ -56,21 +56,23 @@ namespace Tello.Service.Apps.Admin.Implementations
         }
         public PaginatedListDto<SlideListItemDto> GetAll(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             //eger orderi varsa ordere gore siralayib veririrk eger yoxdusa yaranma vaxtina gore
             var query = _unitOfWork.SlideRepository.GetAll(x => !x.IsDeleted);
                 //.OrderByDescending(x=>x.Order)     User terefde
                 //.ThenByDescending(x=>x.ModifiedAt);
-            List<SlideListItemDto> items = _mapper.Map<List<SlideListItemDto>>(query.Skip((page-1)*2).Take(2).ToList());
-            var listDto = new PaginatedListDto<SlideListItemDto>(items, query.Count(), page, 2);
+            List<SlideListItemDto> items = _mapper.Map<List<SlideListItemDto>>(query.Skip((page-1)*paginationCount).Take(paginationCount).ToList());
+            var listDto = new PaginatedListDto<SlideListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
         public PaginatedListDto<SlideListItemDto> GetAllDeleted(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.SlideRepository.GetAll(x => x.IsDeleted);
             //.OrderByDescending(x=>x.Order)     User terefde
             //.ThenByDescending(x=>x.ModifiedAt);
-            List<SlideListItemDto> items = _mapper.Map<List<SlideListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new PaginatedListDto<SlideListItemDto>(items, query.Count(), page, 2);
+            List<SlideListItemDto> items = _mapper.Map<List<SlideListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var listDto = new PaginatedListDto<SlideListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
         public async Task<SlideGetDto> GetByIdAsync(int id)

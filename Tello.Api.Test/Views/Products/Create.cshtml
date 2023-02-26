@@ -1,0 +1,47 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-md-10 mx-auto grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" asp-action="create" method="post">
+                <div class="form-group row">
+                    <label asp-for="Product.Name" class="col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control text-light" asp-for="@Model.Product.Name">
+                        <span class="text-light" asp-validation-for="@Model.Product.Name"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label asp-for="Product.CategoryId" class="form-label">Category</label>
+                        <br>
+                        <select asp-for="Product.CategoryId" class="form-select" asp-items="new SelectList((List<CategoryGetDto>) Model.Categories,nameof(CategoryGetDto.Id),nameof(CategoryGetDto.Name))">
+                        </select>
+                        <span asp-validation-for="Product.CategoryId"></span>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label asp-for="Product.BrandId" class="form-label">Brand</label>
+                        <br>
+                        <select asp-for="Product.BrandId" class="form-select" asp-items="new SelectList((List<BrandGetDto>) Model.Brands,nameof(BrandGetDto.Id),nameof(BrandGetDto.Name))">
+                        </select>
+                        <span asp-validation-for="Product.BrandId"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Product.Desc" class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <textarea type="text" rows="5" class="form-control text-light" asp-for="Product.Desc"></textarea>
+                        <span class="text-light" asp-validation-for="Product.Desc"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button asp-action="index" asp-controller="products" class="btn btn-dark">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

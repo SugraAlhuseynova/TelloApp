@@ -1,9 +1,8 @@
-﻿namespace Tello.Api.Test.DTOs.Category
+﻿namespace Tello.Api.Test.DTOs.Brand
 {
-    public class CategoryListItemDto
+    public class BrandListItemGetDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
     }
 }

@@ -24,7 +24,7 @@ namespace Tello.Api.Test.Controllers
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                PaginatedListDto<CategoryListItemDto> items = JsonConvert.DeserializeObject<PaginatedListDto<CategoryListItemDto>>(content);
+                PaginatedListDto<CategoryListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<CategoryListItemGetDto>>(content);
                 return View(items);
             }
             return RedirectToAction("error", "home");
@@ -54,6 +54,8 @@ namespace Tello.Api.Test.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, CategoryPostDto postDto)
         {
+            if (!ModelState.IsValid)
+                return View();
             HttpResponseMessage response = null;
             endpoint = "https://localhost:7067/api/admin/categories/" + id;
             var requestContent = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
@@ -123,7 +125,7 @@ namespace Tello.Api.Test.Controllers
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                PaginatedListDto<CategoryListItemDto> items = JsonConvert.DeserializeObject<PaginatedListDto<CategoryListItemDto>>(content);
+                PaginatedListDto<CategoryListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<CategoryListItemGetDto>>(content);
                 return View(items);
             }
             return RedirectToAction("Error", "home");

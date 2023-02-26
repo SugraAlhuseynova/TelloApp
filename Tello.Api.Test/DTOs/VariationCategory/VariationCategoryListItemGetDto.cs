@@ -1,6 +1,6 @@
 ﻿namespace Tello.Api.Test.DTOs.VariationCategory
 {
-    public class VariationCategoryListDto
+    public class VariationCategoryListItemGetDto
     {
         public int  Id { get; set; }
         public string VariationName { get; set; }

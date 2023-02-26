@@ -16,7 +16,7 @@ namespace Tello.Api.Test.Controllers
             if (page == 0)
                 page = 1;
 
-            endpoint = "https://localhost:7067/api/admin/variationcategories/all/" + page;
+            endpoint = "https://localhost:7067/api/admin/variations/all/" + page;
             using (var client = new HttpClient())
             {
                 response = await client.GetAsync(endpoint);
@@ -24,7 +24,7 @@ namespace Tello.Api.Test.Controllers
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                PaginatedListDto<VariationListDto> items = JsonConvert.DeserializeObject<PaginatedListDto<VariationListDto>>(content);
+                PaginatedListDto<VariationListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<VariationListItemGetDto>>(content);
                 return View(items);
             }
             return RedirectToAction("error", "home");
@@ -54,6 +54,8 @@ namespace Tello.Api.Test.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, VariationPostDto postDto)
         {
+            if (!ModelState.IsValid)
+                return View ();
             HttpResponseMessage response = null;
             endpoint = "https://localhost:7067/api/admin/variations/" + id;
             var requestContent = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
@@ -123,7 +125,7 @@ namespace Tello.Api.Test.Controllers
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                PaginatedListDto<VariationListDto> items = JsonConvert.DeserializeObject<PaginatedListDto<VariationListDto>>(content);
+                PaginatedListDto<VariationListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<VariationListItemGetDto>>(content);
                 return View(items);
             }
             return RedirectToAction("Error", "home");

@@ -48,17 +48,19 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public PaginatedListDto<VariationOptionListItemDto> GetAll(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.VariationOptionRepository.GetAll(x => !x.IsDeleted, "VariationCategory.Category", "VariationCategory.Variation");
-            List<VariationOptionListItemDto> items = _mapper.Map<List<VariationOptionListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new PaginatedListDto<VariationOptionListItemDto>(items, query.Count(), page, 2);
+            List<VariationOptionListItemDto> items = _mapper.Map<List<VariationOptionListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var listDto = new PaginatedListDto<VariationOptionListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
 
         public PaginatedListDto<VariationOptionListItemDto> GetAllDeleted(int page)
         {
+            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.VariationOptionRepository.GetAll(x => x.IsDeleted, "VariationCategory.Category", "VariationCategory.Variation");
-            List<VariationOptionListItemDto> items = _mapper.Map<List<VariationOptionListItemDto>>(query.Skip((page - 1) * 2).Take(2).ToList());
-            var listDto = new PaginatedListDto<VariationOptionListItemDto>(items, query.Count(), page, 2);
+            List<VariationOptionListItemDto> items = _mapper.Map<List<VariationOptionListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
+            var listDto = new PaginatedListDto<VariationOptionListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
 
