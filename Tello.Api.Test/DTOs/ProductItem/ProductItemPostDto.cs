@@ -1,4 +1,6 @@
-﻿namespace Tello.Api.Test.DTOs.ProductItem
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Tello.Api.Test.DTOs.ProductItem
 {
     public class ProductItemPostDto
     {

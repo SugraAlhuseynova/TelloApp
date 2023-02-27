@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,13 @@ namespace Tello.Service.Apps.Admin.Implementations
             List<ProductListItemDto> items = _mapper.Map<List<ProductListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
             var paginationList = new PaginatedListDto<ProductListItemDto>(items, query.Count(), page, paginationCount);
             return paginationList;
+        }
+
+        public List<ProductListItemDto> GetAll()
+        {
+            var query = _unitOfWork.ProductRepository.GetAll(x => !x.IsDeleted, "Category", "Brand");
+            List<ProductListItemDto> items = _mapper.Map<List<ProductListItemDto>>(query.ToList());
+            return items;
         }
 
         public PaginatedListDto<ProductListItemDto> GetAllDeleted(int page)

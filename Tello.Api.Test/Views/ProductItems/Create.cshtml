@@ -1,0 +1,50 @@
+﻿@model ProductItemViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-md-10 mx-auto grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" asp-action="create" method="post">
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label asp-for="PostDto.ProductId" class="form-label">Product</label>
+                        <br>
+                        <select asp-for="PostDto.ProductId" class="form-select" asp-items="new SelectList((List<ProductGetDto>) Model.Products,nameof(ProductGetDto.Id),nameof(ProductGetDto.Name))">
+                        </select>
+                        <span asp-validation-for="PostDto.ProductId"></span>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label asp-for="PostDto.Count" class="col-sm-3 col-form-label">Count</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control text-light" asp-for="PostDto.Count">
+                            <span class="text-light" asp-validation-for="PostDto.Count"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label asp-for="PostDto.CostPrice" class="col-sm-3 col-form-label">CostPrice</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control text-light" asp-for="PostDto.CostPrice">
+                            <span class="text-light" asp-validation-for="PostDto.CostPrice"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label asp-for="PostDto.SalePrice" class="col-sm-3 col-form-label">SalePrice</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control text-light" asp-for="PostDto.SalePrice">
+                            <span class="text-light" asp-validation-for="PostDto.SalePrice"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button asp-action="index" asp-controller="productitems" class="btn btn-dark">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

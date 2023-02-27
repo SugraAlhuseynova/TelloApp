@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Metadata;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using NuGet.Protocol;
 using Tello.Service.Apps.Admin.DTOs.ProductDTOs;
 using Tello.Service.Apps.Admin.IServices;
 
@@ -33,7 +37,11 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             return Ok(await _productService.GetAsync(id));
         }
-
+        [HttpGet("all")]
+        public IActionResult GetAll()
+        {
+            return Ok(_productService.GetAll());
+        }
         // POST api/<ProductsController>
         [HttpPost]
         public async Task Post([FromBody] ProductPostDto postDto)
