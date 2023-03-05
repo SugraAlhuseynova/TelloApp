@@ -56,7 +56,7 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public List<CategoryGetDto> GetAll()
         {
-            var query = _unitOfWork.CategoryRepository.GetAll(x => !x.IsDeleted);
+            var query = _unitOfWork.CategoryRepository.GetAll(x => !x.IsDeleted, "Products");
             List<CategoryGetDto> items = _mapper.Map<List<CategoryGetDto>>(query.ToList());
             return items;
         }
@@ -69,7 +69,7 @@ namespace Tello.Service.Apps.Admin.Implementations
             var listDto = new PaginatedListDto<CategoryListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
-
+        
         public async Task<CategoryGetDto> GetAsync(int id)
         {
             var entity = await _unitOfWork.CategoryRepository.GetAsync(x => x.Id == id && !x.IsDeleted);

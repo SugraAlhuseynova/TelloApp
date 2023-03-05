@@ -1,14 +1,14 @@
-﻿@model PaginatedListDto<ProductItemListItemGetDto>
+﻿@model ProductItemIndexViewModel
 @{
     ViewData["Title"] = "Index";
-    int count = Model.Items.Count * (Model.PageIndex - 1);
+    int count = Model.PaginatedList.Items.Count * (Model.PaginatedList.PageIndex - 1);
 }
 
 <div class="col-md-10 mx-auto stretch-card">
     <div class="card">
         <div class="card-body">
             <p class="card-description">
-                <a asp-action="create" asp-controller="productitems" class="btn btn-success">Create</a>
+                <a asp-action="precreate" asp-controller="productitems" class="btn btn-success sweet-create">Create</a>
                 <a asp-action="getalldeleted" asp-controller="productitems" class="btn btn-danger">See all deleted product items</a>
             </p>
             <div class="table-responsive">
@@ -25,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Items)
+                        @foreach (var item in Model.PaginatedList.Items)
                         {
                             count++;
                             <tr class="text-light">
@@ -33,8 +33,8 @@
                                 <td>@item.Id</td>
                                 @*<td> <a asp-action="detail" asp-route-id="@item.Id" class="text-white">@item.Name</a> </td>*@
                                 <td>@item.ProductName</td>
-                            @*    <td>@item.SalePrice</td>
-                                <td>@item.CostPrice</td>*@
+                                @*    <td>@item.SalePrice</td>
+                            <td>@item.CostPrice</td>*@
                                 <td>@item.CategoryName</td>
                                 <td>@item.BrandName</td>
                                 <td>@item.Count</td>
@@ -57,26 +57,43 @@
                     </li>
                     <li class="page-item">
                         <a class="page-link" asp-action="index" asp-controller="productitems"
-                           asp-route-page="@(Model.PageIndex==1?Model.PageIndex:Model.PageIndex-1)" aria-label="Next">
+                           asp-route-page="@(Model.PaginatedList.PageIndex==1?Model.PaginatedList.PageIndex:Model.PaginatedList.PageIndex-1)" aria-label="Next">
                             <i class="fa-solid fa-angle-left"></i>
                         </a>
                     </li>
-                    @for (int i = 1; i <= Model.TotalPage; i++)
+                    @for (int i = 1; i <= Model.PaginatedList.TotalPage; i++)
                     {
                         <li class="page-item"><a class="page-link" asp-action="index" asp-controller="productitems" asp-route-page="@i">@i</a></li>
 
                     }
                     <li class="page-item">
-                        <a class="page-link" asp-action="index" asp-controller="productitems" asp-route-page="@(Model.PageIndex==Model.TotalPage?Model.TotalPage:Model.PageIndex+1)" aria-label="Next">
+                        <a class="page-link" asp-action="index" asp-controller="productitems" asp-route-page="@(Model.PaginatedList.PageIndex==Model.PaginatedList.TotalPage?Model.PaginatedList.TotalPage:Model.PaginatedList.PageIndex+1)" aria-label="Next">
                             <i class="fa-solid fa-angle-right"></i>
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" asp-action="index" asp-controller="productitems" asp-route-page="@Model.TotalPage" aria-label="Next">
+                        <a class="page-link" asp-action="index" asp-controller="productitems" asp-route-page="@Model.PaginatedList.TotalPage" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal" id="select-category">
+    <div class="card">
+        <h2>Select Category</h2>
+        <p class="text-muted">Which type of product do you want to create</p>
+        <div class="categories">
+            <div class="choose-category">
+                @foreach (var item in Model.Categories)
+                {
+                    <a asp-action="index" asp-route-id="@item.Id" class="col-sm-3 text-white">
+                        <p >@item.Name</p>
+                    </a>
+                }
             </div>
         </div>
     </div>

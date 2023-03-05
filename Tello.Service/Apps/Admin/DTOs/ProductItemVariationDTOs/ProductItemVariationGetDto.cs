@@ -12,6 +12,7 @@ namespace Tello.Service.Apps.Admin.DTOs.ProductItemVariationDTOs
         public string ProductName { get; set; }
         public string VariationOptionValue { get; set; }
         public string VariationName { get; set; }
-
+        public int ProductItemId { get; set; }
+        public int VariationOptionId { get; set; }
     }
 }

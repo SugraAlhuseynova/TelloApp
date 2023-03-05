@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,13 @@ namespace Tello.Service.Apps.Admin.Implementations
             List<VariationOptionListItemDto> items = _mapper.Map<List<VariationOptionListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
             var listDto = new PaginatedListDto<VariationOptionListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
+        }
+
+        public List<VariationOptionSelectDto> GetAll()
+        {
+            var query = _unitOfWork.VariationOptionRepository.GetAll(x => !x.IsDeleted, "VariationCategory.Category", "VariationCategory.Variation");
+            List<VariationOptionSelectDto> items = _mapper.Map<List<VariationOptionSelectDto>>(query.ToList());
+            return items;
         }
 
         public PaginatedListDto<VariationOptionListItemDto> GetAllDeleted(int page)

@@ -15,6 +15,7 @@ namespace Tello.Service.Apps.Admin.IServices
         Task<VariationOptionGetDto> GetAsync(int id);
         Task Delete(int id);
         Task Restore(int id);
+        List<VariationOptionSelectDto> GetAll();
         PaginatedListDto<VariationOptionListItemDto> GetAll(int page);
         PaginatedListDto<VariationOptionListItemDto> GetAllDeleted(int page);
     }

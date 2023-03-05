@@ -1,0 +1,40 @@
+﻿@model ProductItemVariationViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="col-md-10 mx-auto grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <form class="forms-sample" asp-action="edit" method="post">
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label asp-for="PostDto.ProductItemId" class="form-label">Product</label>
+                        <br>
+                        <select asp-for="PostDto.ProductItemId" class="form-select" asp-items="new SelectList((List<ProductItemSelectDto>) Model.ProductItems,nameof(ProductItemSelectDto.Id),nameof(ProductItemSelectDto.ProductName))">
+                        </select>
+                        <span asp-validation-for="PostDto.ProductItemId"></span>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label asp-for="PostDto.VariationOptionId" class="form-label">Variations</label>
+                        <br>
+                      @*  <select asp-for="PostDto.VariationOptionId" class="form-select" asp-items="new SelectList((List<VariationOptionSelectDto>) Model.VariationOptions, nameof(VariationOptionSelectDto.Id), nameof(VariationOptionSelectDto.Value))">
+                        </select>*@
+                        <select asp-for="PostDto.VariationOptionId" class="form-select">
+                            @foreach (var item in Model.VariationOptions)
+                                {
+                                    <option value="@item.Id">@item.VariationName - @item.Value</option>
+                                }
+                        </select>
+                        <span asp-validation-for="PostDto.VariationOptionId"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button asp-action="index" asp-controller="productitemvariations" class="btn btn-dark">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

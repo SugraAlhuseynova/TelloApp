@@ -15,6 +15,7 @@ namespace Tello.Service.Apps.Admin.IServices
         Task<ProductItemGetDto> GetAsync(int id);
         Task Delete(int id);
         Task Restore(int id);
+        List<ProductItemSelectDto> GetAll();
         PaginatedListDto<ProductItemListItemDto> GetAll(int page);
         PaginatedListDto<ProductItemListItemDto> GetAllDeleted(int page);
     }

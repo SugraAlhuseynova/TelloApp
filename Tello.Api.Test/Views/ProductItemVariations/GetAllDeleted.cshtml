@@ -1,0 +1,77 @@
+﻿@model PaginatedListDto<ProductItemVariationListItemGetDto>
+@{
+    ViewData["Title"] = "Get All Deleted";
+    int count = Model.Items.Count * (Model.PageIndex - 1);
+}
+
+<div class="col-md-10 mx-auto stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <p class="card-description">
+                <a asp-action="index" asp-controller="productitemvariations" class="btn btn-danger">See all product item variations</a>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Id</th>
+                            <th>Product Name</th>
+                            <th>Variation</th>
+                            <th>Variation Value</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            count++;
+                            <tr class="text-light">
+                                <td>@count</td>
+                                <td>@item.Id</td>
+                                @*<td> <a asp-action="detail" asp-route-id="@item.Id" class="text-white">@item.Name</a> </td>*@
+                                <td>@item.ProductName</td>
+                                <td>@item.VariationName</td>
+                                <td>@item.VariationOptionValue</td>
+                                <td>
+                                    <a asp-action="restore" asp-route-id="@item.Id" class="badge badge-danger sweet-restore">Restore</a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center pt-3">
+                <ul class="pagination mx-auto">
+                    <li class="page-item">
+                        <a class="page-link" asp-action="getalldeleted" asp-controller="productitemvariations" asp-route-page="1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-action="getalldeleted" asp-controller="productitemvariations"
+                           asp-route-page="@(Model.PageIndex==1?Model.PageIndex:Model.PageIndex-1)" aria-label="Next">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPage; i++)
+                    {
+                        <li class="page-item"><a class="page-link" asp-action="getalldeleted" asp-controller="productitemvariations" asp-route-page="@i">@i</a></li>
+
+                    }
+                    <li class="page-item">
+                        <a class="page-link" asp-action="getalldeleted" asp-controller="productitemvariations" asp-route-page="@(Model.PageIndex==Model.TotalPage?Model.TotalPage:Model.PageIndex+1)" aria-label="Next">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-action="getalldeleted" asp-controller="productitemvariations" asp-route-page="@Model.TotalPage" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

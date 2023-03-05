@@ -34,6 +34,11 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             return Ok(await _productItemService.GetAsync(id));
         }
+        [HttpGet("all")]
+        public IActionResult GetAll()
+        {
+            return Ok(_productItemService.GetAll());
+        }
 
         // POST api/<ProductItemController>
         [HttpPost]

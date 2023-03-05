@@ -60,10 +60,10 @@ namespace Tello.Service.Apps.Admin.Implementations
             return paginationList;
         }
 
-        public List<ProductListItemDto> GetAll()
+        public List<ProductSelectDto> GetAll()
         {
             var query = _unitOfWork.ProductRepository.GetAll(x => !x.IsDeleted, "Category", "Brand");
-            List<ProductListItemDto> items = _mapper.Map<List<ProductListItemDto>>(query.ToList());
+            List<ProductSelectDto> items = _mapper.Map<List<ProductSelectDto>>(query.ToList());
             return items;
         }
 

@@ -7,7 +7,7 @@ using Tello.Service.Apps.Admin.IServices;
 
 namespace Tello.Api.Apps.Admin.Controllers
 {
-    [Route("api/admin/productItemVariation")]
+    [Route("api/admin/productitemvariations")]
     [ApiController]
     public class ProductItemVariationsController : ControllerBase
     {
@@ -18,12 +18,12 @@ namespace Tello.Api.Apps.Admin.Controllers
             _productItemVariationService = productItemVariationService;
         }
         // GET: api/<ProductConfigurationController>
-        [HttpGet]
+        [HttpGet("all/{page}")]
         public IActionResult GetAll(int page)
         {
             return Ok(_productItemVariationService.GetAll(page));
         }
-        [HttpGet("all/deleted")]
+        [HttpGet("all/deleted/{page}")]
         public IActionResult GetAllDeleted(int page)
         {
             return Ok(_productItemVariationService.GetAllDeleted(page));
@@ -55,7 +55,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             await _productItemVariationService.Delete(id);
         }
-        [HttpPut("{id}/deleted")]
+        [HttpDelete("restore/{id}")]
         public async Task Restore(int id)
         {
             await _productItemVariationService.Restore(id);

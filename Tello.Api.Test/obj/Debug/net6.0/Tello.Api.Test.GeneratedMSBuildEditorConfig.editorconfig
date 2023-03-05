@@ -72,6 +72,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdEl0ZW1zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/ProductItemVariations/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdEl0ZW1WYXJpYXRpb25zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/ProductItemVariations/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdEl0ZW1WYXJpYXRpb25zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/ProductItemVariations/GetAllDeleted.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdEl0ZW1WYXJpYXRpb25zXEdldEFsbERlbGV0ZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/ProductItemVariations/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdEl0ZW1WYXJpYXRpb25zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Products/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -102,6 +118,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Shared/_CreatePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DcmVhdGVQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Taleh/Desktop/TelloApi/Tello.Api.Test/Views/Shared/_ValidationScriptsPartial.cshtml]

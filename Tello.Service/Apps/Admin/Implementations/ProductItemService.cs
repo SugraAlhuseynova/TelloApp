@@ -12,6 +12,7 @@ using Tello.Core.IUnitOfWork;
 using AutoMapper;
 using Tello.Service.Exceptions;
 using Tello.Core.Entities;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Tello.Service.Apps.Admin.Implementations
 {
@@ -50,6 +51,13 @@ namespace Tello.Service.Apps.Admin.Implementations
             List<ProductItemListItemDto> items = _mapper.Map<List<ProductItemListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
             var paginationList = new PaginatedListDto<ProductItemListItemDto>(items, query.Count(), page, paginationCount);
             return paginationList;
+        }
+
+        public List<ProductItemSelectDto> GetAll()
+        {
+            var query = _unitOfWork.ProductItemRepository.GetAll(x => !x.IsDeleted, "Product.Category", "Product.Brand");
+            List<ProductItemSelectDto> items = _mapper.Map<List<ProductItemSelectDto>>(query.ToList());
+            return items;
         }
 
         public PaginatedListDto<ProductItemListItemDto> GetAllDeleted(int page)

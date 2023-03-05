@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cMtGEWowCxeoBWzvoSHLVLnlIm2stj9okHTWa4aaGAA=",
+  "Hash": "Be6kagfj/cQNKUlX22lWKToVPnc15b7ewWa01PMflkA=",
   "Source": "Tello.Api.Test",
   "BasePath": "_content/Tello.Api.Test",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Tello.Api.Test.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\css\\chooseCategory.css",
+      "SourceId": "Tello.Api.Test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\",
+      "BasePath": "_content/Tello.Api.Test",
+      "RelativePath": "assets/css/chooseCategory.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\css\\chooseCategory.css"
     },
     {
       "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\css\\maps\\style.css.map",
@@ -4197,6 +4214,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\js\\popover.js"
+    },
+    {
+      "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\precreate.js",
+      "SourceId": "Tello.Api.Test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\",
+      "BasePath": "_content/Tello.Api.Test",
+      "RelativePath": "assets/js/precreate.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\js\\precreate.js"
     },
     {
       "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\profile-demo.js",

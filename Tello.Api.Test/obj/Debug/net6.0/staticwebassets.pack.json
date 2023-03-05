@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Tello.Api.Test.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\css\\chooseCategory.css",
+      "PackagePath": "staticwebassets\\assets\\css\\chooseCategory.css"
+    },
+    {
       "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\css\\maps\\style.css.map",
       "PackagePath": "staticwebassets\\assets\\css\\maps\\style.css.map"
     },
@@ -979,6 +983,10 @@
     {
       "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\popover.js",
       "PackagePath": "staticwebassets\\assets\\js\\popover.js"
+    },
+    {
+      "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\precreate.js",
+      "PackagePath": "staticwebassets\\assets\\js\\precreate.js"
     },
     {
       "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api.Test\\wwwroot\\assets\\js\\profile-demo.js",
