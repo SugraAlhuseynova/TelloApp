@@ -71,7 +71,7 @@ namespace Tello.Service.Apps.Admin.Implementations
 
         public async Task<ProductItemGetDto> GetAsync(int id)
         {
-            var entity = await _unitOfWork.ProductItemRepository.GetAsync(x => x.Id == id && !x.IsDeleted, "Product");
+            var entity = await _unitOfWork.ProductItemRepository.GetAsync(x => x.Id == id && !x.IsDeleted, "Product.Brand", "Product.Category", "ProductItemVariations");
             if (entity == null)
                 throw new ItemNotFoundException("ProductItem not found");
             var piGetDto = _mapper.Map<ProductItemGetDto>(entity);

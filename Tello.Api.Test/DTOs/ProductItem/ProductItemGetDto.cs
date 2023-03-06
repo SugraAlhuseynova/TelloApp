@@ -10,5 +10,6 @@
         public string ProductName { get; set; }
         public string CategoryName { get; set; }
         public string BrandName { get; set; }
+        public List<int> ProductItemVariationIds { get; set; }
     }
 }

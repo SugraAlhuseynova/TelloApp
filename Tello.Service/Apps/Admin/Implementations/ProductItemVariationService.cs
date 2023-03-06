@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,6 +100,13 @@ namespace Tello.Service.Apps.Admin.Implementations
                 throw new ItemNotFoundException("Product Item Variation not found");
             var getDto = _mapper.Map<ProductItemVariationGetDto>(entity);
             return getDto;
+        }
+
+        public List<ProductItemVariationGetDto> GetAll()
+        {
+            var query = _unitOfWork.ProductItemVariationRepository.GetAll(x => !x.IsDeleted, "VariationOption.VariationCategory.Variation", "ProductItem.Product");
+            List<ProductItemVariationGetDto> items = _mapper.Map<List<ProductItemVariationGetDto>>(query.ToList());
+            return items;
         }
     }
 }

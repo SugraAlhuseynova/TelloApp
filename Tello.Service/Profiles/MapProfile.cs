@@ -1,10 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tello.Core.Entities;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs;
 using Tello.Service.Apps.Admin.DTOs.BrandDTOs;
@@ -61,7 +55,8 @@ namespace Tello.Service.Profiles
             //ProductItem
             CreateMap<ProductItem, ProductItemGetDto>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Product.Category.Name))
-                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name));
+                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name))
+                .ForMember(dest => dest.ProductItemVariationIds, opt => opt.MapFrom(src => src.ProductItemVariations.Select(x=>x.Id).ToList()));
             CreateMap<ProductItem, ProductItemSelectDto>()
                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Product.Category.Name))
                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name));

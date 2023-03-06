@@ -90,8 +90,8 @@
             <div class="choose-category">
                 @foreach (var item in Model.Categories)
                 {
-                    <a asp-action="index" asp-route-id="@item.Id" class="col-sm-3 text-white">
-                        <p >@item.Name</p>
+                    <a asp-action="create" asp-route-id="@item.Id" class="col-sm-3 text-white ">
+                        @item.Name
                     </a>
                 }
             </div>

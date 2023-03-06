@@ -10,12 +10,11 @@
             <form class="forms-sample" asp-action="edit" method="post">
 
                 <div class="row">
+                    <input hidden asp-for="PostDto.ProductId" class="form-control"/>
                     <div class="col-sm-6 form-group">
-                        <label asp-for="PostDto.ProductId" class="form-label">Product</label>
+                        <label asp-for="PostDto.ProductName" class="form-label">Product</label>
                         <br>
-                        <select asp-for="PostDto.ProductId" class="form-select" asp-items="new SelectList((List<ProductGetDto>) Model.Products,nameof(ProductGetDto.Id),nameof(ProductGetDto.Name))">
-                        </select>
-                        <span asp-validation-for="PostDto.ProductId"></span>
+                        <input asp-for="PostDto.ProductName" class="form-control bg-dark text-white" readonly value="@Model.PostDto.ProductName">
                     </div>
                     <div class="form-group col-sm-6">
                         <label asp-for="PostDto.Count" class="col-sm-3 col-form-label">Count</label>
@@ -40,6 +39,18 @@
                             <span class="text-light" asp-validation-for="PostDto.SalePrice"></span>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    @foreach (var item in Model.VariationCategories)
+                    {
+                        <div class="form-group col-sm-4">
+                            <label asp-for="PostDto.VariationOptionIds" class="col-form-label">@item.VariationName</label>
+                            <br />
+                            <select asp-for="PostDto.VariationOptionIds" class="form-select" asp-items="new SelectList((List<VariationOptionSelectDto>) Model.VariationOptions.Where(x=>x.VariationName == item.VariationName).ToList(),nameof(VariationOptionSelectDto.Id),nameof(VariationOptionSelectDto.Value))">
+                            </select>
+                        </div>
+
+                    }
                 </div>
 
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>

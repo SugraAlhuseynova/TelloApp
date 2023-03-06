@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.JSInterop.Implementation;
 using Newtonsoft.Json;
+using System.Data;
 using System.Text;
 using Tello.Api.Test.DTOs;
 using Tello.Api.Test.DTOs.Category;
 using Tello.Api.Test.DTOs.Product;
 using Tello.Api.Test.DTOs.ProductItem;
-using Tello.Api.Test.DTOs.Variation;
+using Tello.Api.Test.DTOs.ProductItemVariation;
+using Tello.Api.Test.DTOs.VariationCategory;
 using Tello.Api.Test.DTOs.VariationOption;
 using Tello.Api.Test.ViewModels.ProductItem;
 
@@ -31,7 +31,7 @@ namespace Tello.Api.Test.Controllers
                 responseCategory = await client.GetAsync(endpointCategory);
             }
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK &&
-                responseCategory != null && responseCategory.StatusCode == System.Net.HttpStatusCode.OK )
+                responseCategory != null && responseCategory.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string content = await response.Content.ReadAsStringAsync();
                 string contentCategory = await responseCategory.Content.ReadAsStringAsync();
@@ -64,56 +64,56 @@ namespace Tello.Api.Test.Controllers
             }
             return RedirectToAction("error", "index");
         }
-        public async Task<IActionResult> PreCreate()
-        {
-            endpoint = "https://localhost:7067/api/admin/categories/all";
-            using (var client = new HttpClient())
-            {
-                response = await client.GetAsync(endpoint);
-            }
-            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                string content = await response.Content.ReadAsStringAsync();
-                List<CategoryListItemGetDto> items = JsonConvert.DeserializeObject<List<CategoryListItemGetDto>>(content);
-                return Json(items);
-            }
-            return Ok();
-        }
-        public async Task<IActionResult> Create()
+        //public async Task<IActionResult> PreCreate()
+        //{
+        //    endpoint = "https://localhost:7067/api/admin/categories/all";
+        //    using (var client = new HttpClient())
+        //    {
+        //        response = await client.GetAsync(endpoint);
+        //    }
+        //    if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+        //    {
+        //        string content = await response.Content.ReadAsStringAsync();
+        //        List<CategoryListItemGetDto> items = JsonConvert.DeserializeObject<List<CategoryListItemGetDto>>(content);
+        //        return Json(items);
+        //    }
+        //    return Ok();
+        //}
+        public async Task<IActionResult> Create(int id)
         {
             string endpointProduct = "https://localhost:7067/api/admin/products/all/";
             string endpointVariationOption = "https://localhost:7067/api/admin/variationoptions/all";
-            string endpointVariation = "https://localhost:7067/api/admin/variations/all";
+            string endpointVariationCategory = "https://localhost:7067/api/admin/variationcategories/all";
             string endpointCategory = "https://localhost:7067/api/admin/categories/all";
             HttpResponseMessage responseVariationOption = null;
-            HttpResponseMessage responseVariation = null;
+            HttpResponseMessage responseVariationCategory = null;
             HttpResponseMessage responseCategory = null;
             using (HttpClient client = new HttpClient())
             {
                 response = await client.GetAsync(endpointProduct);
                 responseVariationOption = await client.GetAsync(endpointVariationOption);
-                responseVariation = await client.GetAsync(endpointVariation);
+                responseVariationCategory = await client.GetAsync(endpointVariationCategory);
                 responseCategory = await client.GetAsync(endpointCategory);
             }
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK &&
                 responseVariationOption != null && responseVariationOption.StatusCode == System.Net.HttpStatusCode.OK &&
-                responseVariation != null && responseVariation.StatusCode == System.Net.HttpStatusCode.OK &&
-                responseCategory != null && responseCategory.StatusCode == System.Net.HttpStatusCode.OK)
+                responseCategory != null && responseCategory.StatusCode == System.Net.HttpStatusCode.OK &&
+                responseVariationCategory != null && responseVariationCategory.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string contentProduct = await response.Content.ReadAsStringAsync();
                 string contentVariationOption = await responseVariationOption.Content.ReadAsStringAsync();
-                string contentVariation = await responseVariation.Content.ReadAsStringAsync();
-                string contentCategory = await responseVariation.Content.ReadAsStringAsync();
+                string contentCategory = await responseCategory.Content.ReadAsStringAsync();
+                string contentVariationCategory = await responseVariationCategory.Content.ReadAsStringAsync();
                 List<VariationOptionSelectDto> variationOptions = JsonConvert.DeserializeObject<List<VariationOptionSelectDto>>(contentVariationOption);
-                List<ProductGetDto> items = JsonConvert.DeserializeObject<List<ProductGetDto>>(contentProduct);
-                List<VariationGetDto> variations = JsonConvert.DeserializeObject<List<VariationGetDto>>(contentVariation);
+                List<ProductSelectDto> items = JsonConvert.DeserializeObject<List<ProductSelectDto>>(contentProduct);
                 List<CategoryGetDto> categories = JsonConvert.DeserializeObject<List<CategoryGetDto>>(contentCategory);
+                List<VariationCategoryGetDto> variationCategories = JsonConvert.DeserializeObject<List<VariationCategoryGetDto>>(contentVariationCategory);
+                var category = categories.FirstOrDefault(x => x.Id == id);
                 ProductItemViewModel productItemVM = new ProductItemViewModel
                 {
-                    Products = items,
-                    VariationOptions = variationOptions,
-                    Variations = variations, 
-                    Categories = categories
+                    Products = items.Where(x => x.CategoryName == category.Name).ToList(),
+                    VariationOptions = variationOptions.Where(x => x.CategoryName == category.Name).ToList(),
+                    VariationCategories = variationCategories.Where(x => x.CategoryId == id).ToList()
                 };
                 return View(productItemVM);
             }
@@ -122,25 +122,29 @@ namespace Tello.Api.Test.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductItemPostDto postDto)
         {
-            if (!ModelState.IsValid)
-            {
-                string endpointProduct = "https://localhost:7067/api/admin/products/all/";
-                using (HttpClient client = new HttpClient())
-                {
-                    response = await client.GetAsync(endpointProduct);
-                }
-                if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    string contentProduct = await response.Content.ReadAsStringAsync();
-                    List<ProductGetDto> items = JsonConvert.DeserializeObject<List<ProductGetDto>>(contentProduct);
-                    ProductItemViewModel productItemVM = new ProductItemViewModel
-                    {
-                        Products = items
-                    };
-                    return View(productItemVM);
-                }
-            }
+            #region modelstate
+            //if (!ModelState.IsValid)
+            //{
+            //    string endpointProduct = "https://localhost:7067/api/admin/products/all/";
+            //    using (HttpClient client = new HttpClient())
+            //    {
+            //        response = await client.GetAsync(endpointProduct);
+            //    }
+            //    if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        string contentProduct = await response.Content.ReadAsStringAsync();
+            //        List<ProductSelectDto> items = JsonConvert.DeserializeObject<List<ProductSelectDto>>(contentProduct);
+            //        ProductItemViewModel productItemVM = new ProductItemViewModel
+            //        {
+            //            Products = items
+            //        };
+            //        return View(productItemVM);
+            //    }
+            //}
+            #endregion
+
             endpoint = "https://localhost:7067/api/admin/productitems/";
+            //productitemid vs variationoptionId
             StringContent content = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
             {
@@ -148,34 +152,93 @@ namespace Tello.Api.Test.Controllers
             }
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return RedirectToAction("index");
+                string endpointProductItem = "https://localhost:7067/api/admin/productitems/all";
+                HttpResponseMessage responseProductItems = new();
+                using (HttpClient client = new HttpClient())
+                {
+                    responseProductItems = await client.GetAsync(endpointProductItem);
+                }
+                if (responseProductItems.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    string contentProductItems = await responseProductItems.Content.ReadAsStringAsync();
+                    List<ProductItemGetDto> productItemGetDtos = JsonConvert.DeserializeObject<List<ProductItemGetDto>>(contentProductItems);
+                    var productItem = productItemGetDtos.OrderByDescending(x => x.Id).FirstOrDefault();
+                    foreach (var item in postDto.VariationOptionIds)
+                    {
+                        var productItemVariation = new ProductItemVariationPostDto
+                        {
+                            VariationOptionId = item,
+                            ProductItemId = productItem.Id
+                        };
+                        string endpointproductItemVariation = "https://localhost:7067/api/admin/productitemvariations/";
+                        HttpResponseMessage responseproductItemVariation = null;
+                        StringContent contentproductItemVariation = new StringContent(JsonConvert.SerializeObject(productItemVariation), Encoding.UTF8, "application/json");
+                        using (HttpClient client = new HttpClient())
+                        {
+                            responseproductItemVariation = await client.PostAsync(endpointproductItemVariation, contentproductItemVariation);
+                        }
+                        if (responseproductItemVariation == null && responseproductItemVariation.StatusCode != System.Net.HttpStatusCode.OK)
+                        {
+                            return RedirectToAction("error", "home");
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            return RedirectToAction("error", "index");
+            return RedirectToAction("error", "home");
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            string endpointProduct = "https://localhost:7067/api/admin/products/all/";
             endpoint = "https://localhost:7067/api/admin/productitems/" + id;
-            HttpResponseMessage responseProducts = new();
+            string endpointVariationCategory = "https://localhost:7067/api/admin/variationcategories/all";
+            string endpointVariationOption = "https://localhost:7067/api/admin/variationoptions/all";
+            string endpoinProductItemVariation = "https://localhost:7067/api/admin/productitemvariations/all";
+
+            HttpResponseMessage responseVariationCategory = null;
+            HttpResponseMessage responseVariationOption = null;
+            HttpResponseMessage responseProductItemVariation = null;
+
             using (HttpClient client = new HttpClient())
             {
-                responseProducts = await client.GetAsync(endpointProduct);
                 response = await client.GetAsync(endpoint);
+                responseVariationCategory = await client.GetAsync(endpointVariationCategory);
+                responseVariationOption = await client.GetAsync(endpointVariationOption);
+                responseProductItemVariation = await client.GetAsync(endpoinProductItemVariation);
+
             }
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK &&
-                responseProducts.StatusCode == System.Net.HttpStatusCode.OK)
+                responseVariationCategory != null && responseVariationCategory.StatusCode == System.Net.HttpStatusCode.OK &&
+                responseVariationOption != null && responseVariationOption.StatusCode == System.Net.HttpStatusCode.OK &&
+                responseProductItemVariation != null && responseProductItemVariation.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                string contentProduct = await responseProducts.Content.ReadAsStringAsync();
                 string content = await response.Content.ReadAsStringAsync();
-                List<ProductGetDto> items = JsonConvert.DeserializeObject<List<ProductGetDto>>(contentProduct);
+                string contentVariationCategory = await responseVariationCategory.Content.ReadAsStringAsync();
+                string contentVariationOption = await responseVariationOption.Content.ReadAsStringAsync();
+                string contentProductItemVariation = await responseProductItemVariation.Content.ReadAsStringAsync();
+
                 ProductItemGetDto productItem = JsonConvert.DeserializeObject<ProductItemGetDto>(content);
-
-
+                List<VariationCategoryGetDto> variationCategories = JsonConvert.DeserializeObject<List<VariationCategoryGetDto>>(contentVariationCategory);
+                List<VariationOptionSelectDto> variationOptions = JsonConvert.DeserializeObject<List<VariationOptionSelectDto>>(contentVariationOption);
+                List<ProductItemVariationGetDto> productItemVariations = JsonConvert.DeserializeObject<List<ProductItemVariationGetDto>>(contentProductItemVariation);
+                List<ProductItemVariationGetDto> mainDto = new List<ProductItemVariationGetDto>();
+                foreach (var item in productItem.ProductItemVariationIds)
+                {
+                    mainDto.Add(productItemVariations.FirstOrDefault(x => x.Id == item));   
+                }
+                List< int> mainVariationOptions = new List<int>();
+                foreach (var item in mainDto)
+                {
+                    mainVariationOptions.Add(variationOptions.FirstOrDefault(x=>x.Id == item.VariationOptionId ).Id);
+                }
                 ProductItemViewModel productItemVM = new ProductItemViewModel
                 {
-                    Products = items,
-                    PostDto = new ProductItemPostDto { CostPrice = productItem.CostPrice, Count = productItem.Count, ProductId = productItem.ProductId, SalePrice = productItem.SalePrice }
+                    //Products = items,
+                    PostDto = new ProductItemPostDto {ProductName = productItem.ProductName, CostPrice = productItem.CostPrice, Count = productItem.Count,
+                        ProductId = productItem.ProductId, SalePrice = productItem.SalePrice, VariationOptionIds = mainVariationOptions },
+                    VariationCategories = variationCategories.Where(x=>x.CategoryName == productItem.CategoryName).ToList(),
+                    VariationOptions = variationOptions.Where(x=>x.CategoryName==productItem.CategoryName).ToList()
+
                 };
                 return View(productItemVM);
             }
@@ -184,34 +247,36 @@ namespace Tello.Api.Test.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ProductItemPostDto postDto)
         {
-            if (!ModelState.IsValid)
-            {
-                string endpointProduct = "https://localhost:7067/api/admin/products/all/";
-                endpoint = "https://localhost:7067/api/admin/productitems/" + id;
-                HttpResponseMessage responseProducts = new();
-                using (HttpClient client = new HttpClient())
-                {
-                    responseProducts = await client.GetAsync(endpointProduct);
-                    response = await client.GetAsync(endpoint);
-                }
-                if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK &&
-                    responseProducts.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    string contentProduct = await responseProducts.Content.ReadAsStringAsync();
-                    string contentPut = await response.Content.ReadAsStringAsync();
-                    List<ProductGetDto> items = JsonConvert.DeserializeObject<List<ProductGetDto>>(contentProduct);
-                    ProductItemGetDto productItem = JsonConvert.DeserializeObject<ProductItemGetDto>(contentPut);
+            #region modelstate
+            //if (!ModelState.IsValid)
+            //{
+            //    string endpointProduct = "https://localhost:7067/api/admin/products/all/";
+            //    endpoint = "https://localhost:7067/api/admin/productitems/" + id;
+            //    HttpResponseMessage responseProducts = new();
+            //    using (HttpClient client = new HttpClient())
+            //    {
+            //        responseProducts = await client.GetAsync(endpointProduct);
+            //        response = await client.GetAsync(endpoint);
+            //    }
+            //    if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK &&
+            //        responseProducts.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        string contentProduct = await responseProducts.Content.ReadAsStringAsync();
+            //        string contentPut = await response.Content.ReadAsStringAsync();
+            //        List<ProductSelectDto> items = JsonConvert.DeserializeObject<List<ProductSelectDto>>(contentProduct);
+            //        ProductItemGetDto productItem = JsonConvert.DeserializeObject<ProductItemGetDto>(contentPut);
 
+            //        ProductItemViewModel productItemVM = new ProductItemViewModel
+            //        {
+            //            Products = items,
+            //            PostDto = new ProductItemPostDto { CostPrice = productItem.CostPrice, Count = productItem.Count, ProductId = productItem.ProductId, SalePrice = productItem.SalePrice }
+            //        };
+            //        return View(productItemVM);
+            //    }
 
-                    ProductItemViewModel productItemVM = new ProductItemViewModel
-                    {
-                        Products = items,
-                        PostDto = new ProductItemPostDto { CostPrice = productItem.CostPrice, Count = productItem.Count, ProductId = productItem.ProductId, SalePrice = productItem.SalePrice }
-                    };
-                    return View(productItemVM);
-                }
+            //}
+            #endregion
 
-            }
             endpoint = "https://localhost:7067/api/admin/productitems/" + id;
             StringContent content = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
@@ -220,7 +285,35 @@ namespace Tello.Api.Test.Controllers
             }
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return RedirectToAction("index");
+                string endpointProductItem = "https://localhost:7067/api/admin/productitems/all";
+                HttpResponseMessage responseProductItems = new();
+                using (HttpClient client = new HttpClient())
+                {
+                    responseProductItems = await client.GetAsync(endpointProductItem);
+                }
+                if (responseProductItems.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    foreach (var item in postDto.VariationOptionIds)
+                    {
+                        var productItemVariation = new ProductItemVariationPostDto
+                        {
+                            VariationOptionId = item,
+                            ProductItemId = id
+                        };
+                        string endpointproductItemVariation = "https://localhost:7067/api/admin/productitemvariations/";
+                        HttpResponseMessage responseproductItemVariation = null;
+                        StringContent contentproductItemVariation = new StringContent(JsonConvert.SerializeObject(productItemVariation), Encoding.UTF8, "application/json");
+                        using (HttpClient client = new HttpClient())
+                        {
+                            responseproductItemVariation = await client.PostAsync(endpointproductItemVariation, contentproductItemVariation);
+                        }
+                        if (responseproductItemVariation == null && responseproductItemVariation.StatusCode != System.Net.HttpStatusCode.OK)
+                        {
+                            return RedirectToAction("error", "home");
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return RedirectToAction("error", "home");
         }
