@@ -31,16 +31,13 @@
                             <tr class="text-light">
                                 <td>@count</td>
                                 <td>@item.Id</td>
-                                @*<td> <a asp-action="detail" asp-route-id="@item.Id" class="text-white">@item.Name</a> </td>*@
-                                <td>@item.ProductName</td>
-                                @*    <td>@item.SalePrice</td>
-                            <td>@item.CostPrice</td>*@
+                            <td><a asp-action="detail" asp-route-id="@item.Id" class="text-white text-decoration-none">@item.ProductName</a></td>
                                 <td>@item.CategoryName</td>
                                 <td>@item.BrandName</td>
                                 <td>@item.Count</td>
                                 <td>
-                                    <a asp-action="edit" asp-route-id="@item.Id" class="badge badge-danger">Edit</a>
-                                    <a asp-action="delete" asp-route-id="@item.Id" class="badge badge-danger sweet-delete">Delete</a>
+                                    <a asp-action="edit" asp-route-id="@item.Id" class="badge badge-danger"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a asp-action="delete" asp-route-id="@item.Id" class="badge badge-danger sweet-delete"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         }

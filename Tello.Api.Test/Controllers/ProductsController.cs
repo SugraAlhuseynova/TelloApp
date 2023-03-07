@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.Differencing;
 using Newtonsoft.Json;
+using NuGet.Repositories;
 using System.Text;
 using Tello.Api.Test.DTOs;
 using Tello.Api.Test.DTOs.Brand;
 using Tello.Api.Test.DTOs.Category;
 using Tello.Api.Test.DTOs.Product;
+using Tello.Api.Test.DTOs.ProductItem;
 using Tello.Api.Test.ViewModels.Product;
 using Tello.Api.Test.ViewModels.VariationCategory;
 
@@ -230,7 +232,11 @@ namespace Tello.Api.Test.Controllers
             {
                 string content = await response.Content.ReadAsStringAsync();
                 ProductGetDto getDto = JsonConvert.DeserializeObject<ProductGetDto>(content);
-                return View(getDto);
+                ProductDetailViewModel viewModel = new ProductDetailViewModel
+                {
+                    GetDto = getDto
+                };
+                return View(viewModel);
             }
             return RedirectToAction("error", "home");
         }

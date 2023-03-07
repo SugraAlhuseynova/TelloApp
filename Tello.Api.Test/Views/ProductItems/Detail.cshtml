@@ -1,0 +1,27 @@
+﻿@model ProductItemDetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="card mx-auto col-sm-5">
+    <div class="card-body">
+        <h5 class="card-title">Product: @Model.GetDto.ProductName</h5>
+        <p class="card-text">Brand: @Model.GetDto.BrandName<p>
+        <p class="card-text">Category: @Model.GetDto.CategoryName<p>
+    </div>
+    <div class="card-body py-3 row">
+        <p class="col-sm-4">Count: @Model.GetDto.Count</p>
+        <p class="col-sm-4">CostPrice: @Model.GetDto.CostPrice</p>
+        <p class="col-sm-4">SalePrice: @Model.GetDto.SalePrice</p>
+    </div>
+    <div class="card-body row">
+        <h5 class="col-12">Variations</h5>
+        @foreach (var item in Model.VariationOptions)
+        {
+            <p class="col-sm-6">@item.VariationName : @item.Value</p>
+        }
+    </div>
+    <div class="card-body py-1">
+        <a asp-action="index" class="card-link">Go Back</a>
+    </div>
+</div>

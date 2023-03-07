@@ -10,23 +10,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.Login(Tello.Service.Apps.Admin.DTOs.AppUserDTOs.UserLoginDto)">
-            <summary>
-            
-            </summary>
-            <remarks>
-            Sample request: 
-            
-                POST api/users/login
-                {
-                      "email": "super@gmail.com",
-                      "password": "Super123"
-                }
-            </remarks>
-            <param name="loginDto"></param>
-            <returns></returns>
-            <exception cref="T:Tello.Service.Exceptions.ItemNotFoundException"></exception>
-        </member>
         <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.CreateAdmin(Tello.Service.Apps.Admin.DTOs.AppUserDTOs.UserPostDto)">
             <summary>
             Action create admin 

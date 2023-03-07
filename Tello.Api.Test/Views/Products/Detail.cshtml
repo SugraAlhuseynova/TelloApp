@@ -1,19 +1,25 @@
-﻿@model ProductGetDto
+﻿@model ProductDetailViewModel
 @{
     ViewData["Title"] = "Detail";
 }
 
-<div class="card mx-auto" style="width: 18rem;">
+<div class="card mx-auto col-sm-6">
     <div class="card-body">
-        <h5 class="card-title">@Model.Name</h5>
-        <p class="card-text">@Model.Desc<p>
+        <h5 class="card-title">@Model.GetDto.Name</h5>
+        <p class="card-text">@Model.GetDto.Desc<p>
     </div>
     <div class="card-body py-3">
-        <p>Category Name: @Model.CategoryName</p>
-        <p>Brand Name: @Model.BrandName</p>
-        <p>Count: @Model.Count</p>
-        <p>Created At: @Model.CreatedAt.ToString("dd MMMM, yyyy")</p>
+        <p>Category Name: @Model.GetDto.CategoryName</p>
+        <p>Brand Name: @Model.GetDto.BrandName</p>
+        <p>Count: @Model.GetDto.Count</p>
+        <p>Created At: @Model.GetDto.CreatedAt.ToString("dd MMMM, yyyy")</p>
     </div>
+ @*   <div class="card-body">
+        @foreach (var item in Model.ProductItems)
+        {
+            <p>@item.Id - @item.ProductName</p>
+        }
+    </div>*@
     <div class="card-body py-1">
         <a asp-action="index" class="card-link">Go Back</a>
     </div>

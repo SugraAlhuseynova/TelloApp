@@ -46,6 +46,7 @@ builder.AddService();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddControllers(x=>x.RespectBrowserAcceptHeader= true);
 
 builder.Services.AddAuthentication(opt =>
 {

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Tello.Api.JWT;
 using Tello.Core.Entities;
@@ -62,23 +61,23 @@ namespace Tello.Api.Apps.Admin.Controllers
             return Ok();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Sample request: 
-        /// 
-        ///     POST api/users/login
-        ///     {
-        ///           "email": "super@gmail.com",
-        ///           "password": "Super123"
-        ///     }
-        /// </remarks>
-        /// <param name="loginDto"></param>
-        /// <returns></returns>
-        /// <exception cref="ItemNotFoundException"></exception>
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <remarks>
+        ///// Sample request: 
+        ///// 
+        /////     POST api/users/login
+        /////     {
+        /////           "email": "super@example.com",
+        /////           "password": "Super123"
+        /////     }
+        ///// </remarks>
+        ///// <param name="loginDto"></param>
+        ///// <returns></returns>
+        ///// <exception cref="ItemNotFoundException"></exception>
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserLoginDto loginDto)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
             AppUser user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
@@ -88,10 +87,9 @@ namespace Tello.Api.Apps.Admin.Controllers
 
             IList<string> roles = await _userManager.GetRolesAsync(user);
             string token = _jwtService.CreateJWTToken(user, roles);
-
-            return Ok(token);
+            UserLoginResponseDto loginResponseDto = new UserLoginResponseDto(){ Token = token };
+            return Ok(loginResponseDto);
         }
-
 
         /// <summary>
         /// Action create admin 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NuGet.Protocol;
 using System.Data;
 using System.Text;
 using Tello.Api.Test.DTOs;
@@ -343,6 +344,49 @@ namespace Tello.Api.Test.Controllers
             }
             return RedirectToAction("error", "home");
         }
+        public async Task<IActionResult> Detail(int id)
+        {
+            //getsin productitemvariationlari getirsin onlardan uygunlari secsn sonra variationoptionlari yeni valuelari ve variation adlarini getirsin
+            endpoint = "https://localhost:7067/api/admin/productitems/" + id;
+            string endpointVariationOption = "https://localhost:7067/api/admin/variationoptions/all";
+            string endpoinProductItemVariation = "https://localhost:7067/api/admin/productitemvariations/all";
+            HttpResponseMessage responseVariationOption = null;
+            HttpResponseMessage responseProductItemVariation = null;
+            using (HttpClient client = new HttpClient())
+            {
+                response = await client.GetAsync(endpoint);
+                responseVariationOption = await client.GetAsync(endpointVariationOption);
+                responseProductItemVariation = await client.GetAsync(endpoinProductItemVariation);
+            }
+            if (response!=null && response.StatusCode == System.Net.HttpStatusCode.OK &&
+                responseVariationOption != null && responseVariationOption.StatusCode == System.Net.HttpStatusCode.OK &&
+                responseProductItemVariation != null && responseProductItemVariation.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                string contentVariationOption = await responseVariationOption.Content.ReadAsStringAsync();
+                string contentProductItemVariation = await responseProductItemVariation.Content.ReadAsStringAsync();
 
+                ProductItemGetDto getDto = JsonConvert.DeserializeObject<ProductItemGetDto>(content);
+                List<VariationOptionSelectDto> variationOptions = JsonConvert.DeserializeObject<List<VariationOptionSelectDto>>(contentVariationOption);
+                List<ProductItemVariationGetDto> productItemVariations = JsonConvert.DeserializeObject<List<ProductItemVariationGetDto>>(contentProductItemVariation);
+                List<ProductItemVariationGetDto> mainProductItemVariations = new List<ProductItemVariationGetDto>();
+                foreach (var item in getDto.ProductItemVariationIds)
+                {
+                    mainProductItemVariations.Add(productItemVariations.FirstOrDefault(x => x.Id == item));
+                }
+                List<VariationOptionSelectDto> mainVariationOptions = new List<VariationOptionSelectDto>();
+                foreach (var item in mainProductItemVariations)
+                {
+                    mainVariationOptions.Add(variationOptions.FirstOrDefault(x => x.Id == item.VariationOptionId));
+                }
+                ProductItemDetailViewModel viewModel = new ProductItemDetailViewModel
+                {
+                    VariationOptions = mainVariationOptions,
+                    GetDto = getDto
+                };
+                return View(viewModel);
+            }
+            return RedirectToAction("error", "home");
+        }
     }
 }

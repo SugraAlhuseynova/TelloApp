@@ -34,7 +34,6 @@ namespace Tello.Service.Apps.Admin.Implementations
             await _unitOfWork.ProductItemRepository.CreateAsync(entity);
             await _unitOfWork.CommitAsync();
         }
-
         public async Task Delete(int id)
         {
             var entity = await _unitOfWork.ProductItemRepository.GetAsync(x=>x.Id ==id && !x.IsDeleted);
@@ -43,7 +42,6 @@ namespace Tello.Service.Apps.Admin.Implementations
             entity.IsDeleted = true;
             await _unitOfWork.CommitAsync();
         }
-
         public PaginatedListDto<ProductItemListItemDto> GetAll(int page)
         {
             int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
@@ -52,14 +50,12 @@ namespace Tello.Service.Apps.Admin.Implementations
             var paginationList = new PaginatedListDto<ProductItemListItemDto>(items, query.Count(), page, paginationCount);
             return paginationList;
         }
-
         public List<ProductItemSelectDto> GetAll()
         {
             var query = _unitOfWork.ProductItemRepository.GetAll(x => !x.IsDeleted, "Product.Category", "Product.Brand");
             List<ProductItemSelectDto> items = _mapper.Map<List<ProductItemSelectDto>>(query.ToList());
             return items;
         }
-
         public PaginatedListDto<ProductItemListItemDto> GetAllDeleted(int page)
         {
             int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
@@ -68,7 +64,6 @@ namespace Tello.Service.Apps.Admin.Implementations
             var paginationList = new PaginatedListDto<ProductItemListItemDto>(items, query.Count(), page, paginationCount);
             return paginationList;
         }
-
         public async Task<ProductItemGetDto> GetAsync(int id)
         {
             var entity = await _unitOfWork.ProductItemRepository.GetAsync(x => x.Id == id && !x.IsDeleted, "Product.Brand", "Product.Category", "ProductItemVariations");
@@ -77,7 +72,6 @@ namespace Tello.Service.Apps.Admin.Implementations
             var piGetDto = _mapper.Map<ProductItemGetDto>(entity);
             return piGetDto;
         }
-
         public async Task Restore(int id)
         {
 
@@ -87,7 +81,6 @@ namespace Tello.Service.Apps.Admin.Implementations
             entity.IsDeleted = false;
             await _unitOfWork.CommitAsync();
         }
-
         public async Task UpdateAsync(int id, ProductItemPostDto productPostDto)
         {
             var entity = await _unitOfWork.ProductItemRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
