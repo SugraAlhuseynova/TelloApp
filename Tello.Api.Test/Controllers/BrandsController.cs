@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using NuGet.Packaging.Signing;
-using NuGet.Repositories;
-using System.Diagnostics;
 using System.Text;
 using Tello.Api.Test.DTOs;
 using Tello.Api.Test.DTOs.Brand;
@@ -24,6 +20,10 @@ namespace Tello.Api.Test.Controllers
 
             using (HttpClient client = new HttpClient())
             {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer "+Request.Cookies["AuthToken"]);
+                }
                 response = await client.GetAsync(endpoint);
             }
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -32,7 +32,7 @@ namespace Tello.Api.Test.Controllers
                 PaginatedListDto<BrandListItemGetDto> items = JsonConvert.DeserializeObject<PaginatedListDto<BrandListItemGetDto>>(content);
                 return View(items);
             }
-            return RedirectToAction("Error", "home");
+            return RedirectToAction("login", "users");
         }
 
         public async Task<IActionResult> Edit(int id)

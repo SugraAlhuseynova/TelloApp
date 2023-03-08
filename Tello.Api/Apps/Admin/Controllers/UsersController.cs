@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Tello.Api.JWT;
 using Tello.Core.Entities;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs;
@@ -87,7 +90,11 @@ namespace Tello.Api.Apps.Admin.Controllers
 
             IList<string> roles = await _userManager.GetRolesAsync(user);
             string token = _jwtService.CreateJWTToken(user, roles);
-            UserLoginResponseDto loginResponseDto = new UserLoginResponseDto(){ Token = token };
+            UserLoginResponseDto loginResponseDto = new UserLoginResponseDto(){ Token = token};
+
+            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
+            //    principal, new AuthenticationProperties { IsPersistent = loginData.RememberMe });
+
             return Ok(loginResponseDto);
         }
 
@@ -95,8 +102,8 @@ namespace Tello.Api.Apps.Admin.Controllers
         /// Action create admin 
         /// </summary>
         /// <returns></returns>
+        [HttpPost("admin")] 
         [Authorize(Roles = "Superadmin")]
-        [HttpPost("admin")]
         public async Task<IActionResult> CreateAdmin(UserPostDto postDto)
         {
             if (_userManager.Users.Any(x => x.Email == postDto.Email && x.IsAdmin))
@@ -158,6 +165,19 @@ namespace Tello.Api.Apps.Admin.Controllers
                 return BadRequest(result.Errors);
             }
             return Ok("Password succesfully reset");
+        }
+        [HttpGet("LoggedUser")]
+        public async Task<IActionResult> FindCurrentUser()
+        {
+            AppUser user = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            }
+
+            if (user == null)
+                return BadRequest();
+            return Ok(user);
         }
     }
 }

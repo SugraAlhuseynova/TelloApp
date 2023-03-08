@@ -7,7 +7,7 @@ namespace Tello.Api.Apps.Admin.Controllers
 {
     [Route("api/admin/brands")]
     [ApiController]
-    //[Authorize]
+    [Authorize(Roles = "Superadmin")]
     public class BrandsController : ControllerBase
     {
         private readonly IBrandService _brandService;
@@ -38,7 +38,6 @@ namespace Tello.Api.Apps.Admin.Controllers
             return Ok(_brandService.GetAllDeleted(page));
         }
         [HttpPost("")]
-        //[Authorize(Roles = "Member")]
         public async Task Create(BrandPostDto postDto)
         {
             await _brandService.CreateAsync(postDto);

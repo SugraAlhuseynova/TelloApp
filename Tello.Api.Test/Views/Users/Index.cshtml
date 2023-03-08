@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<section id="profile">
+    <div class="row d-flex justify-content-between px-5">
+        <h4>Profile</h4>
+        <h4>
+            <a asp-action="index" asp-controller="home">Go Home</a> / User Profile
+        </h4>
+    </div>
+</section>
+<div class="px-5" style="background-color: #191c24">
+<section id="profile-detail">
+    <div class="py-4">
+        <h3>Full Name</h3>
+        <p>Rolesss: superadmin, admin falan</p>
+        <p>Email, PhoneNumber</p>
+    </div>
+</section>
+<section>
+  <div>
+        <a asp-action="roles">Go to all exist roles</a>
+        <p>Go to all exist admins</p>
+        <p>Go to all exist users</p>
+        <a asp-action="createadmin" asp-controller="users">Create admin</a>
+  </div>
+
+</section>
+</div>
+

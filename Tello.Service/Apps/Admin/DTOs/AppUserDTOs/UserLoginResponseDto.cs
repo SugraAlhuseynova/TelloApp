@@ -9,6 +9,6 @@ namespace Tello.Service.Apps.Admin.DTOs.AppUserDTOs
 {
     public class UserLoginResponseDto
     {
-        public string Token;
+        public string Token { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NuGet.Protocol;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Text;
 using Tello.Api.Test.DTOs.User;
 
@@ -12,6 +13,11 @@ namespace Tello.Api.Test.Controllers
     {
         HttpResponseMessage response = new();
         string endpoint = string.Empty;
+        
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
         public async Task<IActionResult> Login()
         {
             return View();
@@ -36,10 +42,45 @@ namespace Tello.Api.Test.Controllers
                 if (responseToken.Token != null)
                 {
                     Response.Cookies.Append("AuthToken", responseToken.Token);
-                    return RedirectToAction("index", "home");
+                    return RedirectToAction("index", "brands");
                 }
             }
             return RedirectToAction("error", "home");
         }
+        public async Task<IActionResult> Logout()
+        {
+            if (Request.Cookies["AuthToken"] != null)
+            {
+                Response.Cookies.Delete("AuthToken");
+                return RedirectToAction(nameof(Login));
+            }
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+        public async Task<IActionResult> CreateAdmin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateAdmin(UserPostDto postDto)
+        {
+            endpoint = "https://localhost:7067/api/admin/users/admin";
+            StringContent content = new StringContent(JsonConvert.SerializeObject(postDto),Encoding.UTF8, "application/json");
+            using(HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.PostAsync(endpoint, content);
+            }
+            if (response!=null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("error", "home");
+        }
+
+
     }
+
 }

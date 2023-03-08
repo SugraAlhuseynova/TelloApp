@@ -31,11 +31,10 @@ namespace Tello.Api.JWT
             JwtSecurityToken token = new JwtSecurityToken(
                 claims: claims,
                 signingCredentials: credentials,
-                expires: DateTime.UtcNow.AddDays(7),
+                expires: DateTime.UtcNow.AddDays(10),
                 issuer: _configuration.GetSection("JWT:issuer").Value,
                 audience: _configuration.GetSection("JWT:audience").Value
                 );
-
             string tokenStr = new JwtSecurityTokenHandler().WriteToken(token);
             return tokenStr;
         }
