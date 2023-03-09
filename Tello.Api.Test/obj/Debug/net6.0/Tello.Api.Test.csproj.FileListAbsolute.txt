@@ -245,3 +245,7 @@ C:\Users\Taleh\Desktop\TelloApi\Tello.Api.Test\obj\Debug\net6.0\refint\Tello.Api
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api.Test\obj\Debug\net6.0\Tello.Api.Test.pdb
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api.Test\obj\Debug\net6.0\Tello.Api.Test.genruntimeconfig.cache
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api.Test\obj\Debug\net6.0\ref\Tello.Api.Test.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api.Test\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api.Test\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api.Test\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api.Test\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

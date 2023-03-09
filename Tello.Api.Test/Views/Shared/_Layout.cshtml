@@ -1,6 +1,15 @@
-﻿@{
-
-
+﻿@using System.IdentityModel.Tokens.Jwt;
+@inject IHttpContextAccessor httpContextAccessor;
+@{
+    var authorizationHeader = httpContextAccessor.HttpContext.Request.Cookies["AuthToken"];
+    var jwtToken = new JwtSecurityToken();
+    string token = null;
+    if (!string.IsNullOrEmpty(authorizationHeader))
+    {
+        token = authorizationHeader.ToString();
+        var handler = new JwtSecurityTokenHandler();
+        jwtToken = handler.ReadJwtToken(token);
+    }
 }
 
 <!DOCTYPE html>
@@ -39,8 +48,15 @@
                     <div class="profile-desc">
                         <div class="profile-pic">
                             <div class="profile-name">
-                                <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
-                                <span>Gold Member</span>
+                                <a class="text-decoration-none text-white" asp-action="index" asp-controller="users">
+                                    <h5 class="mb-0 font-weight-normal">@jwtToken.Claims.FirstOrDefault(x=>x.Type == "Fullname").Value</h5>
+                                </a>
+                                <p class="mt-2">
+                                    @foreach (var item in @jwtToken.Claims.Where(x => x.Type == System.Security.Claims.ClaimTypes.Role).ToList())
+                                    {
+                                        <span class="text-white">@item.Value</span>      
+                                    }
+                                </p>
                             </div>
                         </div>
                         <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
@@ -195,22 +211,19 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                                 <div class="navbar-profile">
-                                    <img class="img-xs rounded-circle" src="../../assets/images/faces/face15.jpg" alt="">
-                                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                                    <p class="mb-0 d-none d-sm-block navbar-profile-name">@jwtToken.Claims.FirstOrDefault(x=>x.Type == "Fullname").Value</p>
                                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
-                                <h6 class="p-3 mb-0">Profile</h6>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
+                                <a class="dropdown-item preview-item" asp-action="index" asp-controller="users">
                                     <div class="preview-thumbnail">
                                         <div class="preview-icon bg-dark rounded-circle">
-                                            <i class="mdi mdi-settings text-success"></i>
+                                            <i class="mdi mdi-account text-success"></i>
                                         </div>
                                     </div>
                                     <div class="preview-item-content">
-                                        <p class="preview-subject mb-1">Settings</p>
+                                        <p class="preview-subject mb-1">Profile</p>
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>

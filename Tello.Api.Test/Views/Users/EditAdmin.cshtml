@@ -1,0 +1,25 @@
+﻿@model UserPostDto
+
+<div class="card col-lg-4 mx-auto">
+    <div class="card-body px-5 py-5">
+        <h3 class="card-title text-left mb-3">Register</h3>
+        <form class="text-white" asp-action="editadmin">
+            <div class="form-group">
+                <label asp-for="Fullname">Fullname</label>
+                <input asp-for="Fullname" type="text" class="form-control p_input">
+            </div>
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" type="email" class="form-control p_input">
+            </div>
+            <div class="form-group">
+                <label asp-for="RolesIds"></label>
+                <select asp-for="RolesIds" multiple asp-items="new SelectList((List<RoleGetDto>) ViewBag.Roles ,nameof(RoleGetDto.Id),nameof(RoleGetDto.Role))"></select>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-block enter-btn">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+

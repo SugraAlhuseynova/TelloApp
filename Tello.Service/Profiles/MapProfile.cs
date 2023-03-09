@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Tello.Core.Entities;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs;
+using Tello.Service.Apps.Admin.DTOs.AppUserDTOs.RoleDtos;
 using Tello.Service.Apps.Admin.DTOs.BrandDTOs;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
 using Tello.Service.Apps.Admin.DTOs.ProductDTOs;
@@ -75,6 +77,10 @@ namespace Tello.Service.Profiles
             //user
             CreateMap<UserPostDto, AppUser>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
+            CreateMap<AppUser, UserGetDto>();
+            CreateMap<IdentityRole, RoleGetDto>()
+                .ForMember(dest => dest.Role, opt=>opt.MapFrom(src => src.Name));
+                //.ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src));
             //setting
             CreateMap<Setting, SettingGetDto>();
             CreateMap<SettingPostDto, Setting>();

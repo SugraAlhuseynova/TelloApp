@@ -1,0 +1,38 @@
+﻿@model List<RoleGetDto>
+@{
+    ViewBag.Title = "Roles";
+    int count = 0;
+}
+
+<div class="col-lg-7 col-md-8 mx-auto stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <p class="card-description">
+                <a asp-action="createrole" asp-controller="users" class="btn btn-outline-success">Create</a>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Users Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr class="text-light">
+                                <td>@count</td>
+                                <td>@item.Role</td>
+                                <td>@item.UsersCount</td>
+                                <td><a asp-action="EditRole" asp-route-role="@item.Role" class="badge badge-outline-danger">Edit</a> </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

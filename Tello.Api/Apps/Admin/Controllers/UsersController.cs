@@ -11,6 +11,12 @@ using Tello.Core.Entities;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs;
 using Tello.Service.Email;
 using Tello.Service.Exceptions;
+using Tello.Service.Apps.Admin.DTOs.AppUserDTOs.RoleDtos;
+using System.Xml.Linq;
+using Tello.Api.Helpers;
+using System.Data;
+using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Tello.Api.Apps.Admin.Controllers
 {
@@ -37,16 +43,44 @@ namespace Tello.Api.Apps.Admin.Controllers
         /// Action create roles 
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        public async Task CreateRole(string roleStr)
+        #region RoleManager
+        [HttpPost("createrole")]
+        public async Task CreateRole(RolePostDto postDto)
         {
-            IdentityResult role = await _roleManager.CreateAsync(new IdentityRole(ModifyRole(roleStr)));
+            IdentityResult role = await _roleManager.CreateAsync(new IdentityRole(ModifyRole(postDto.Role)));
         }
         private string ModifyRole(string roleStr)
         {
             string role = char.ToUpper(roleStr.Trim()[0]) + roleStr.Trim().ToLower().Substring(1);
             return role;
         }
+        [HttpGet("getRoles")]
+        public async Task<IActionResult> GetAllRoles()
+        {
+            var data = _mapper.Map<List<RoleGetDto>>(_roleManager.Roles.ToList());
+            foreach (var role in data)
+            {
+                var usersInRole = await _userManager.GetUsersInRoleAsync(role.Role);
+                role.UsersCount = usersInRole.Count;
+            }
+            return Ok(data);
+        }
+        [HttpGet("{name}")]
+
+        public async Task<IActionResult> GetRole(string name)
+        {
+            var data = _mapper.Map<RoleGetDto>(_roleManager.Roles.FirstOrDefault(x => x.Name == name));
+            return Ok(data);
+        }
+        [HttpPut("role/{id}")]
+        public async Task UpdateRole(string id, RolePostDto postDto)
+        {
+            var data = await (_roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id));
+            data.Name = postDto.Role;
+            data.NormalizedName = postDto.Role.ToUpper();
+            await _roleManager.UpdateAsync(data);
+        }
+        #endregion
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserPostDto postDto)
@@ -92,9 +126,6 @@ namespace Tello.Api.Apps.Admin.Controllers
             string token = _jwtService.CreateJWTToken(user, roles);
             UserLoginResponseDto loginResponseDto = new UserLoginResponseDto(){ Token = token};
 
-            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
-            //    principal, new AuthenticationProperties { IsPersistent = loginData.RememberMe });
-
             return Ok(loginResponseDto);
         }
 
@@ -114,11 +145,40 @@ namespace Tello.Api.Apps.Admin.Controllers
             var result = await _userManager.CreateAsync(user, postDto.Password);
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
-            var result2 = await _userManager.AddToRoleAsync(user, "Admin");
+
+            List<string> roles = _roleManager.Roles.Where(r => postDto.RolesIds.Contains(r.Id)).Select(x=>x.Name).ToList();
+
+            var result2 = await _userManager.AddToRolesAsync(user, roles);
             if (!result2.Succeeded)
-                return BadRequest(result.Errors);
+                return BadRequest(result2.Errors);
             return Ok();
         }
+        [HttpGet("getallusers")]
+        public async Task<IActionResult> GetAllAdmins()
+        {
+            var users = _userManager.Users.Where(x => x.IsAdmin).ToList();
+            var data = _mapper.Map<List<UserGetDto>>(users);
+            foreach (var user in users.Zip(data, (user, dto) => new { User = user, Dto = dto }))
+            {
+                var roles = await _userManager.GetRolesAsync(user.User);
+                user.Dto.Roles = roles;
+            }
+            return Ok(data);
+        }
+        [HttpGet("getuser/{id}")]
+        public async Task<IActionResult> GetUser(string id)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+                return NotFound();
+            var userDto = _mapper.Map<UserGetDto>(user);
+            //List<string> roles = _roleManager.Roles.Where(r => postDto.RolesIds.Contains(r.Id)).Select(x => x.Name).ToList();
+            var roles = await _userManager.GetRolesAsync(user);
+            userDto.RolesIds = _roleManager.Roles.Where(r=> roles.Contains(r.Name)).Select(x=>x.Id).ToList();
+            return Ok(userDto);
+        }
+
+        #region forgotPassword
         /// <summary>
         ///
         /// </summary>
@@ -166,18 +226,22 @@ namespace Tello.Api.Apps.Admin.Controllers
             }
             return Ok("Password succesfully reset");
         }
+        #endregion
+
         [HttpGet("LoggedUser")]
         public async Task<IActionResult> FindCurrentUser()
         {
             AppUser user = null;
             if (User.Identity.IsAuthenticated)
             {
-                user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.Email).Value);
+                IList<string> roles = await _userManager.GetRolesAsync(user);
+                UserGetDto getDto = _mapper.Map<UserGetDto>(user);
+                getDto.Roles = roles;
+                return Ok(getDto);
             }
-
-            if (user == null)
-                return BadRequest();
-            return Ok(user);
+            return NotFound();
         }
+ 
     }
 }

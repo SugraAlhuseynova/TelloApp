@@ -12,5 +12,6 @@ namespace Tello.Api.Test.DTOs.User
         public string Password { get; set; }
         [MinLength(10), MaxLength(10)]
         public string PhoneNumber { get; set; }
+        public List<string> RolesIds { get;set; }
     }
 }

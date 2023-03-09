@@ -1,4 +1,5 @@
-﻿@{
+﻿@model UserGetDto
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -13,17 +14,22 @@
 <div class="px-5" style="background-color: #191c24">
 <section id="profile-detail">
     <div class="py-4">
-        <h3>Full Name</h3>
-        <p>Rolesss: superadmin, admin falan</p>
-        <p>Email, PhoneNumber</p>
+        <h3>@Model.Fullname</h3>
+        <p>Roles:
+            @foreach (var item in Model.Roles)
+                {
+                    <span>@item</span>
+                }
+        </p>
+        <p>Email: @Model.Email</p>
+        <p>PhoneNumber: @Model.PhoneNumber</p>
     </div>
 </section>
 <section>
   <div>
-        <a asp-action="roles">Go to all exist roles</a>
-        <p>Go to all exist admins</p>
-        <p>Go to all exist users</p>
-        <a asp-action="createadmin" asp-controller="users">Create admin</a>
+        <h4><a asp-action="roleindex">Go to all exist roles</a> (Create and edit roles)</h4>
+        <h4><a asp-action="indexadmin">Go to all exist admins</a>(Create and edit admins)</h4>
+        <h4>Go to all exist users</h4>
   </div>
 
 </section>

@@ -4,7 +4,7 @@
         <name>Tello.Api</name>
     </assembly>
     <members>
-        <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.CreateRole(System.String)">
+        <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.CreateRole(Tello.Service.Apps.Admin.DTOs.AppUserDTOs.RoleDtos.RolePostDto)">
             <summary>
             Action create roles 
             </summary>

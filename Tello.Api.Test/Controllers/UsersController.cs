@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.VisualBasic;
 using Newtonsoft.Json;
 using NuGet.Protocol;
+using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
 using Tello.Api.Test.DTOs.User;
+using Tello.Api.Test.DTOs.User.Role;
 
 namespace Tello.Api.Test.Controllers
 {
@@ -16,7 +19,22 @@ namespace Tello.Api.Test.Controllers
         
         public async Task<IActionResult> Index()
         {
-            return View();
+            endpoint = "https://localhost:7067/api/admin/users/Loggeduser";
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.GetAsync(endpoint);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                UserGetDto getDto = JsonConvert.DeserializeObject<UserGetDto>(content);
+                return View(getDto);
+            }
+            return RedirectToAction("error", "home");
         }
         public async Task<IActionResult> Login()
         {
@@ -56,16 +74,53 @@ namespace Tello.Api.Test.Controllers
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }
+       
+        #region AdminManager
+        public async Task<IActionResult> IndexAdmin()
+        {
+            endpoint = "https://localhost:7067/api/admin/users/getallusers";
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.GetAsync(endpoint);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                List<UserGetDto> getDto = JsonConvert.DeserializeObject<List<UserGetDto>>(content);
+                return View(getDto);
+            }
+            return RedirectToAction("error", "home");
+        }
         public async Task<IActionResult> CreateAdmin()
         {
-            return View();
+            endpoint = "https://localhost:7067/api/admin/users/getroles";
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.GetAsync(endpoint);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                List<RoleGetDto> getDto = JsonConvert.DeserializeObject<List<RoleGetDto>>(content);
+                ViewBag.Roles = getDto.Where(x=>x.Role != "Member").ToList();
+                return View();
+            }
+            return RedirectToAction("error", "home");
         }
         [HttpPost]
         public async Task<IActionResult> CreateAdmin(UserPostDto postDto)
         {
             endpoint = "https://localhost:7067/api/admin/users/admin";
-            StringContent content = new StringContent(JsonConvert.SerializeObject(postDto),Encoding.UTF8, "application/json");
-            using(HttpClient client = new HttpClient())
+            StringContent content = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
+            using (HttpClient client = new HttpClient())
             {
                 if (Request.Cookies["AuthToken"] != null)
                 {
@@ -73,14 +128,155 @@ namespace Tello.Api.Test.Controllers
                 }
                 response = await client.PostAsync(endpoint, content);
             }
-            if (response!=null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAdmin));
+            }
+            return RedirectToAction("error", "home");
+        }
+        public async Task<IActionResult> EditAdmin(string id)
+        {
+            endpoint = "https://localhost:7067/api/admin/users/getuser/"+id;
+            string endpointRoles = "https://localhost:7067/api/admin/users/getroles";
+            HttpResponseMessage responseRoles = null;
+            
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.GetAsync(endpoint);
+                responseRoles = await client.GetAsync(endpointRoles);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var contentRoles = await responseRoles.Content.ReadAsStringAsync();
+                List<RoleGetDto> getRolesDto = JsonConvert.DeserializeObject<List<RoleGetDto>>(contentRoles);
+                ViewBag.Roles = getRolesDto.Where(x => x.Role != "Member").ToList();
+
+                var content = await response.Content.ReadAsStringAsync();
+                UserGetDto getDto = JsonConvert.DeserializeObject<UserGetDto>(content);
+                UserPostDto postDto = new UserPostDto { Email = getDto.Email, Fullname = getDto.Fullname, RolesIds = getDto.RolesIds };
+                return View(postDto);
             }
             return RedirectToAction("error", "home");
         }
 
 
+
+        #endregion
+
+
+        #region RoleManager
+        public async Task<IActionResult> RoleIndex()
+        {
+            endpoint = "https://localhost:7067/api/admin/users/getroles";
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.GetAsync(endpoint);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                List<RoleGetDto> getDto = JsonConvert.DeserializeObject<List<RoleGetDto>>(content);
+                return View(getDto);
+            }
+            return RedirectToAction("error", "home");
+        }
+        public async Task<IActionResult> CreateRole()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(RolePostDto postDto)
+        {
+            endpoint = "https://localhost:7067/api/admin/users/createrole";
+            StringContent content = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.PostAsync(endpoint, content);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return RedirectToAction(nameof(RoleIndex));
+            }
+            return RedirectToAction("error", "home");
+        }
+        public async Task<IActionResult> EditRole(string role)
+        {
+
+            endpoint = "https://localhost:7067/api/admin/users/" + role;
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.GetAsync(endpoint);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                RoleGetDto getDto = JsonConvert.DeserializeObject<RoleGetDto>(content);
+                var postDto = new RolePostDto
+                {
+                    Id = getDto.Id,
+                    Role = getDto.Role
+                };
+                return View(postDto);
+            }
+            return RedirectToAction("error", "home");
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditRole(Guid id, RolePostDto postDto)
+        {
+            endpoint = "https://localhost:7067/api/admin/users/role/" + id;
+            StringContent content = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.PutAsync(endpoint, content);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return RedirectToAction(nameof(RoleIndex));
+            }
+            return RedirectToAction("error", "home");
+        }
+        #endregion
+
+        #region LoggedUser
+        public async Task<IActionResult> LoggedUser()
+        {
+            endpoint = "https://localhost:7067/api/admin/users/LoggedUser";
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.GetAsync(endpoint);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+            }
+            return RedirectToAction("error", "home");
+        }
+
+        #endregion
     }
 
 }
