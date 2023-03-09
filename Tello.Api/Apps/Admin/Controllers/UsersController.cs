@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +10,7 @@ using Tello.Service.Apps.Admin.DTOs.AppUserDTOs;
 using Tello.Service.Email;
 using Tello.Service.Exceptions;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs.RoleDtos;
-using System.Xml.Linq;
-using Tello.Api.Helpers;
 using System.Data;
-using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Tello.Api.Apps.Admin.Controllers
 {
@@ -153,6 +147,22 @@ namespace Tello.Api.Apps.Admin.Controllers
                 return BadRequest(result2.Errors);
             return Ok();
         }
+        [HttpPut("admin/{id}")]
+        public async Task UpdateAdmin(string id, UserEditDto postDto)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+                throw new ItemNotFoundException("user not found");
+            var userDto = _mapper.Map<UserGetDto>(user);
+            var roles = await _userManager.GetRolesAsync(user);
+            var RolesIds = _roleManager.Roles.Where(r => roles.Contains(r.Name)).Select(x => x.Id).ToList();
+            if (postDto.RolesIds != RolesIds)
+            {
+                await _userManager.RemoveFromRolesAsync(user, roles);
+                List<string> newRoles = _roleManager.Roles.Where(r => postDto.RolesIds.Contains(r.Id)).Select(x => x.Name).ToList();
+                var result = await _userManager.AddToRolesAsync(user, newRoles);
+            }
+        }
         [HttpGet("getallusers")]
         public async Task<IActionResult> GetAllAdmins()
         {
@@ -172,10 +182,23 @@ namespace Tello.Api.Apps.Admin.Controllers
             if (user == null)
                 return NotFound();
             var userDto = _mapper.Map<UserGetDto>(user);
-            //List<string> roles = _roleManager.Roles.Where(r => postDto.RolesIds.Contains(r.Id)).Select(x => x.Name).ToList();
             var roles = await _userManager.GetRolesAsync(user);
             userDto.RolesIds = _roleManager.Roles.Where(r=> roles.Contains(r.Name)).Select(x=>x.Id).ToList();
             return Ok(userDto);
+        }
+        [HttpGet("LoggedUser")]
+        public async Task<IActionResult> FindCurrentUser()
+        {
+            AppUser user = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.Email).Value);
+                IList<string> roles = await _userManager.GetRolesAsync(user);
+                UserGetDto getDto = _mapper.Map<UserGetDto>(user);
+                getDto.Roles = roles;
+                return Ok(getDto);
+            }
+            return NotFound();
         }
 
         #region forgotPassword
@@ -228,20 +251,6 @@ namespace Tello.Api.Apps.Admin.Controllers
         }
         #endregion
 
-        [HttpGet("LoggedUser")]
-        public async Task<IActionResult> FindCurrentUser()
-        {
-            AppUser user = null;
-            if (User.Identity.IsAuthenticated)
-            {
-                user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.Email).Value);
-                IList<string> roles = await _userManager.GetRolesAsync(user);
-                UserGetDto getDto = _mapper.Map<UserGetDto>(user);
-                getDto.Roles = roles;
-                return Ok(getDto);
-            }
-            return NotFound();
-        }
  
     }
 }

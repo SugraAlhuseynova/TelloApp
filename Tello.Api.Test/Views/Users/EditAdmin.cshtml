@@ -1,4 +1,4 @@
-﻿@model UserPostDto
+﻿@model UserEditDto
 
 <div class="card col-lg-4 mx-auto">
     <div class="card-body px-5 py-5">
@@ -7,14 +7,17 @@
             <div class="form-group">
                 <label asp-for="Fullname">Fullname</label>
                 <input asp-for="Fullname" type="text" class="form-control p_input">
+                <span asp-validation-for="Fullname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email">Email</label>
                 <input asp-for="Email" type="email" class="form-control p_input">
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RolesIds"></label>
                 <select asp-for="RolesIds" multiple asp-items="new SelectList((List<RoleGetDto>) ViewBag.Roles ,nameof(RoleGetDto.Id),nameof(RoleGetDto.Role))"></select>
+                <span asp-validation-for="RolesIds" class="text-danger"></span>
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-block enter-btn">Submit</button>

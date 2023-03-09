@@ -15,7 +15,15 @@ namespace Tello.Api.Test.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            using(HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " +Request.Cookies["AuthToken"]);
+                    return View();
+                }
+            }
+            return RedirectToAction("login", "users");
         }
 
         public IActionResult Privacy()
