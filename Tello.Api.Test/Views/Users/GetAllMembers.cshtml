@@ -1,0 +1,48 @@
+﻿@model List<UserGetDto>
+@{
+    ViewBag.Title = "Members";
+    int count = 0;
+}
+
+<div class="col-lg-9 col-11 mx-auto stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <p class="card-description">
+                
+            </p>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Block</th>
+                            <th>Roles</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr class="text-light">
+                                <td>@count</td>
+                                <td>@item.Fullname</td>
+                                <td>@item.Email</td>
+                                <td>@item.IsBlocked</td>
+                                <td>
+                                    @foreach (var role in item.Roles)
+                                    {
+                                        <span>@role</span>
+                                    }
+                                </td>
+                                <td><a asp-action="blockuser" asp-route-id="@item.Id" class="badge badge-outline-danger">Block</a> </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -75,10 +75,54 @@ namespace Tello.Api.Test.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
        
+        //public async Task<IActionResult> ChangePassword()
+        //{
+        //    //meni 
+
+        //    return View();
+        //}
+        public async Task<IActionResult> GetAllMembers()
+        {
+            endpoint = "https://localhost:7067/api/admin/users/getallmembers";
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.GetAsync(endpoint);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                List<UserGetDto> getDto = JsonConvert.DeserializeObject<List<UserGetDto>>(content);
+                return View(getDto);
+            }
+            return RedirectToAction("error", "home");
+        }
+        public async Task<IActionResult> BlockUser(string id)
+        {
+            endpoint = "https://localhost:7067/api/admin/users/member/" + id;
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.DeleteAsync(endpoint);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return RedirectToAction(nameof(GetAllMembers));
+            }
+            return RedirectToAction("error", "home");
+
+        }
+
         #region AdminManager
         public async Task<IActionResult> IndexAdmin()
         {
-            endpoint = "https://localhost:7067/api/admin/users/getallusers";
+            endpoint = "https://localhost:7067/api/admin/users/getalladmins";
             using (HttpClient client = new HttpClient())
             {
                 if (Request.Cookies["AuthToken"] != null)
@@ -211,7 +255,23 @@ namespace Tello.Api.Test.Controllers
             return RedirectToAction("error", "home");
         }
 
-
+        public async Task<IActionResult> DeleteAdmin(string id)
+        {
+            endpoint = "https://localhost:7067/api/admin/users/admin/" + id;
+            using(HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.DeleteAsync(endpoint);
+            }
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return RedirectToAction(nameof(IndexAdmin));
+            }
+            return RedirectToAction("error", "home");
+        }
         #endregion
 
 
@@ -262,10 +322,10 @@ namespace Tello.Api.Test.Controllers
             }
             return RedirectToAction("error", "home");
         }
-        public async Task<IActionResult> EditRole(string role)
+        public async Task<IActionResult> EditRole(string id)
         {
 
-            endpoint = "https://localhost:7067/api/admin/users/" + role;
+            endpoint = "https://localhost:7067/api/admin/users/" + id;
             using (HttpClient client = new HttpClient())
             {
                 if (Request.Cookies["AuthToken"] != null)
@@ -280,7 +340,7 @@ namespace Tello.Api.Test.Controllers
                 RoleGetDto getDto = JsonConvert.DeserializeObject<RoleGetDto>(content);
                 var postDto = new RolePostDto
                 {
-                    Id = getDto.Id,
+                    //Id = getDto.Id,
                     Role = getDto.Role
                 };
                 return View(postDto);
@@ -288,7 +348,7 @@ namespace Tello.Api.Test.Controllers
             return RedirectToAction("error", "home");
         }
         [HttpPost]
-        public async Task<IActionResult> EditRole(Guid id, RolePostDto postDto)
+        public async Task<IActionResult> EditRole(string id, RolePostDto postDto)
         {
             endpoint = "https://localhost:7067/api/admin/users/role/" + id;
             StringContent content = new StringContent(JsonConvert.SerializeObject(postDto), Encoding.UTF8, "application/json");
@@ -307,6 +367,7 @@ namespace Tello.Api.Test.Controllers
             return RedirectToAction("error", "home");
         }
         #endregion
+
 
         #region LoggedUser
         public async Task<IActionResult> LoggedUser()

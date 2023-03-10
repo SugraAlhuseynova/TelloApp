@@ -10,12 +10,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.CreateAdmin(Tello.Service.Apps.Admin.DTOs.AppUserDTOs.UserPostDto)">
-            <summary>
-            Action create admin 
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Tello.Api.Apps.Admin.Controllers.UsersController.ForgotPassword(System.String)">
              <summary>
             

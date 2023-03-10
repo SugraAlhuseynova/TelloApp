@@ -1,10 +1,10 @@
 ﻿@model List<UserGetDto>
 @{
-    ViewBag.Title = "Roles";
+    ViewBag.Title = "Admins";
     int count = 0;
 }
 
-<div class="col-lg-7 col-md-8 mx-auto stretch-card">
+<div class="col-lg-9 col-11 mx-auto stretch-card">
     <div class="card">
         <div class="card-body">
             <p class="card-description">
@@ -35,6 +35,7 @@
                                         <span>@role</span>
                                     }</td>
                                 <td><a asp-action="editadmin" asp-route-id="@item.Id" class="badge badge-outline-danger">Edit</a> </td>
+                                <td><a asp-action="deleteadmin" asp-route-id="@item.Id" data-name="admin" class="badge badge-outline-danger sweet-delete">Delete</a> </td>
                             </tr>
                         }
                     </tbody>

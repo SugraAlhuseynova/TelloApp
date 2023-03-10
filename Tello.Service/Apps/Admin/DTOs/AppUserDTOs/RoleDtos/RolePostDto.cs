@@ -8,7 +8,7 @@ namespace Tello.Service.Apps.Admin.DTOs.AppUserDTOs.RoleDtos
 {
     public class RolePostDto
     {
-        public string Id { get; set; }
+        //public string Id { get; set; }
         public string Role { get; set; }
     }
 }

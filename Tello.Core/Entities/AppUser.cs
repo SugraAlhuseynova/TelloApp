@@ -11,5 +11,6 @@ namespace Tello.Core.Entities
     {
         public string Fullname { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsBlocked { get; set; }
     }
 }

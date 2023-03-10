@@ -12,6 +12,7 @@ namespace Tello.Api.Test.Controllers
         string endpoint = null;
         public async Task<IActionResult> Index(int page)
         {
+
             HttpResponseMessage response = null;
             if (page == 0)
                 page = 1;
@@ -77,7 +78,7 @@ namespace Tello.Api.Test.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             HttpResponseMessage responseMessage = null;
-            endpoint = "https://localhost:7067/api/admin/categories/" + id;
+            endpoint = "https://localhost:7067/api/admin/categoriesss/" + id;
             using (HttpClient client = new HttpClient())
             {
                 responseMessage = await client.DeleteAsync(endpoint);

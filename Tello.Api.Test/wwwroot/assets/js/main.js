@@ -37,7 +37,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: $(this).attr("data-name") + "not found!",
+                            text: $(this).attr("data-name") +  " not found!",
                         })
                     }
                 });

@@ -30,7 +30,7 @@
                                 <td>@item.Id</td>
                                 <td>@item.Name</td>
                                 <td><a asp-action="edit" asp-route-id="@item.Id" class="badge badge-danger">Edit</a> </td>
-                                <td> <a asp-action="delete" asp-route-id="@item.Id" class="badge badge-danger sweet-delete">Delete</a></td>
+                                <td> <a asp-action="delete" asp-route-id="@item.Id" data-name="brand" class="badge badge-danger sweet-delete">Delete</a></td>
                             </tr>
                         }
 

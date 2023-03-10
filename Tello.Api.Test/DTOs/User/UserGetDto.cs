@@ -6,6 +6,7 @@
         public string Fullname { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public bool IsBlocked { get; set; }
         public IList<string> Roles { get; set; }
         public List<string> RolesIds { get; set; }
     }
