@@ -62,6 +62,10 @@ namespace Tello.Api.Test.Controllers
             HttpResponseMessage responseBrand = null;
             using (HttpClient client = new HttpClient())
             {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
                 responseCategory = await client.GetAsync(categoryEndpoint);
                 responseBrand = await client.GetAsync(brandEndpoint);
             }
@@ -91,6 +95,10 @@ namespace Tello.Api.Test.Controllers
                 HttpResponseMessage responseBrand = null;
                 using (HttpClient client = new HttpClient())
                 {
+                    if (Request.Cookies["AuthToken"] != null)
+                    {
+                        client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                    }
                     responseCategory = await client.GetAsync(categoryEndpoint);
                     responseBrand = await client.GetAsync(brandEndpoint);
                 }
@@ -114,6 +122,10 @@ namespace Tello.Api.Test.Controllers
             
             using (HttpClient client = new HttpClient())
             {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
                 response = await client.PostAsync(endpoint, content);
             }
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -132,6 +144,10 @@ namespace Tello.Api.Test.Controllers
             HttpResponseMessage responseBrand = null;
             using (HttpClient client = new HttpClient())
             {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
                 response = await client.GetAsync(endpoint);
                 responseCategory = await client.GetAsync(categoryEndpoint);
                 responseBrand = await client.GetAsync(brandEndpoint);
@@ -167,6 +183,10 @@ namespace Tello.Api.Test.Controllers
                 HttpResponseMessage responseBrand = null;
                 using (HttpClient client = new HttpClient())
                 {
+                    if (Request.Cookies["AuthToken"] != null)
+                    {
+                        client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                    }
                     responseCategory = await client.GetAsync(categoryEndpoint);
                     responseBrand = await client.GetAsync(brandEndpoint);
                 }
@@ -187,6 +207,10 @@ namespace Tello.Api.Test.Controllers
             StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
             {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
                 response = await client.PutAsync(endpoint, content);
             }
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -200,6 +224,10 @@ namespace Tello.Api.Test.Controllers
             endpoint = "https://localhost:7067/api/admin/products/" + id;
             using (HttpClient client = new HttpClient())
             {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
                 response = await client.DeleteAsync(endpoint);
             }
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -213,6 +241,10 @@ namespace Tello.Api.Test.Controllers
             endpoint = "https://localhost:7067/api/admin/products/restore/" + id;
             using (HttpClient client = new HttpClient())
             {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
                 response = await client.DeleteAsync(endpoint);
             }
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -226,6 +258,10 @@ namespace Tello.Api.Test.Controllers
             endpoint = "https://localhost:7067/api/admin/products/" + id;
             using (HttpClient client = new HttpClient())
             {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
                 response = await client.GetAsync(endpoint);
             }
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)

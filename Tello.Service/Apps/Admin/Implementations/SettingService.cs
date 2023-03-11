@@ -59,6 +59,7 @@ namespace Tello.Service.Apps.Admin.Implementations
             if (await _unitOfWork.SettingRepository.IsExistAsync(x => x.Key == postDto.Key && x.Value == postDto.Value && !x.IsDeleted && x.Id != id))
                 throw new RecordDuplicatedException("Setting already exist");
             entity.Value = postDto.Value;
+            entity.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();
         }
     }

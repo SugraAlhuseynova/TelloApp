@@ -11,7 +11,6 @@ using Tello.Service.Email;
 using Tello.Service.Exceptions;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs.RoleDtos;
 using System.Data;
-using NuGet.Packaging.Signing;
 
 namespace Tello.Api.Apps.Admin.Controllers
 {
@@ -92,22 +91,21 @@ namespace Tello.Api.Apps.Admin.Controllers
                 return BadRequest(result.Errors);
             return Ok();
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <remarks>
-        ///// Sample request: 
-        ///// 
-        /////     POST api/users/login
-        /////     {
-        /////           "email": "super@example.com",
-        /////           "password": "Super123"
-        /////     }
-        ///// </remarks>
-        ///// <param name="loginDto"></param>
-        ///// <returns></returns>
-        ///// <exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Sample request: 
+        /// 
+        ///     POST api/users/login
+        ///     {
+        ///           "email": "super@example.com",
+        ///           "password": "Super123"
+        ///     }
+        /// </remarks>
+        /// <param name="loginDto"></param>
+        /// <returns></returns>
+        /// <exception cref="ItemNotFoundException"></exception>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
@@ -123,7 +121,6 @@ namespace Tello.Api.Apps.Admin.Controllers
 
             return Ok(loginResponseDto);
         }
-
         [HttpGet("getallmembers")]
         public async Task<IActionResult> GetAllMembers()
         {
@@ -232,14 +229,14 @@ namespace Tello.Api.Apps.Admin.Controllers
         
         #endregion
 
-        #region forgotPassword
+        #region Forgot&ResetPassword
         /// <summary>
         ///
         /// </summary>
         /// <param name="email">alhuseynovasugra@gmail.com</param>
         /// <returns></returns>
         /// <exception cref="ItemNotFoundException"></exception>
-        [HttpPost("forgotPassword/admin")]
+        [HttpPost("forgotPassword/admin/{email}")]
         public async Task<IActionResult> ForgotPassword(string email)
         {
             AppUser user = await _userManager.FindByEmailAsync(email);
@@ -248,7 +245,6 @@ namespace Tello.Api.Apps.Admin.Controllers
 
             string token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var link = Url.Action(nameof(ResetPassword), "Users", new { token, email }, Request.Scheme);
-
             EmailSender.SendEmail(email, link);
             return Ok(new { url = link });
         }
@@ -261,7 +257,7 @@ namespace Tello.Api.Apps.Admin.Controllers
                 throw new ItemNotFoundException("item not found");
 
             ChangePasswordDto vm = new ChangePasswordDto
-            {
+            {       
                 Email = email,
                 Token = token
             };
@@ -281,6 +277,5 @@ namespace Tello.Api.Apps.Admin.Controllers
             return Ok("Password succesfully reset");
         }
         #endregion
- 
-    }
+       }
 }

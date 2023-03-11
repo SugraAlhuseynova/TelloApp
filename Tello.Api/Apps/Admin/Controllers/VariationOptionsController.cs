@@ -8,11 +8,11 @@ namespace Tello.Api.Apps.Admin.Controllers
 {
     [Route("api/admin/variationoptions")]
     [ApiController]
-    public class VariationOptionController : ControllerBase
+    public class VariationOptionsController : ControllerBase
     {
         private readonly IVariationOptionService _variationOptionService;
 
-        public VariationOptionController(IVariationOptionService variationOptionService)
+        public VariationOptionsController(IVariationOptionService variationOptionService)
         {
             _variationOptionService = variationOptionService;
         }

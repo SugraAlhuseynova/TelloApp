@@ -9,24 +9,24 @@ namespace Tello.Api.Apps.Admin.Controllers
 {
     [Route("api/admin/slides")]
     [ApiController]
-    public class SlideController : ControllerBase
+    public class SlidesController : ControllerBase
     {
         private readonly ISlideService _slideService;
         private readonly IWebHostEnvironment _web;
 
-        public SlideController(ISlideService slideService, IWebHostEnvironment web)
+        public SlidesController(ISlideService slideService, IWebHostEnvironment web)
         {
             _slideService = slideService;
             _web = web;
 
         }
         // GET: api/<SlideController>
-        [HttpGet("all")]
+        [HttpGet("all/{page}")]
         public IActionResult GetAll(int page)
         {
             return Ok(_slideService.GetAll(page));
         }
-        [HttpGet("all/deleted")]
+        [HttpGet("all/deleted/{page}")]
         public IActionResult GetAllDeleted(int page)
         {
             return Ok(_slideService.GetAllDeleted(page));
@@ -57,7 +57,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         {
             await _slideService.DeleteAsync(id);
         }
-        [HttpPut("{id}/deleted")]
+        [HttpPut("restore/{id}")]
         public async Task RestoreAsync(int id)
         {
             await _slideService.Restore(id);

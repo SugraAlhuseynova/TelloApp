@@ -13,6 +13,7 @@ using AutoMapper;
 using Tello.Service.Exceptions;
 using Tello.Core.Entities;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Tello.Service.Apps.Admin.DTOs.ProductItemVariationDTOs;
 
 namespace Tello.Service.Apps.Admin.Implementations
 {
@@ -26,17 +27,19 @@ namespace Tello.Service.Apps.Admin.Implementations
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+  
         public async Task CreateAsync(ProductItemPostDto productPostDto)
         {
-            if (!(await _unitOfWork.ProductRepository.IsExistAsync(x=>x.Id == productPostDto.ProductId)))
+            if (!(await _unitOfWork.ProductRepository.IsExistAsync(x => x.Id == productPostDto.ProductId)))
                 throw new ItemNotFoundException("Product not found");
             ProductItem entity = _mapper.Map<ProductItem>(productPostDto);
             await _unitOfWork.ProductItemRepository.CreateAsync(entity);
             await _unitOfWork.CommitAsync();
+
         }
         public async Task Delete(int id)
         {
-            var entity = await _unitOfWork.ProductItemRepository.GetAsync(x=>x.Id ==id && !x.IsDeleted);
+            var entity = await _unitOfWork.ProductItemRepository.GetAsync(x => x.Id == id && !x.IsDeleted);
             if (entity == null)
                 throw new ItemNotFoundException("ProductItem not found");
             entity.IsDeleted = true;

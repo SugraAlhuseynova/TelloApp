@@ -54,7 +54,7 @@ namespace Tello.Service.Apps.Admin.Implementations
         public PaginatedListDto<ProductListItemDto> GetAll(int page)
         {
             int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
-            var query = _unitOfWork.ProductRepository.GetAll(x => !x.IsDeleted, "Category", "Brand");
+            var query = _unitOfWork.ProductRepository.GetAll(x => !x.IsDeleted, "Category", "Brand", "ProductItems");
             List<ProductListItemDto> items = _mapper.Map<List<ProductListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
             var paginationList = new PaginatedListDto<ProductListItemDto>(items, query.Count(), page, paginationCount);
             return paginationList;

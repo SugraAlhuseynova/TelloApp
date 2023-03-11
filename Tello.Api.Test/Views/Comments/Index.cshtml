@@ -1,0 +1,82 @@
+﻿@model PaginatedListDto<CommentListItemDto>
+@{
+    ViewData["Title"] = "Index";
+    int count = Model.Items.Count * (Model.PageIndex - 1);
+}
+
+<div class="col-lg-9 col-sm-10 mx-auto stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <p class="card-description">
+                <a asp-action="getalldeleted" asp-controller="comments" class="btn btn-danger">See all deleted comments</a>
+            </p>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Id</th>
+                            <th>Product Name</th>
+                            <th>User Name</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            count++;
+                            <tr class="text-light">
+                                <td>@count</td>
+                                <td>@item.Id</td>
+                                <td>@item.ProductName</td>
+                                <td>@item.AppName</td>
+                                @if (item.Desc.Length > 15)
+                                {
+                                    <td>@item.Desc.Replace(@item.Desc.Substring(15), " ...")</td>
+                                }
+                                else
+                                {
+                                    <td>@item.Desc</td>
+                                }
+                                <td><a asp-action="delete" asp-route-id="@item.Id" class="badge badge-danger sweet-delete" data-name="comment">Delete</a></td>
+                                <td><a asp-action="detail" asp-route-id="@item.Id" class="badge badge-outline-danger">Detail</a></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center pt-3">
+                <ul class="pagination mx-auto">
+                    <li class="page-item">
+                        <a class="page-link" asp-action="index" asp-controller="comments" asp-route-page="1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-action="index" asp-controller="comments"
+                           asp-route-page="@(Model.PageIndex==1?Model.PageIndex:Model.PageIndex-1)" aria-label="Next">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPage; i++)
+                    {
+                        <li class="page-item"><a class="page-link" asp-action="index" asp-controller="comments" asp-route-page="@i">@i</a></li>
+
+                    }
+                    <li class="page-item">
+                        <a class="page-link" asp-action="index" asp-controller="comments" asp-route-page="@(Model.PageIndex==Model.TotalPage?Model.TotalPage:Model.PageIndex+1)" aria-label="Next">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-action="index" asp-controller="comments" asp-route-page="@Model.TotalPage" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

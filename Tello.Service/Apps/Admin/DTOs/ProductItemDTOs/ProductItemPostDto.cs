@@ -12,5 +12,7 @@ namespace Tello.Service.Apps.Admin.DTOs.ProductItemDTOs
         public float SalePrice { get; set; }
         public int Count { get; set; }
         public int ProductId { get; set; }
+        public List<int> VariationOptionIds { get; set; }
+
     }
 }

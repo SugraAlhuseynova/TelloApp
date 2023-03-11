@@ -27,9 +27,9 @@ namespace Tello.Api.Apps.Admin.Controllers
             return Ok(await _brandService.GetAsync(id));
         }
         [HttpGet("all/{page}")]
-        public async Task<IActionResult> GetAll(int page = 1)
+        public IActionResult GetAll(int page = 1)
         {
-            var data = await _brandService.GetAll(page);
+            var data = _brandService.GetAll(page);
             return Ok(data);
         }
         [HttpGet("all/deleted{page}")]

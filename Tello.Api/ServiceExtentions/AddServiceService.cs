@@ -34,6 +34,7 @@ namespace Tello.Api.ServiceExtentions
             builder.Services.AddScoped<IProductItemService, ProductItemService>();
             builder.Services.AddScoped<IProductItemVariationService, ProductItemVariationService>();
             builder.Services.AddScoped<ISettingService, SettingService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
             
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IJWTSerivce, JWTService>();

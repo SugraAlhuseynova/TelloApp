@@ -1,0 +1,9 @@
+﻿@model CommentGetDto
+
+<div class="col-sm-6 mx-auto">
+    <p>User: @Model.AppName</p>
+    <p>
+        @Model.ProductItemId - @Model.ProductName  @string.Join(" ", Model.Variations)
+    </p>
+    <p>@Model.Desc</p>
+</div>

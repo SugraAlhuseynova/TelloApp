@@ -287,5 +287,3 @@ C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Microsoft.Extensions.
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\MicroElements.Swashbuckle.FluentValidation.dll
-C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Tello.Api.xml
-C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\Tello.Api.xml

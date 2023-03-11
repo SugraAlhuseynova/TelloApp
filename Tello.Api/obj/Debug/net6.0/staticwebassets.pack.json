@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\Uploads\\Slides\\4ac4e3f0-625f-45b2-9e4e-40ca00598ec3Screenshot (27).png",
+      "PackagePath": "staticwebassets\\Uploads\\Slides\\4ac4e3f0-625f-45b2-9e4e-40ca00598ec3Screenshot (27).png"
+    },
+    {
+      "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\Uploads\\Slides\\953d7d1b-ea48-43c7-929c-e46dbb77dba6Screenshot (34).png",
+      "PackagePath": "staticwebassets\\Uploads\\Slides\\953d7d1b-ea48-43c7-929c-e46dbb77dba6Screenshot (34).png"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Tello.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.Tello.Api.props",
+      "PackagePath": "build\\Tello.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.Tello.Api.props",
+      "PackagePath": "buildMultiTargeting\\Tello.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.Tello.Api.props",
+      "PackagePath": "buildTransitive\\Tello.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

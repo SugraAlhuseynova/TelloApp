@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Cryptography.X509Certificates;
 using Tello.Core.Entities;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs.RoleDtos;
 using Tello.Service.Apps.Admin.DTOs.BrandDTOs;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
+using Tello.Service.Apps.Admin.DTOs.CommentDTOs;
 using Tello.Service.Apps.Admin.DTOs.ProductDTOs;
 using Tello.Service.Apps.Admin.DTOs.ProductItemDTOs;
 using Tello.Service.Apps.Admin.DTOs.ProductItemVariationDTOs;
@@ -51,6 +53,7 @@ namespace Tello.Service.Profiles
             CreateMap<Product, ProductGetDto>();
             CreateMap<ProductPostDto, Product>();
             CreateMap<Product, ProductListItemDto>();
+                //.ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.ProductItems.Count()));
             CreateMap<Product, ProductSelectDto>()
             .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
             .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name));
@@ -84,7 +87,15 @@ namespace Tello.Service.Profiles
             //setting
             CreateMap<Setting, SettingGetDto>();
             CreateMap<SettingPostDto, Setting>();
-
+            //comment
+            CreateMap<Comment, CommentGetDto>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductItem.Product.Name))
+                .ForMember(dest => dest.AppName, opt => opt.MapFrom(src => src.AppUser.Fullname))
+                .ForMember(dest => dest.Variations, opt => opt.MapFrom(src => src.ProductItem.ProductItemVariations.Select(x=>x.VariationOption).Where(x=>x.VariationCategory.Variation.Name == "Color" || x.VariationCategory.Variation.Name == "RAM").Select(x=>x.Value).ToList()));
+            CreateMap<CommentPostDto, Comment>();
+            CreateMap<Comment, CommentListItemDto>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductItem.Product.Name))
+                .ForMember(dest => dest.AppName, opt => opt.MapFrom(src => src.AppUser.Fullname));
         }
     }
 }

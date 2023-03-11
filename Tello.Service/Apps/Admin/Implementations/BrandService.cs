@@ -44,12 +44,12 @@ namespace Tello.Service.Apps.Admin.Implementations
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<BrandTestPaginationList<BrandListItemDto>> GetAll(int page)
+        public PaginatedListDto<BrandListItemDto> GetAll(int page)
         {
             int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.BrandRepository.GetAll(x => !x.IsDeleted);
             List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
-            var listDto = new BrandTestPaginationList<BrandListItemDto>(items, query.Count(), page, paginationCount);
+            var listDto = new PaginatedListDto<BrandListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
 
@@ -60,12 +60,12 @@ namespace Tello.Service.Apps.Admin.Implementations
             return items;
         }
 
-        public BrandTestPaginationList<BrandListItemDto> GetAllDeleted(int page)
+        public PaginatedListDto<BrandListItemDto> GetAllDeleted(int page)
         {
             int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
             var query = _unitOfWork.BrandRepository.GetAll(x => x.IsDeleted);
             List<BrandListItemDto> items = _mapper.Map<List<BrandListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
-            var listDto = new BrandTestPaginationList<BrandListItemDto>(items, query.Count(), page, paginationCount);
+            var listDto = new PaginatedListDto<BrandListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;
         }
 

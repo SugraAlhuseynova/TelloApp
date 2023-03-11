@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.VisualBasic;
 using Newtonsoft.Json;
 using NuGet.Protocol;
 using System.Collections.Immutable;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Tello.Api.Test.Controllers
     {
         HttpResponseMessage response = new();
         string endpoint = string.Empty;
-        
+
         public async Task<IActionResult> Index()
         {
             endpoint = "https://localhost:7067/api/admin/users/Loggeduser";
@@ -49,7 +50,7 @@ namespace Tello.Api.Test.Controllers
             }
             endpoint = "https://localhost:7067/api/admin/users/login";
             StringContent requestContent = new StringContent(JsonConvert.SerializeObject(loginDto), Encoding.UTF8, "application/json");
-            using(HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
                 response = await client.PostAsync(endpoint, requestContent);
             }
@@ -65,7 +66,7 @@ namespace Tello.Api.Test.Controllers
             }
             return RedirectToAction("error", "home");
         }
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
             if (Request.Cookies["AuthToken"] != null)
             {
@@ -74,13 +75,45 @@ namespace Tello.Api.Test.Controllers
             }
             return Redirect(Request.Headers["Referer"].ToString());
         }
-       
-        //public async Task<IActionResult> ChangePassword()
-        //{
-        //    //meni 
 
-        //    return View();
-        //}
+        #region Forgot&ResetPassword
+        public async Task<IActionResult> ForgotPassword()
+        {
+            if (!ModelState.IsValid)
+                return View();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            endpoint = "https://localhost:7067/api/admin/users/forgotPassword/admin/" + email;
+            StringContent content = new StringContent(JsonConvert.SerializeObject(email), Encoding.UTF8, "application/json");
+            using (HttpClient client = new HttpClient())
+            {
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Request.Cookies["AuthToken"]);
+                }
+                response = await client.PostAsync(endpoint, content);
+            }
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var responseStr = await response.Content.ReadAsStringAsync();
+                return RedirectToAction(nameof(GoToMail));
+            }
+            return RedirectToAction("error", "home");
+        }
+        public async Task<IActionResult> GoToMail()
+        {
+            return View();
+        }
+        public async Task<IActionResult> ResetPassword(string email, string token)
+        {
+            return View();
+        }
+        #endregion
+
+        #region MemberManager
         public async Task<IActionResult> GetAllMembers()
         {
             endpoint = "https://localhost:7067/api/admin/users/getallmembers";
@@ -118,6 +151,7 @@ namespace Tello.Api.Test.Controllers
             return RedirectToAction("error", "home");
 
         }
+        #endregion
 
         #region AdminManager
         public async Task<IActionResult> IndexAdmin()
@@ -154,7 +188,7 @@ namespace Tello.Api.Test.Controllers
             {
                 var content = await response.Content.ReadAsStringAsync();
                 List<RoleGetDto> getDto = JsonConvert.DeserializeObject<List<RoleGetDto>>(content);
-                ViewBag.Roles = getDto.Where(x=>x.Role != "Member" && x.Role != "Superadmin").ToList();
+                ViewBag.Roles = getDto.Where(x => x.Role != "Member" && x.Role != "Superadmin").ToList();
                 return View();
             }
             return RedirectToAction("error", "home");
@@ -180,10 +214,10 @@ namespace Tello.Api.Test.Controllers
         }
         public async Task<IActionResult> EditAdmin(string id)
         {
-            endpoint = "https://localhost:7067/api/admin/users/getuser/"+id;
+            endpoint = "https://localhost:7067/api/admin/users/getuser/" + id;
             string endpointRoles = "https://localhost:7067/api/admin/users/getroles";
             HttpResponseMessage responseRoles = null;
-            
+
             using (HttpClient client = new HttpClient())
             {
                 if (Request.Cookies["AuthToken"] != null)
@@ -254,11 +288,10 @@ namespace Tello.Api.Test.Controllers
             }
             return RedirectToAction("error", "home");
         }
-
         public async Task<IActionResult> DeleteAdmin(string id)
         {
             endpoint = "https://localhost:7067/api/admin/users/admin/" + id;
-            using(HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
                 if (Request.Cookies["AuthToken"] != null)
                 {
@@ -273,7 +306,6 @@ namespace Tello.Api.Test.Controllers
             return RedirectToAction("error", "home");
         }
         #endregion
-
 
         #region RoleManager
         public async Task<IActionResult> RoleIndex()
@@ -367,7 +399,6 @@ namespace Tello.Api.Test.Controllers
             return RedirectToAction("error", "home");
         }
         #endregion
-
 
         #region LoggedUser
         public async Task<IActionResult> LoggedUser()
