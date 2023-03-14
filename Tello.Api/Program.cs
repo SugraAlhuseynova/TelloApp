@@ -1,20 +1,17 @@
 using FluentValidation.AspNetCore;
-using MicroElements.Swashbuckle.FluentValidation;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
-using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 using Tello.Api.ServiceExtentions;
 using Tello.Core.Entities;
 using Tello.Data.DAL;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
+using Tello.Service.Apps.Admin.Implementations.Storage.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +44,8 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 
 builder.Services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(10));
 
+//builder.AddStorageService<LocalStorage>();
+builder.AddStorageService<AzureStorage>();
 builder.AddService();
 
 builder.Services.AddControllers().AddJsonOptions(x =>

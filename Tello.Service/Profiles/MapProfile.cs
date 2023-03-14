@@ -5,6 +5,7 @@ using Tello.Core.Entities;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs;
 using Tello.Service.Apps.Admin.DTOs.AppUserDTOs.RoleDtos;
 using Tello.Service.Apps.Admin.DTOs.BrandDTOs;
+using Tello.Service.Apps.Admin.DTOs.CardDTOs;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
 using Tello.Service.Apps.Admin.DTOs.CommentDTOs;
 using Tello.Service.Apps.Admin.DTOs.ProductDTOs;
@@ -96,6 +97,9 @@ namespace Tello.Service.Profiles
             CreateMap<Comment, CommentListItemDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductItem.Product.Name))
                 .ForMember(dest => dest.AppName, opt => opt.MapFrom(src => src.AppUser.Fullname));
+            //card
+            CreateMap<Card, CardGetDto>();
+            CreateMap<Card, CardListItemDto>();
         }
     }
 }

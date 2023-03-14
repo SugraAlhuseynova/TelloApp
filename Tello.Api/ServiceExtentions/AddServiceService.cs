@@ -3,8 +3,11 @@ using Tello.Core.IRepositories;
 using Tello.Core.IUnitOfWork;
 using Tello.Data.Repositories;
 using Tello.Data.UnitOfWork;
-using Tello.Service.Apps.Admin.Implementations;
-using Tello.Service.Apps.Admin.IServices;
+using Tello.Service.Apps.Admin.Implementations.EntityServices;
+using Tello.Service.Apps.Admin.Implementations.Service;
+using Tello.Service.Apps.Admin.Implementations.Storage;
+using Tello.Service.Apps.Admin.IServices.IEntityServices;
+using Tello.Service.Apps.Admin.IServices.Storage;
 using Tello.Service.Profiles;
 
 namespace Tello.Api.ServiceExtentions
@@ -35,10 +38,15 @@ namespace Tello.Api.ServiceExtentions
             builder.Services.AddScoped<IProductItemVariationService, ProductItemVariationService>();
             builder.Services.AddScoped<ISettingService, SettingService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<ICardService, CardService>();
             
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IJWTSerivce, JWTService>();
-
+        }
+        public static void AddStorageService<T>(this WebApplicationBuilder builder) where T : class, IStorage
+        {
+            builder.Services.AddScoped<IStorage, T>();
+            builder.Services.AddScoped<IStorageService, StorageService>();
         }
     }
 }

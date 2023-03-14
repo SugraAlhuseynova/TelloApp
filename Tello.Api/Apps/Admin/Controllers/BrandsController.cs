@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tello.Service.Apps.Admin.DTOs.BrandDTOs;
-using Tello.Service.Apps.Admin.IServices;
+using Tello.Service.Apps.Admin.IServices.IEntityServices;
 
 namespace Tello.Api.Apps.Admin.Controllers
 {

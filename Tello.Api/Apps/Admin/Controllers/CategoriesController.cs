@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tello.Core.IRepositories;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
-using Tello.Service.Apps.Admin.Implementations;
-using Tello.Service.Apps.Admin.IServices;
+using Tello.Service.Apps.Admin.IServices.IEntityServices;
 
 namespace Tello.Api.Apps.Admin.Controllers
 {

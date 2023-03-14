@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AWV5Lx+FjeEriJRulqj0g2mNRfuuoPBIEGgNTOQ++rc=",
+  "Hash": "Bt4tE7IpCbmry4wCXy9U1IlH1h/u8f21YjlKIIKn0qg=",
   "Source": "Tello.Api",
   "BasePath": "_content/Tello.Api",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\Uploads\\Slides\\23468081-4a81-472f-9efc-fc0caf4b84f9Screenshot (305).png",
+      "SourceId": "Tello.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\",
+      "BasePath": "_content/Tello.Api",
+      "RelativePath": "Uploads/Slides/23468081-4a81-472f-9efc-fc0caf4b84f9Screenshot (305).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Slides\\23468081-4a81-472f-9efc-fc0caf4b84f9Screenshot (305).png"
+    },
     {
       "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\Uploads\\Slides\\4ac4e3f0-625f-45b2-9e4e-40ca00598ec3Screenshot (27).png",
       "SourceId": "Tello.Api",
@@ -49,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\Slides\\953d7d1b-ea48-43c7-929c-e46dbb77dba6Screenshot (34).png"
+    },
+    {
+      "Identity": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\Uploads\\Slides\\f4381781-3333-4e50-b9af-997e4ad8a999Screenshot (306).png",
+      "SourceId": "Tello.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\",
+      "BasePath": "_content/Tello.Api",
+      "RelativePath": "Uploads/Slides/f4381781-3333-4e50-b9af-997e4ad8a999Screenshot (306).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Slides\\f4381781-3333-4e50-b9af-997e4ad8a999Screenshot (306).png"
     }
   ]
 }

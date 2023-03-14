@@ -1,12 +1,20 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\Uploads\\Slides\\23468081-4a81-472f-9efc-fc0caf4b84f9Screenshot (305).png",
+      "PackagePath": "staticwebassets\\Uploads\\Slides\\23468081-4a81-472f-9efc-fc0caf4b84f9Screenshot (305).png"
+    },
+    {
       "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\Uploads\\Slides\\4ac4e3f0-625f-45b2-9e4e-40ca00598ec3Screenshot (27).png",
       "PackagePath": "staticwebassets\\Uploads\\Slides\\4ac4e3f0-625f-45b2-9e4e-40ca00598ec3Screenshot (27).png"
     },
     {
       "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\Uploads\\Slides\\953d7d1b-ea48-43c7-929c-e46dbb77dba6Screenshot (34).png",
       "PackagePath": "staticwebassets\\Uploads\\Slides\\953d7d1b-ea48-43c7-929c-e46dbb77dba6Screenshot (34).png"
+    },
+    {
+      "Id": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\wwwroot\\Uploads\\Slides\\f4381781-3333-4e50-b9af-997e4ad8a999Screenshot (306).png",
+      "PackagePath": "staticwebassets\\Uploads\\Slides\\f4381781-3333-4e50-b9af-997e4ad8a999Screenshot (306).png"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Tello.Api.Microsoft.AspNetCore.StaticWebAssets.props",

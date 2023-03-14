@@ -2,8 +2,7 @@
 using Tello.Core.Entities;
 using Tello.Core.IRepositories;
 using Tello.Service.Apps.Admin.DTOs.VariationCategoryDTOs;
-using Tello.Service.Apps.Admin.IServices;
-
+using Tello.Service.Apps.Admin.IServices.IEntityServices;
 
 namespace Tello.Api.Apps.Admin.Controllers
 {

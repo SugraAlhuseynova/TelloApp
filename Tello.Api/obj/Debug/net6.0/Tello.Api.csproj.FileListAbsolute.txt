@@ -287,3 +287,8 @@ C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Microsoft.Extensions.
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\MicroElements.Swashbuckle.FluentValidation.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Azure.Storage.Blobs.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Azure.Storage.Common.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\System.IO.Hashing.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\System.Memory.Data.dll

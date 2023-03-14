@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using NuGet.Protocol;
 using Tello.Service.Apps.Admin.DTOs.ProductDTOs;
-using Tello.Service.Apps.Admin.IServices;
+using Tello.Service.Apps.Admin.IServices.IEntityServices;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
