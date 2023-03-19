@@ -12,6 +12,7 @@ using Tello.Core.Entities;
 using Tello.Data.DAL;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
 using Tello.Service.Apps.Admin.Implementations.Storage.Azure;
+using Tello.Service.Client.Member.DTOs.UserDTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,12 @@ builder.Services.AddControllers().AddFluentValidation(x =>
     {
         x.RegisterValidatorsFromAssemblyContaining<CategoryPostDto>();
     });
+builder.Services.AddControllers().AddFluentValidation(x =>
+{
+    x.RegisterValidatorsFromAssemblyContaining<UserPostDto>();
+});
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -46,11 +53,12 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options => option
 
 //builder.AddStorageService<LocalStorage>();
 builder.AddStorageService<AzureStorage>();
-builder.AddService();
-
+builder.AddAdminService();
+builder.AddMemberService();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+//JWT
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -68,6 +76,7 @@ builder.Services.AddAuthentication(opt =>
 
 builder.Services.AddFluentValidationRulesToSwagger();
 
+//Swagger
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });

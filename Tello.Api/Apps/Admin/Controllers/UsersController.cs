@@ -69,7 +69,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         [HttpPut("role/{id}")]
         public async Task UpdateRole(string id, RolePostDto postDto)
         {
-            var data = await (_roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id));
+            var data = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id);
             data.Name = postDto.Role;
             data.NormalizedName = postDto.Role.ToUpper();
             await _roleManager.UpdateAsync(data);
@@ -117,7 +117,7 @@ namespace Tello.Api.Apps.Admin.Controllers
 
             IList<string> roles = await _userManager.GetRolesAsync(user);
             string token = _jwtService.CreateJWTToken(user, roles);
-            UserLoginResponseDto loginResponseDto = new UserLoginResponseDto(){ Token = token};
+            UserLoginResponseDto loginResponseDto = new UserLoginResponseDto() { Token = token };
 
             return Ok(loginResponseDto);
         }
@@ -223,10 +223,10 @@ namespace Tello.Api.Apps.Admin.Controllers
         public async Task DeleteAdmin(string id)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
-            if(user != null) 
+            if (user != null)
                 await _userManager.DeleteAsync(user);
         }
-        
+
         #endregion
 
         #region Forgot&ResetPassword
@@ -257,7 +257,7 @@ namespace Tello.Api.Apps.Admin.Controllers
                 throw new ItemNotFoundException("item not found");
 
             ChangePasswordDto vm = new ChangePasswordDto
-            {       
+            {
                 Email = email,
                 Token = token
             };
@@ -277,5 +277,5 @@ namespace Tello.Api.Apps.Admin.Controllers
             return Ok("Password succesfully reset");
         }
         #endregion
-       }
+    }
 }

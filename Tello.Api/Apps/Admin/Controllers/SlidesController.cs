@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tello.Api.Helpers;
 using Tello.Service.Apps.Admin.DTOs.SlideDTOs;
 using Tello.Service.Apps.Admin.IServices.IEntityServices;
 

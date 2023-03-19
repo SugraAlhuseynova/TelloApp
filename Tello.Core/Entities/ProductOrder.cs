@@ -8,10 +8,11 @@ namespace Tello.Core.Entities
 {
     public class ProductOrder : BaseEntity
     {
-        public int ProductItemId { get; set; }
         public int CardId { get; set; }
+        public int ProductItemId { get; set; }
+        public int Count { get; set; }
         public double Price { get; set; }
-        public ProductItem ProductItem { get; set; }
         public Card Card { get; set; }
+        public ProductItem ProductItem { get; set; }
     }
 }

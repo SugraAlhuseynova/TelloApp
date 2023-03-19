@@ -46,7 +46,6 @@ C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\Tello.Api.GeneratedMS
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\Tello.Api.AssemblyInfoInputs.cache
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\Tello.Api.AssemblyInfo.cs
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\Tello.Api.csproj.CoreCompileInputs.cache
-C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\Tello.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\Tello.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\staticwebassets\msbuild.Tello.Api.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\staticwebassets\msbuild.build.Tello.Api.props
@@ -292,3 +291,6 @@ C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Azure.Storage.Blobs.d
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Azure.Storage.Common.dll
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\System.IO.Hashing.dll
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Tello.Service.Client.dll
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Tello.Service.Client.pdb
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\Tello.Api.MvcApplicationPartsAssemblyInfo.cs

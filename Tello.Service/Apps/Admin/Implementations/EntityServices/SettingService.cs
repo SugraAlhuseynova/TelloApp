@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
+using Tello.Core.Entities;
 using Tello.Core.IRepositories;
 using Tello.Core.IUnitOfWork;
 using Tello.Service.Apps.Admin.DTOs.BrandDTOs;
@@ -23,6 +25,16 @@ namespace Tello.Service.Apps.Admin.Implementations.Service
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        public async Task CreateAsync(SettingPostDto postDto)
+        {
+            if (await _unitOfWork.SettingRepository.IsExistAsync(x=>x.Key == postDto.Key))
+                throw new RecordDuplicatedException("Setting already exist");
+            Setting setting = _mapper.Map<Setting>(postDto);
+            await _unitOfWork.SettingRepository.CreateAsync(setting);
+            await _unitOfWork.CommitAsync();
+        }
+
 
         public async Task Delete(int id)
         {

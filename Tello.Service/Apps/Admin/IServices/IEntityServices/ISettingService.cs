@@ -11,13 +11,10 @@ namespace Tello.Service.Apps.Admin.IServices.IEntityServices
 {
     public interface ISettingService
     {
-        //Task CreateAsync(BrandPostDto postDto);
+        Task CreateAsync(SettingPostDto postDto);
         Task UpdateAsync(int id, SettingPostDto postDto);
         Task<SettingGetDto> GetAsync(int id);
         Task Delete(int id);
-        //Task Restore(int id);
-        //PaginatedListDto<BrandListItemDto> GetAll(int page);
         PaginatedSettingListDto<SettingGetDto> GetAll(int page);
-        //BrandTestPaginationList<BrandListItemDto> GetAllDeleted(int page);
     }
 }

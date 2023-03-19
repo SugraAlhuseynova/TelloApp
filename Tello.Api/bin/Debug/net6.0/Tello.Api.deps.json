@@ -17,7 +17,8 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.11",
           "Swashbuckle.AspNetCore": "6.2.3",
           "Tello.Core": "1.0.0",
-          "Tello.Service": "1.0.0"
+          "Tello.Service": "1.0.0",
+          "Tello.Service.Client": "1.0.0"
         },
         "runtime": {
           "Tello.Api.dll": {}
@@ -2535,6 +2536,16 @@
         "runtime": {
           "Tello.Service.dll": {}
         }
+      },
+      "Tello.Service.Client/1.0.0": {
+        "dependencies": {
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
+          "FluentValidation.AspNetCore": "11.2.2",
+          "Tello.Data": "1.0.0"
+        },
+        "runtime": {
+          "Tello.Service.Client.dll": {}
+        }
       }
     }
   },
@@ -3934,6 +3945,11 @@
       "sha512": ""
     },
     "Tello.Service/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Tello.Service.Client/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

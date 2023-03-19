@@ -16,6 +16,8 @@ namespace Tello.Data.Configurations
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.ModifiedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
+            builder.Property(x => x.IsConfirmed).HasDefaultValue(false);
+            //builder.Property(x => x.OrderStatus).HasDefaultValue(0);
         }
     }
 }

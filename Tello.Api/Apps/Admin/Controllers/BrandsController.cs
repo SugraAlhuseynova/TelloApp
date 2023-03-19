@@ -19,7 +19,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok( _brandService.GetAll());
+            return Ok(_brandService.GetAll());
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

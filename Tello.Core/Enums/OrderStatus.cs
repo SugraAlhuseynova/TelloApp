@@ -2,8 +2,8 @@
 {
     public enum OrderStatus:byte
     {
-        Pending, 
-        Approved,
-        Rejected
+        Pending,
+        Prepared,
+        Delivered
     }
 }

@@ -3973,6 +3973,21 @@
         "runtime": {
           "bin/placeholder/Tello.Service.dll": {}
         }
+      },
+      "Tello.Service.Client/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
+          "FluentValidation.AspNetCore": "11.2.2",
+          "Tello.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Tello.Service.Client.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tello.Service.Client.dll": {}
+        }
       }
     }
   },
@@ -10978,6 +10993,11 @@
       "type": "project",
       "path": "../Tello.Service/Tello.Service.csproj",
       "msbuildProject": "../Tello.Service/Tello.Service.csproj"
+    },
+    "Tello.Service.Client/1.0.0": {
+      "type": "project",
+      "path": "../Tello.Service.Client/Tello.Service.Client.csproj",
+      "msbuildProject": "../Tello.Service.Client/Tello.Service.Client.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -10991,7 +11011,8 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.11",
       "Swashbuckle.AspNetCore >= 6.2.3",
       "Tello.Core >= 1.0.0",
-      "Tello.Service >= 1.0.0"
+      "Tello.Service >= 1.0.0",
+      "Tello.Service.Client >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -11023,6 +11044,9 @@
           "projectReferences": {
             "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Core\\Tello.Core.csproj": {
               "projectPath": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Core\\Tello.Core.csproj"
+            },
+            "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Service.Client\\Tello.Service.Client.csproj": {
+              "projectPath": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Service.Client\\Tello.Service.Client.csproj"
             },
             "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Service\\Tello.Service.csproj": {
               "projectPath": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Service\\Tello.Service.csproj"

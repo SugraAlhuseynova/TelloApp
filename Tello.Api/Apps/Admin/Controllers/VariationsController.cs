@@ -22,7 +22,7 @@ namespace Tello.Api.Apps.Admin.Controllers
             return Ok(_variationService.GetAll1());
         }
         [HttpGet("all/{page}")]
-        public async Task<IActionResult> GetAll(int page = 1) 
+        public async Task<IActionResult> GetAll(int page = 1)
         {
             return Ok(_variationService.GetAll(page));
         }

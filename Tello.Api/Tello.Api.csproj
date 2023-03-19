@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tello.Core\Tello.Core.csproj" />
+    <ProjectReference Include="..\Tello.Service.Client\Tello.Service.Client.csproj" />
     <ProjectReference Include="..\Tello.Service\Tello.Service.csproj" />
   </ItemGroup>
 

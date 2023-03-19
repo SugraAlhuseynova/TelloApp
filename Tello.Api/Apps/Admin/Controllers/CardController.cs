@@ -35,7 +35,7 @@ namespace Tello.Api.Apps.Admin.Controllers
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody] byte status)
         {
-            await _cardService.ChangeStatus(id, status);   
+            await _cardService.ChangeStatus(id, status);
         }
 
     }

@@ -14,9 +14,10 @@ namespace Tello.Api.ServiceExtentions
 {
     public static class AddServiceService
     {
-        public static void AddService(this WebApplicationBuilder builder)
+        public static void AddAdminService(this WebApplicationBuilder builder)
         {
             builder.Services.AddAutoMapper(typeof(MapProfile));
+            builder.Services.AddAutoMapper(typeof(Service.Client.Profiles.MapProfile));
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
             builder.Services.AddScoped<ISlideRepository, SlideRepository>();
@@ -42,6 +43,13 @@ namespace Tello.Api.ServiceExtentions
             
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IJWTSerivce, JWTService>();
+        }
+        public static void AddMemberService(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddScoped<Service.Client.Member.IServices.ICategoryService, Service.Client.Member.Implementations.CategoryService>();
+            builder.Services.AddScoped<Service.Client.Member.IServices.IBrandService, Service.Client.Member.Implementations.BrandService>();
+            builder.Services.AddScoped<Service.Client.Member.IServices.IProductItemService, Service.Client.Member.Implementations.ProductItemService>();
+            builder.Services.AddScoped<Service.Client.Member.IServices.ICommentService, Service.Client.Member.Implementations.CommentService>();
         }
         public static void AddStorageService<T>(this WebApplicationBuilder builder) where T : class, IStorage
         {

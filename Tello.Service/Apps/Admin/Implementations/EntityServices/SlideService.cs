@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Tello.Api.Helpers;
 using Tello.Core.Entities;
 using Tello.Core.IUnitOfWork;
 using Tello.Service.Apps.Admin.DTOs;

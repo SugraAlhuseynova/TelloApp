@@ -16,6 +16,16 @@ namespace Tello.Data.Configurations
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.ModifiedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
+
+            builder.HasOne(p => p.ProductItem)
+           .WithMany(pi => pi.ProductOrders)
+           .HasForeignKey(p => p.ProductItemId);
+
+            builder.Property(p => p.Price)
+                //.HasComputedColumnSql("SELECT [pi].[SalePrice]*[po].[Count] from [ProductItems] [pi] join [ProductOrders] [po] on [po].[ProductItemId] = [pi].[Id]", stored: true)
+                .HasComputedColumnSql($"{nameof(ProductOrder.Count)}*{nameof(ProductOrder.ProductItem.SalePrice)}", stored: true)
+                //.HasColumnType("decimal(18,2)")
+                .IsRequired();
         }
     }
 }

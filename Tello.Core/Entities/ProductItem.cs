@@ -15,5 +15,7 @@ namespace Tello.Core.Entities
         public int ProductId { get; set; }
         public Product Product { get; set; }
         public List<ProductItemVariation> ProductItemVariations { get; set;}
+        public List<Comment> Comments { get; set; }
+        public List<ProductOrder> ProductOrders { get;set; }
     }
 }

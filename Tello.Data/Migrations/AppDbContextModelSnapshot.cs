@@ -276,6 +276,11 @@ namespace Tello.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<bool>("IsConfirmed")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -509,6 +514,52 @@ namespace Tello.Data.Migrations
                     b.HasIndex("VariationOptionId");
 
                     b.ToTable("ProductItemVariations");
+                });
+
+            modelBuilder.Entity("Tello.Core.Entities.ProductOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<double>("Price")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("float")
+                        .HasComputedColumnSql("Count*SalePrice", true);
+
+                    b.Property<int>("ProductItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId");
+
+                    b.HasIndex("ProductItemId");
+
+                    b.ToTable("ProductOrders");
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.Setting", b =>
@@ -798,7 +849,7 @@ namespace Tello.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Tello.Core.Entities.ProductItem", "ProductItem")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("ProductItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -857,6 +908,25 @@ namespace Tello.Data.Migrations
                     b.Navigation("VariationOption");
                 });
 
+            modelBuilder.Entity("Tello.Core.Entities.ProductOrder", b =>
+                {
+                    b.HasOne("Tello.Core.Entities.Card", "Card")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tello.Core.Entities.ProductItem", "ProductItem")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("ProductItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+
+                    b.Navigation("ProductItem");
+                });
+
             modelBuilder.Entity("Tello.Core.Entities.VariationCategory", b =>
                 {
                     b.HasOne("Tello.Core.Entities.Category", "Category")
@@ -887,6 +957,11 @@ namespace Tello.Data.Migrations
                     b.Navigation("VariationCategory");
                 });
 
+            modelBuilder.Entity("Tello.Core.Entities.Card", b =>
+                {
+                    b.Navigation("ProductOrders");
+                });
+
             modelBuilder.Entity("Tello.Core.Entities.Category", b =>
                 {
                     b.Navigation("Products");
@@ -901,7 +976,11 @@ namespace Tello.Data.Migrations
 
             modelBuilder.Entity("Tello.Core.Entities.ProductItem", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("ProductItemVariations");
+
+                    b.Navigation("ProductOrders");
                 });
 #pragma warning restore 612, 618
         }

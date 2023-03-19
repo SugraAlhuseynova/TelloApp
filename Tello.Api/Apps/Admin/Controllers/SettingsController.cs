@@ -8,11 +8,11 @@ namespace Tello.Api.Apps.Admin.Controllers
 {
     [Route("api/admin/settings")]
     [ApiController]
-    public class SettingController : ControllerBase
+    public class SettingsController : ControllerBase
     {
         private readonly ISettingService _settingService;
 
-        public SettingController(ISettingService settingService)
+        public SettingsController(ISettingService settingService)
         {
             _settingService = settingService;
         }
@@ -31,10 +31,11 @@ namespace Tello.Api.Apps.Admin.Controllers
         }
 
         // POST api/<SettingController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        [HttpPost]
+        public async Task Post([FromBody] SettingPostDto postDto)
+        {
+            await _settingService.CreateAsync(postDto);
+        }
 
         // PUT api/<SettingController>/5
         [HttpPut("{id}")]
