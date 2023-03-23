@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Stripe;
 using System.Text;
 using System.Text.Json.Serialization;
 using Tello.Api.ServiceExtentions;
@@ -13,6 +14,7 @@ using Tello.Data.DAL;
 using Tello.Service.Apps.Admin.DTOs.CategoryDTOs;
 using Tello.Service.Apps.Admin.Implementations.Storage.Azure;
 using Tello.Service.Client.Member.DTOs.UserDTOs;
+using Tello.Service.Client.Member.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +59,15 @@ builder.AddAdminService();
 builder.AddMemberService();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+//STRIPE
+builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<CustomerService>();
+builder.Services.AddScoped<ChargeService>();
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
+builder.Services.AddScoped<IStripeService, StripeService>();
+
 
 //JWT
 builder.Services.AddAuthentication(opt =>

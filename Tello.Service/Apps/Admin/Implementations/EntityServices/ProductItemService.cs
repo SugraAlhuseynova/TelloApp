@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tello.Core.IRepositories;
-using Tello.Service.Apps.Admin.DTOs.ProductDTOs;
-using Tello.Service.Apps.Admin.DTOs;
+﻿using Tello.Service.Apps.Admin.DTOs;
 using Tello.Service.Apps.Admin.DTOs.ProductItemDTOs;
 using Tello.Core.IUnitOfWork;
 using AutoMapper;
 using Tello.Service.Exceptions;
 using Tello.Core.Entities;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Tello.Service.Apps.Admin.DTOs.ProductItemVariationDTOs;
 using Tello.Service.Apps.Admin.IServices.IEntityServices;
 
 namespace Tello.Service.Apps.Admin.Implementations.Service
@@ -75,6 +66,16 @@ namespace Tello.Service.Apps.Admin.Implementations.Service
             var piGetDto = _mapper.Map<ProductItemGetDto>(entity);
             return piGetDto;
         }
+
+        public async Task<ProductItemCardDto> GetAsyncCard(int id)
+        {
+            var entity = await _unitOfWork.ProductItemRepository.GetAsync(x => x.Id == id && !x.IsDeleted, "Product.Brand", "Product.Category", "ProductItemVariations.VariationOption.VariationCategory.Variation");
+            if (entity == null)
+                throw new ItemNotFoundException("ProductItem not found");
+            var piGetDto = _mapper.Map<ProductItemCardDto>(entity);
+            return piGetDto;
+        }
+
         public async Task Restore(int id)
         {
 
@@ -97,5 +98,6 @@ namespace Tello.Service.Apps.Admin.Implementations.Service
             entity.ModifiedAt = DateTime.UtcNow;
             await _unitOfWork.CommitAsync();
         }
+
     }
 }

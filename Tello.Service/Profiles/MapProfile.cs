@@ -34,17 +34,17 @@ namespace Tello.Service.Profiles
             CreateMap<Slide, SlideGetDto>();
             CreateMap<SlidePostDto, Slide>();
             CreateMap<Slide, SlideListItemDto>();
-          
+
             //Variation
             CreateMap<Variation, VariationGetDto>();
             CreateMap<VariationPostDto, Variation>();
             CreateMap<Variation, VariationListItemDto>();
-           
+
             //VariationCategory
             CreateMap<VariationCategory, VariationCategoryGetDto>();
             CreateMap<VariationCategoryPostDto, VariationCategory>();
             CreateMap<VariationCategory, VariationCategoryListItemDto>();
-           
+
             //VariationOption
             CreateMap<VariationOption, VariationOptionGetDto>();
             CreateMap<VariationOptionPostDto, VariationOption>();
@@ -52,29 +52,35 @@ namespace Tello.Service.Profiles
             CreateMap<VariationOption, VariationOptionSelectDto>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.VariationCategory.Category.Name))
                 .ForMember(dest => dest.VariationName, opt => opt.MapFrom(src => src.VariationCategory.Variation.Name));
-          
+
             //Product
             CreateMap<Product, ProductGetDto>();
             CreateMap<ProductPostDto, Product>();
             CreateMap<Product, ProductListItemDto>();
-                //.ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.ProductItems.Count()));
+            //.ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.ProductItems.Count()));
             CreateMap<Product, ProductSelectDto>()
             .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
             .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name));
-           
+
             //ProductItem
-            //Admin
             CreateMap<ProductItem, ProductItemGetDto>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Product.Category.Name))
                 .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name))
-                .ForMember(dest => dest.ProductItemVariationIds, opt => opt.MapFrom(src => src.ProductItemVariations.Select(x=>x.Id).ToList()));
+                .ForMember(dest => dest.ProductItemVariationIds, opt => opt.MapFrom(src => src.ProductItemVariations.Select(x => x.Id).ToList()));
             CreateMap<ProductItem, ProductItemSelectDto>()
                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Product.Category.Name))
                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name));
             CreateMap<ProductItem, ProductItemListItemDto>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Product.Category.Name))
-                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name)); 
+                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name));
             CreateMap<ProductItemPostDto, ProductItem>();
+            CreateMap<ProductItem, ProductItemCardDto>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Product.Category.Name))
+                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Product.Brand.Name))
+                .ForMember(dest => dest.Variations, opt => opt.MapFrom(src => src.ProductItemVariations.Select(x => x.VariationOption)
+                .Where(x => x.VariationCategory.Variation.Name == "Color" || x.VariationCategory.Variation.Name == "RAM")
+                .ToDictionary(x => x.VariationCategory.Variation.Name, x => x.Value)));
+
 
             //ProductItemVariation
             CreateMap<ProductItemVariation, ProductItemVariationGetDto>()
@@ -84,32 +90,34 @@ namespace Tello.Service.Profiles
             CreateMap<ProductItemVariation, ProductItemVariationListItemDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductItem.Product.Name))
                 .ForMember(dest => dest.VariationName, opt => opt.MapFrom(src => src.VariationOption.VariationCategory.Variation.Name));
-            
+
             //user
             CreateMap<UserPostDto, AppUser>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
             CreateMap<AppUser, UserGetDto>();
             CreateMap<IdentityRole, RoleGetDto>()
-                .ForMember(dest => dest.Role, opt=>opt.MapFrom(src => src.Name));
-            
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Name));
+
             //setting
             CreateMap<Setting, SettingGetDto>();
             CreateMap<SettingPostDto, Setting>();
-            
+
             //comment
             CreateMap<Comment, CommentGetDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductItem.Product.Name))
                 .ForMember(dest => dest.AppName, opt => opt.MapFrom(src => src.AppUser.Fullname))
-                .ForMember(dest => dest.Variations, opt => opt.MapFrom(src => src.ProductItem.ProductItemVariations.Select(x=>x.VariationOption).Where(x=>x.VariationCategory.Variation.Name == "Color" || x.VariationCategory.Variation.Name == "RAM").Select(x=>x.Value).ToList()));
+                .ForMember(dest => dest.Variations, opt => opt.MapFrom(src => src.ProductItem.ProductItemVariations.Select(x => x.VariationOption).Where(x => x.VariationCategory.Variation.Name == "Color" || x.VariationCategory.Variation.Name == "RAM").Select(x => x.Value).ToList()));
             CreateMap<Comment, CommentListItemDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductItem.Product.Name))
                 .ForMember(dest => dest.AppName, opt => opt.MapFrom(src => src.AppUser.Fullname));
 
             //card
-            CreateMap<Card, CardGetDto>();
+            CreateMap<Card, CardGetDto>()
+                .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => src.OrderStatus.ToString()));
             CreateMap<Card, CardListItemDto>()
                 .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => src.OrderStatus.ToString()))
-                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt.ToString("yyyy, dd MMMM, HH:mm")));
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt.ToString("yyyy, dd MMMM, HH:mm")))
+                .ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.ProductOrders.Count()));
         }
     }
 }

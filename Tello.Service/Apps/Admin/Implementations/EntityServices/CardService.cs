@@ -30,18 +30,17 @@ namespace Tello.Service.Apps.Admin.Implementations.EntityServices
             await _unitOfWork.CommitAsync();
         }
 
-        public List<CardGetDto> GetAll()
+        public List<CardListItemDto> GetAll()
         {
-            int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
-            var query = _unitOfWork.CardRepository.GetAll(x => !x.IsDeleted, "User");
-            List<CardGetDto> items = _mapper.Map<List<CardGetDto>>(query.ToList());
+            var query = _unitOfWork.CardRepository.GetAll(x => !x.IsDeleted, "User", "ProductOrders");
+            List<CardListItemDto> items = _mapper.Map<List<CardListItemDto>>(query.ToList());
             return items;
         }
 
         public PaginatedListDto<CardListItemDto> GetAll(int page)
         {
             int paginationCount = int.Parse(_unitOfWork.SettingRepository.GetAsync(x => x.Key == "PaginationCount").Result.Value);
-            var query = _unitOfWork.CardRepository.GetAll(x => !x.IsDeleted, "User");
+            var query = _unitOfWork.CardRepository.GetAll(x => !x.IsDeleted, "User", "ProductOrders");
             List<CardListItemDto> items = _mapper.Map<List<CardListItemDto>>(query.Skip((page - 1) * paginationCount).Take(paginationCount).ToList());
             var listDto = new PaginatedListDto<CardListItemDto>(items, query.Count(), page, paginationCount);
             return listDto;

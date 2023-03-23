@@ -12,6 +12,7 @@ namespace Tello.Service.Apps.Admin.IServices.IEntityServices
     {
         Task CreateAsync(ProductItemPostDto productPostDto);
         Task UpdateAsync(int id, ProductItemPostDto productPostDto);
+        Task<ProductItemCardDto> GetAsyncCard(int id);
         Task<ProductItemGetDto> GetAsync(int id);
         Task Delete(int id);
         Task Restore(int id);

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XKzIMVaQVvRxEJ6Umun2A1nDh7IHKpfIFAosyosfhFEWFz/b694czLSu4YoXnM522JIl/XzWm3LyM72jY95swA==",
+  "dgSpecHash": "olW3HJIfm/9cs5/zndfTYrCCCpEeG/i5/Gz+F1Fmbg8xZLJG3cZu7PMcZMNnhKiOD/eHqs68B4IpIxlcdFIiNA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Taleh\\Desktop\\TelloApi\\Tello.Api\\Tello.Api.csproj",
   "expectedPackageFiles": [
@@ -113,6 +113,7 @@
     "C:\\Users\\Taleh\\.nuget\\packages\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Taleh\\.nuget\\packages\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Taleh\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+    "C:\\Users\\Taleh\\.nuget\\packages\\stripe.net\\41.10.0\\stripe.net.41.10.0.nupkg.sha512",
     "C:\\Users\\Taleh\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\Taleh\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.3.0\\swashbuckle.aspnetcore.swagger.6.3.0.nupkg.sha512",
     "C:\\Users\\Taleh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.3.0\\swashbuckle.aspnetcore.swaggergen.6.3.0.nupkg.sha512",

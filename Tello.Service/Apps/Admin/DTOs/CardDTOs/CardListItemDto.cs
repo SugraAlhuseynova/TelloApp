@@ -14,5 +14,6 @@ namespace Tello.Service.Apps.Admin.DTOs.CardDTOs
         public string OrderStatus { get; set; }
         public string CreatedAt { get; set; }
         public string UserFullname { get; set; }
+        public int Count { get; set; }
     }
 }

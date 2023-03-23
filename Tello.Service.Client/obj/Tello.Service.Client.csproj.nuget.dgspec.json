@@ -191,6 +191,10 @@
             "FluentValidation.AspNetCore": {
               "target": "Package",
               "version": "[11.2.2, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[41.10.0, )"
             }
           },
           "imports": [

@@ -13,7 +13,7 @@ namespace Tello.Service.Apps.Admin.IServices.IEntityServices
     public interface ICardService
     {
         Task<CardGetDto> GetAsync(int id);
-        List<CardGetDto> GetAll();
+        List<CardListItemDto> GetAll();
         PaginatedListDto<CardListItemDto> GetAll(int page);
         Task ChangeStatus(int id, byte status);
     }

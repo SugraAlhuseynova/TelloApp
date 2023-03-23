@@ -260,7 +260,7 @@ namespace Tello.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.Card", b =>
@@ -305,7 +305,7 @@ namespace Tello.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Cards");
+                    b.ToTable("Cards", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.Category", b =>
@@ -338,7 +338,7 @@ namespace Tello.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.Comment", b =>
@@ -382,7 +382,7 @@ namespace Tello.Data.Migrations
 
                     b.HasIndex("ProductItemId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.Product", b =>
@@ -433,7 +433,7 @@ namespace Tello.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.ProductItem", b =>
@@ -475,7 +475,7 @@ namespace Tello.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductItems");
+                    b.ToTable("ProductItems", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.ProductItemVariation", b =>
@@ -513,7 +513,7 @@ namespace Tello.Data.Migrations
 
                     b.HasIndex("VariationOptionId");
 
-                    b.ToTable("ProductItemVariations");
+                    b.ToTable("ProductItemVariations", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.ProductOrder", b =>
@@ -546,9 +546,7 @@ namespace Tello.Data.Migrations
                         .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<double>("Price")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("float")
-                        .HasComputedColumnSql("Count*SalePrice", true);
+                        .HasColumnType("float");
 
                     b.Property<int>("ProductItemId")
                         .HasColumnType("int");
@@ -559,7 +557,7 @@ namespace Tello.Data.Migrations
 
                     b.HasIndex("ProductItemId");
 
-                    b.ToTable("ProductOrders");
+                    b.ToTable("ProductOrders", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.Setting", b =>
@@ -597,7 +595,7 @@ namespace Tello.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Setting");
+                    b.ToTable("Setting", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.Slide", b =>
@@ -648,7 +646,7 @@ namespace Tello.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Slides");
+                    b.ToTable("Slides", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.Variation", b =>
@@ -681,7 +679,7 @@ namespace Tello.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Variations");
+                    b.ToTable("Variations", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.VariationCategory", b =>
@@ -719,7 +717,7 @@ namespace Tello.Data.Migrations
 
                     b.HasIndex("VariationId");
 
-                    b.ToTable("VariationsCategory");
+                    b.ToTable("VariationsCategory", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.VariationOption", b =>
@@ -757,7 +755,7 @@ namespace Tello.Data.Migrations
 
                     b.HasIndex("VariationCategoryId");
 
-                    b.ToTable("VariationOptions");
+                    b.ToTable("VariationOptions", (string)null);
                 });
 
             modelBuilder.Entity("Tello.Core.Entities.AppUser", b =>
@@ -917,7 +915,7 @@ namespace Tello.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Tello.Core.Entities.ProductItem", "ProductItem")
-                        .WithMany("ProductOrders")
+                        .WithMany()
                         .HasForeignKey("ProductItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -979,8 +977,6 @@ namespace Tello.Data.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("ProductItemVariations");
-
-                    b.Navigation("ProductOrders");
                 });
 #pragma warning restore 612, 618
         }

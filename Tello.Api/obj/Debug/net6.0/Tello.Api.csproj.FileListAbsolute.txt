@@ -294,3 +294,4 @@ C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\System.Memory.Data.dl
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Tello.Service.Client.dll
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Tello.Service.Client.pdb
 C:\Users\Taleh\Desktop\TelloApi\Tello.Api\obj\Debug\net6.0\Tello.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Taleh\Desktop\TelloApi\Tello.Api\bin\Debug\net6.0\Stripe.net.dll
