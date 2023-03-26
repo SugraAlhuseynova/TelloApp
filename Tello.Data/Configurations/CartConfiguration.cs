@@ -9,15 +9,14 @@ using Tello.Core.Entities;
 
 namespace Tello.Data.Configurations
 {
-    public class CardConfiguration : IEntityTypeConfiguration<Card>
+    public class CartConfiguration : IEntityTypeConfiguration<Cart>
     {
-        public void Configure(EntityTypeBuilder<Card> builder)
+        public void Configure(EntityTypeBuilder<Cart> builder)
         {
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.ModifiedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
             builder.Property(x => x.IsConfirmed).HasDefaultValue(false);
-            //builder.Property(x => x.OrderStatus).HasDefaultValue(0);
         }
     }
 }

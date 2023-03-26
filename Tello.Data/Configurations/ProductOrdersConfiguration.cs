@@ -9,14 +9,13 @@ using Tello.Core.Entities;
 
 namespace Tello.Data.Configurations
 {
-    public class ProductOrderConfiguration : IEntityTypeConfiguration<ProductOrder>
+    public class ProductOrdersConfiguration : IEntityTypeConfiguration<ProductOrders>
     {
-        public void Configure(EntityTypeBuilder<ProductOrder> builder)
+        public void Configure(EntityTypeBuilder<ProductOrders> builder)
         {
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.ModifiedAt).HasDefaultValueSql("GETUTCDATE()");
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
-
         }
     }
 }

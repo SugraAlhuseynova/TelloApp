@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Tello.Core.Entities;
 using Tello.Core.Enums;
 
-namespace Tello.Service.Client.Member.DTOs.CardDTOs
+namespace Tello.Service.Client.Member.DTOs.CartDTOs
 {
-    public class CardPostDto
+    public class CartPostDto
     {
         public double TotalAmount { get; set; }
         public bool IsConfirmed { get; set; }

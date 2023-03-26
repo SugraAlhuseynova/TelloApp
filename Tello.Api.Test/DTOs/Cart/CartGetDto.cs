@@ -1,6 +1,6 @@
-﻿namespace Tello.Api.Test.DTOs.Card
+﻿namespace Tello.Api.Test.DTOs.Cart
 {
-    public class CardGetDto
+    public class CartGetDto
     {
         public int Id { get; set; }
         public double TotalAmount { get; set; }

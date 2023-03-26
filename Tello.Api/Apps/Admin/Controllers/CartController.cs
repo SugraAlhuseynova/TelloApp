@@ -5,11 +5,11 @@ namespace Tello.Api.Apps.Admin.Controllers
 {
     [Route("api/admin/cards")]
     [ApiController]
-    public class CardController : ControllerBase
+    public class CartController : ControllerBase
     {
-        private readonly ICardService _cardService;
+        private readonly ICartService _cardService;
 
-        public CardController(ICardService cardService)
+        public CartController(ICartService cardService)
         {
             _cardService = cardService;
         }

@@ -7,7 +7,7 @@ using Tello.Core.Entities;
 
 namespace Tello.Core.IRepositories
 {
-    public interface IProductOrderRepository : IRepository<ProductOrder>
+    public interface IProductOrderRepository : IRepository<ProductOrders>
     {
     }
 }

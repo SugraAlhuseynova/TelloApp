@@ -42,14 +42,6 @@ namespace Tello.Service.Client.Profiles
             //user
             CreateMap<UserPostDto, AppUser>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
-            //CreateMap<AppUser, UserGetDto>();
-            //CreateMap<IdentityRole, RoleGetDto>()
-            //    .ForMember(dest => dest.Role, opt=>opt.MapFrom(src => src.Name));
-
-            //setting
-            //CreateMap<Setting, SettingGetDto>();
-            //CreateMap<SettingPostDto, Setting>();
-
             //comment
             CreateMap<CommentPostDto, Comment>();
             CreateMap<Comment, CommentGetDto>()

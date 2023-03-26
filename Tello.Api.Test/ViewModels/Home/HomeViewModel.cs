@@ -1,9 +1,10 @@
-﻿using Tello.Api.Test.DTOs.Card;
+﻿
+using Tello.Api.Test.DTOs.Cart;
 
 namespace Tello.Api.Test.ViewModels.Home
 {
     public class HomeViewModel
     {
-        public List<CardGetDto> Cards { get; set; }
+        public List<CartGetDto> Cards { get; set; }
     }
 }

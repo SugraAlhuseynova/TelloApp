@@ -13,7 +13,7 @@ namespace Tello.Service.Client.Member.DTOs.ProductOrderDTOs
         //{
         //    Price = Count * ProductItem.SalePrice;
         //}
-        public int CardId { get; set; }
+        public int CartId { get; set; }
         public int ProductItemId { get; set; }
         public int Count { get; set; }
         //public double Price { get; set; }

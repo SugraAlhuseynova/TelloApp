@@ -2,7 +2,7 @@
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using Tello.Api.Test.DTOs.Card;
+using Tello.Api.Test.DTOs.Cart;
 using Tello.Api.Test.Models;
 using Tello.Api.Test.ViewModels.Home;
 
@@ -30,7 +30,7 @@ namespace Tello.Api.Test.Controllers
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         string content = await response.Content.ReadAsStringAsync();
-                        var cardsDto = JsonConvert.DeserializeObject<List<CardGetDto>>(content);
+                        var cardsDto = JsonConvert.DeserializeObject<List<CartGetDto>>(content);
                         HomeViewModel homeVM = new HomeViewModel()
                         {
                             Cards = cardsDto

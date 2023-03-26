@@ -9,9 +9,9 @@ using Tello.Data.DAL;
 
 namespace Tello.Data.Repositories
 {
-    public class CardRepository : Repository<Card>, ICardRepository 
+    public class CartRepository : Repository<Cart>, ICartRepository 
     {
-        public CardRepository(AppDbContext context) : base(context)
+        public CartRepository(AppDbContext context) : base(context)
         {
         }
     }

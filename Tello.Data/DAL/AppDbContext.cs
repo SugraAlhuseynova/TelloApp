@@ -26,8 +26,8 @@ namespace Tello.Data.DAL
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Setting> Setting { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Card> Cards { get; set; }
-        public DbSet<ProductOrder> ProductOrders { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<ProductOrders> ProductOrders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,8 +43,8 @@ namespace Tello.Data.DAL
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new SettingConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
-            modelBuilder.ApplyConfiguration(new CardConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductOrderConfiguration());
+            modelBuilder.ApplyConfiguration(new CartConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductOrdersConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

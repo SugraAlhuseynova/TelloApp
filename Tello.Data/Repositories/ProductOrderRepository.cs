@@ -9,7 +9,7 @@ using Tello.Data.DAL;
 
 namespace Tello.Data.Repositories
 {
-    public class ProductOrderRepository : Repository<ProductOrder>, IProductOrderRepository
+    public class ProductOrderRepository : Repository<ProductOrders>, IProductOrderRepository
     {
         public ProductOrderRepository(AppDbContext context) : base(context)
         {

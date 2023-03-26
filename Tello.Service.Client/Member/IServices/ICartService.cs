@@ -7,8 +7,11 @@ using Tello.Service.Client.Member.DTOs.ProductOrderDTOs;
 
 namespace Tello.Service.Client.Member.IServices
 {
-    public interface ICardService
+    public interface ICartService
     {
         public Task CreateOrder(string userId, ProductOrderPostDto postDto);
+        public Task DeleteOrder(int orderId);
+        public Task DecreaseOrder(int orderId);
+        public Task IncreaseOrder(int orderId);
     }
 }

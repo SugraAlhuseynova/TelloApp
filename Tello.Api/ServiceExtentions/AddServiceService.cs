@@ -39,7 +39,7 @@ namespace Tello.Api.ServiceExtentions
             builder.Services.AddScoped<IProductItemVariationService, ProductItemVariationService>();
             builder.Services.AddScoped<ISettingService, SettingService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
-            builder.Services.AddScoped<ICardService, CardService>();
+            builder.Services.AddScoped<ICartService, CartService>();
             
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IJWTSerivce, JWTService>();
@@ -50,7 +50,7 @@ namespace Tello.Api.ServiceExtentions
             builder.Services.AddScoped<Service.Client.Member.IServices.IBrandService, Service.Client.Member.Implementations.BrandService>();
             builder.Services.AddScoped<Service.Client.Member.IServices.IProductItemService, Service.Client.Member.Implementations.ProductItemService>();
             builder.Services.AddScoped<Service.Client.Member.IServices.ICommentService, Service.Client.Member.Implementations.CommentService>();
-            builder.Services.AddScoped<Service.Client.Member.IServices.ICardService, Service.Client.Member.Implementations.CardService>();
+            builder.Services.AddScoped<Service.Client.Member.IServices.ICartService, Service.Client.Member.Implementations.CartService>();
         }
         public static void AddStorageService<T>(this WebApplicationBuilder builder) where T : class, IStorage
         {

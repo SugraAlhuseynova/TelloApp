@@ -7,7 +7,7 @@ using Tello.Core.Entities;
 
 namespace Tello.Core.IRepositories
 {
-    public interface ICardRepository : IRepository<Card>
+    public interface ICartRepository : IRepository<Cart>
     {
     }
 }
